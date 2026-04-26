@@ -1,10 +1,13 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Our Services | NeatlyLive</title>
-    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;800&family=Open+Sans:wght@400;600&display=swap" rel="stylesheet">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;800&family=Open+Sans:wght@400;600&display=swap"
+        rel="stylesheet">
     <link rel="stylesheet" href="index.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
@@ -14,31 +17,36 @@
             padding: 4rem 5%;
             text-align: center;
         }
+
         .page-header h1 {
             color: var(--color-bg-white);
             font-size: 3rem;
             margin-bottom: 1rem;
         }
+
         .services-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
             gap: 2.5rem;
             margin-top: 2rem;
         }
+
         .service-card {
             background: var(--color-bg-white);
             border-radius: 12px;
             overflow: hidden;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
             transition: all var(--transition-normal);
-            border: 1px solid rgba(0,0,0,0.05);
+            border: 1px solid rgba(0, 0, 0, 0.05);
             display: flex;
             flex-direction: column;
         }
+
         .service-card:hover {
             transform: translateY(-5px);
-            box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
         }
+
         .service-icon-bg {
             background: linear-gradient(135deg, var(--color-primary-navy), var(--color-primary-teal));
             height: 180px;
@@ -48,27 +56,32 @@
             color: var(--color-accent-mint);
             font-size: 4rem;
         }
+
         .service-content {
             padding: 2rem;
             flex-grow: 1;
             display: flex;
             flex-direction: column;
         }
+
         .service-content h3 {
             font-size: 1.5rem;
             color: var(--color-primary-navy);
             margin-bottom: 1rem;
         }
+
         .service-content p {
             color: var(--color-text-dark);
             margin-bottom: 1.5rem;
             flex-grow: 1;
         }
+
         .service-features {
             list-style: none;
             padding: 0;
             margin-bottom: 1.5rem;
         }
+
         .service-features li {
             margin-bottom: 0.5rem;
             display: flex;
@@ -77,11 +90,13 @@
             font-size: 0.9rem;
             color: var(--color-text-dark);
         }
+
         .service-features li i {
             color: var(--color-accent-mint-dark);
         }
     </style>
 </head>
+
 <body>
     <!-- Sticky Navigation -->
     <nav class="navbar" id="navbar">
@@ -107,11 +122,13 @@
             <!-- Service 1 -->
             <div class="service-card">
                 <div class="service-icon-bg">
-                    <img src="standard_clean_icon.png" alt="Standard Maintenance Icon" style="height: 110px; width: 110px; border-radius: 50%; object-fit: cover; box-shadow: 0 4px 15px rgba(0,0,0,0.2);">
+                    <img src="standard_clean_icon.png" alt="Standard Maintenance Icon"
+                        style="height: 110px; width: 110px; border-radius: 50%; object-fit: cover; box-shadow: 0 4px 15px rgba(0,0,0,0.2);">
                 </div>
                 <div class="service-content">
                     <h3>Standard Maintenance</h3>
-                    <p>Perfect for keeping your home consistently clean. We cover all the essentials so you don't have to lift a finger.</p>
+                    <p>Perfect for keeping your home consistently clean. We cover all the essentials so you don't have
+                        to lift a finger.</p>
                     <ul class="service-features">
                         <li><i class="fa-solid fa-check"></i> Dusting & wiping surfaces</li>
                         <li><i class="fa-solid fa-check"></i> Vacuuming & mopping</li>
@@ -128,7 +145,8 @@
                 </div>
                 <div class="service-content">
                     <h3>Deep Cleans</h3>
-                    <p>A rigorous top-to-bottom clean. Ideal for spring cleaning or when your home needs that extra TLC.</p>
+                    <p>A rigorous top-to-bottom clean. Ideal for spring cleaning or when your home needs that extra TLC.
+                    </p>
                     <ul class="service-features">
                         <li><i class="fa-solid fa-check"></i> Inside appliances & cabinets</li>
                         <li><i class="fa-solid fa-check"></i> Baseboards & deep scrubbing</li>
@@ -145,7 +163,8 @@
                 </div>
                 <div class="service-content">
                     <h3>Office Cleaning</h3>
-                    <p>Maintain a productive, spotless workspace that leaves a great impression on your clients and team.</p>
+                    <p>Maintain a productive, spotless workspace that leaves a great impression on your clients and
+                        team.</p>
                     <ul class="service-features">
                         <li><i class="fa-solid fa-check"></i> Workstation sanitization</li>
                         <li><i class="fa-solid fa-check"></i> Breakroom & restroom care</li>
@@ -161,7 +180,7 @@
                     <i class="fa-solid fa-truck-fast"></i>
                 </div>
                 <div class="service-content">
-                    <h3>Move-In/Move-Out</h3>
+                    <h3>Move Clean</h3>
                     <p>Transition seamlessly into your new space or leave your old one looking completely pristine.</p>
                     <ul class="service-features">
                         <li><i class="fa-solid fa-check"></i> Comprehensive empty-home clean</li>
@@ -206,4 +225,5 @@
 
     <script src="app.js"></script>
 </body>
+
 </html>
