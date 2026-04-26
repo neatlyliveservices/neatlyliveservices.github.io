@@ -152,7 +152,7 @@ img {
 
 .btn-accent {
   background-color: var(--color-accent-mint);
-  color: var(--color-primary-navy);
+  color: var(--color-bg-white);
 }
 
 .btn-accent:hover {
