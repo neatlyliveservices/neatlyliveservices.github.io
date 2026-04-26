@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Neat Live | Live Neatly.</title>
+    <meta name="description" content="Neat Live - Connecting vetted cleaners with clients. Live neatly and find order in your busy life.">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;800&family=Open+Sans:wght@400;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="index.css">
+    
+    <!-- Font Awesome for Iconography -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <style>
+        .pillar-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 12px 20px rgba(0, 0, 0, 0.1) !important;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Sticky Navigation -->
+    <nav class="navbar" id="navbar">
+        <a href="index.html" class="logo">Neat<span>Live</span></a>
+        <div class="nav-links">
+            <a href="index.html">Home</a>
+            <a href="about.html">About Us</a>
+            <a href="services.html">Services</a>
+            <a href="membership.html">Membership</a>
+            <a href="contact.html">Contact Us</a>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero" id="hero-section" style="background-image: url('hero_clean_home.png');">
+        <!-- Background image is set -->
+        <div class="hero-overlay"></div>
+        <div class="hero-content">
+            <h1>Live Neatly.</h1>
+            <p>We connect you with rigorously vetted, professional cleaners to bring order and peace to your busy life.</p>
+            <div class="split-cta" style="display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap;">
+                <a href="services.html" class="btn btn-accent"><i class="fa-solid fa-broom" style="margin-right: 8px;"></i>I Need a Cleaner</a>
+                <a href="contact.html" class="btn btn-primary"><i class="fa-solid fa-user-check" style="margin-right: 8px;"></i>I Am a Professional</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Why Us Section (Three Pillars) -->
+    <section class="container" id="why-us">
+        <h2 class="section-title">Why Neat Live?</h2>
+        <p style="text-align: center; margin-bottom: 3rem; font-size: 1.1rem; color: var(--color-primary-teal);">The reliable alternative for maintaining a pristine home.</p>
+        
+        <div class="pillars-grid" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 2rem;">
+            <!-- Pillar 1 -->
+            <div class="pillar-card" style="text-align: center; padding: 2.5rem 1.5rem; background: var(--color-bg-light); border-radius: 12px; transition: all var(--transition-normal); box-shadow: 0 4px 6px rgba(0,0,0,0.05); border-top: 4px solid var(--color-primary-navy);">
+                <div class="pillar-icon" style="font-size: 3rem; color: var(--color-primary-navy); margin-bottom: 1.5rem;">
+                    <i class="fa-solid fa-shield-halved"></i>
+                </div>
+                <h3>Rigorous Vetting</h3>
+                <p>Background checks, 1-on-1 interviews, and strict standards. We only work with professionals you can trust.</p>
+            </div>
+            
+            <!-- Pillar 2 -->
+            <div class="pillar-card" style="text-align: center; padding: 2.5rem 1.5rem; background: var(--color-bg-light); border-radius: 12px; transition: all var(--transition-normal); box-shadow: 0 4px 6px rgba(0,0,0,0.05); border-top: 4px solid var(--color-accent-mint);">
+                <div class="pillar-icon" style="font-size: 3rem; color: var(--color-accent-mint-dark); margin-bottom: 1.5rem;">
+                    <i class="fa-solid fa-people-arrows"></i>
+                </div>
+                <h3>Seamless Matching</h3>
+                <p>Our intuitive platform pairs you seamlessly with an expert cleaner who meets your specific scheduling and lifestyle needs.</p>
+            </div>
+            
+            <!-- Pillar 3 -->
+            <div class="pillar-card" style="text-align: center; padding: 2.5rem 1.5rem; background: var(--color-bg-light); border-radius: 12px; transition: all var(--transition-normal); box-shadow: 0 4px 6px rgba(0,0,0,0.05); border-top: 4px solid var(--color-primary-teal);">
+                <div class="pillar-icon" style="font-size: 3rem; color: var(--color-primary-teal); margin-bottom: 1.5rem;">
+                    <i class="fa-solid fa-award"></i>
+                </div>
+                <h3>The Neat Guarantee</h3>
+                <p>We pride ourselves on the result. If you're not absolutely delighted, we make it right. Absolute peace of mind.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer base -->
+    <footer class="footer">
+        <div class="footer-content">
+            <div class="footer-col">
+                <a href="index.html" class="logo" style="color:white; font-size: 1.5rem; display:block; margin-bottom: 1rem; font-family: var(--font-primary); font-weight:800;">Neat<span style="color:var(--color-accent-mint);">Live</span></a>
+                <p>Live Neatly.</p>
+            </div>
+            <div class="footer-col">
+                <h3>Quick Links</h3>
+                <ul style="padding:0;">
+                    <li><a href="about.html">About Us</a></li>
+                    <li><a href="services.html">Services</a></li>
+                    <li><a href="membership.html">Membership</a></li>
+                </ul>
+            </div>
+            <div class="footer-col">
+                <h3>Contact</h3>
+                <ul style="padding:0;">
+                    <li><a href="contact.html">Get in touch</a></li>
+                    <li>support@neatlive.com</li>
+                </ul>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2026 Neat Live. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script src="app.js"></script>
+</body>
+</html>

@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Membership | Neat Live</title>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;800&family=Open+Sans:wght@400;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="index.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        .page-header {
+            background-color: var(--color-primary-navy);
+            color: var(--color-bg-white);
+            padding: 4rem 5%;
+            text-align: center;
+        }
+        .page-header h1 {
+            color: var(--color-bg-white);
+            font-size: 3rem;
+            margin-bottom: 1rem;
+        }
+        .pricing-section {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            flex-wrap: wrap;
+            margin-top: 3rem;
+        }
+        .pricing-card {
+            background: var(--color-bg-white);
+            border-radius: 12px;
+            padding: 3rem 2rem;
+            text-align: center;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+            flex: 1 1 300px;
+            max-width: 380px;
+            border: 1px solid rgba(0,0,0,0.05);
+            position: relative;
+            transition: transform var(--transition-normal);
+        }
+        .pricing-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 15px 30px rgba(0,0,0,0.1);
+        }
+        .pricing-card.popular {
+            border: 2px solid var(--color-accent-mint);
+            transform: scale(1.05);
+            z-index: 2;
+        }
+        .pricing-card.popular:hover {
+            transform: scale(1.05) translateY(-8px);
+        }
+        .popular-badge {
+            position: absolute;
+            top: -15px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: var(--color-accent-mint);
+            color: var(--color-primary-navy);
+            padding: 0.5rem 1.5rem;
+            border-radius: 20px;
+            font-weight: 800;
+            font-size: 0.85rem;
+            text-transform: uppercase;
+        }
+        .pricing-title {
+            font-size: 1.5rem;
+            color: var(--color-primary-teal);
+            margin-bottom: 0.5rem;
+        }
+        .pricing-price {
+            font-size: 3.5rem;
+            font-weight: 800;
+            color: var(--color-primary-navy);
+            margin-bottom: 1rem;
+            font-family: var(--font-primary);
+        }
+        .pricing-price span {
+            font-size: 1rem;
+            font-weight: 400;
+            color: var(--color-text-dark);
+            opacity: 0.7;
+            display: block;
+        }
+        .perks-list {
+            text-align: left;
+            margin-bottom: 2rem;
+            padding: 0;
+            font-size: 1.05rem;
+        }
+        .perks-list li {
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+        }
+        .perks-list li i {
+            color: var(--color-accent-mint-dark);
+            flex-shrink: 0;
+        }
+        .btn-full {
+            width: 100%;
+        }
+    </style>
+</head>
+<body>
+    <nav class="navbar" id="navbar">
+        <a href="index.html" class="logo">Neat<span>Live</span></a>
+        <div class="nav-links">
+            <a href="index.html">Home</a>
+            <a href="about.html">About Us</a>
+            <a href="services.html">Services</a>
+            <a href="membership.html" class="active">Membership</a>
+            <a href="contact.html">Contact Us</a>
+        </div>
+    </nav>
+
+    <header class="page-header">
+        <h1>Memberships</h1>
+        <p style="font-size: 1.25rem; opacity: 0.9;">Consistent cleans. Unmatched peace of mind.</p>
+    </header>
+
+    <section class="container">
+        <div class="pricing-section">
+            <!-- Tier 1 -->
+            <div class="pricing-card">
+                <h3 class="pricing-title">Monthly</h3>
+                <div class="pricing-price">-5% <span>off standard rate</span></div>
+                <p style="margin-bottom: 2rem; color: var(--color-text-dark);">For regular upkeep and maintaining a baseline of order.</p>
+                <ul class="perks-list">
+                    <li><i class="fa-solid fa-check"></i> 1 clean every 4 weeks</li>
+                    <li><i class="fa-solid fa-check"></i> Standard vetted cleaner</li>
+                    <li><i class="fa-solid fa-check"></i> Flexible rescheduling</li>
+                </ul>
+                <a href="contact.html" class="btn btn-primary btn-full">Choose Monthly</a>
+            </div>
+
+            <!-- Tier 2 -->
+            <div class="pricing-card popular">
+                <div class="popular-badge">Most Popular</div>
+                <h3 class="pricing-title" style="color:var(--color-primary-navy);">Bi-Weekly</h3>
+                <div class="pricing-price">-10% <span>off standard rate</span></div>
+                <p style="margin-bottom: 2rem; color: var(--color-text-dark);">The sweet spot. Ideal for busy professionals.</p>
+                <ul class="perks-list">
+                    <li><i class="fa-solid fa-star" style="color:var(--color-accent-mint-dark);"></i> <strong>Priority Booking</strong></li>
+                    <li><i class="fa-solid fa-user-shield" style="color:var(--color-accent-mint-dark);"></i> <strong>Dedicated Cleaner</strong></li>
+                    <li><i class="fa-solid fa-check"></i> 1 clean every 2 weeks</li>
+                    <li><i class="fa-solid fa-check"></i> Free add-on rotation</li>
+                </ul>
+                <a href="contact.html" class="btn btn-accent btn-full">Choose Bi-Weekly</a>
+            </div>
+
+            <!-- Tier 3 -->
+            <div class="pricing-card">
+                <h3 class="pricing-title">Weekly</h3>
+                <div class="pricing-price">-15% <span>off standard rate</span></div>
+                <p style="margin-bottom: 2rem; color: var(--color-text-dark);">Absolute tranquility. Your home is always guest-ready.</p>
+                <ul class="perks-list">
+                    <li><i class="fa-solid fa-star" style="color:var(--color-accent-mint-dark);"></i> <strong>Highest Priority Booking</strong></li>
+                    <li><i class="fa-solid fa-user-shield" style="color:var(--color-accent-mint-dark);"></i> <strong>Dedicated Elite Cleaner</strong></li>
+                    <li><i class="fa-solid fa-check"></i> Weekly touch-ups</li>
+                    <li><i class="fa-solid fa-check"></i> Complete peace of mind</li>
+                </ul>
+                <a href="contact.html" class="btn btn-primary btn-full">Choose Weekly</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer base -->
+    <footer class="footer">
+        <div class="footer-content">
+            <div class="footer-col">
+                <a href="index.html" class="logo" style="color:white; font-size: 1.5rem; display:block; margin-bottom: 1rem; font-family: var(--font-primary); font-weight:800;">Neat<span style="color:var(--color-accent-mint);">Live</span></a>
+                <p>Live Neatly.</p>
+            </div>
+            <div class="footer-col">
+                <h3>Quick Links</h3>
+                <ul style="padding:0;">
+                    <li><a href="about.html">About Us</a></li>
+                    <li><a href="services.html">Services</a></li>
+                    <li><a href="membership.html">Membership</a></li>
+                </ul>
+            </div>
+            <div class="footer-col">
+                <h3>Contact</h3>
+                <ul style="padding:0;">
+                    <li><a href="contact.html">Get in touch</a></li>
+                    <li>support@neatlive.com</li>
+                </ul>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2026 Neat Live. All rights reserved.</p>
+        </div>
+    </footer>
+    <script src="app.js"></script>
+</body>
+</html>

@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>About Us | Neat Live</title>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;800&family=Open+Sans:wght@400;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="index.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        .page-header {
+            background-color: var(--color-primary-navy);
+            color: var(--color-bg-white);
+            padding: 4rem 5%;
+            text-align: center;
+        }
+        .page-header h1 {
+            color: var(--color-bg-white);
+            font-size: 3rem;
+            margin-bottom: 1rem;
+        }
+        .about-content {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 4rem;
+            align-items: center;
+            margin-top: 2rem;
+        }
+        .about-text {
+            flex: 1 1 500px;
+        }
+        .about-text h2 {
+            font-size: 2.5rem;
+            color: var(--color-primary-teal);
+            margin-bottom: 1.5rem;
+        }
+        .about-text p {
+            font-size: 1.15rem;
+            margin-bottom: 1.5rem;
+            color: var(--color-text-dark);
+            line-height: 1.8;
+        }
+        .about-image {
+            flex: 1 1 400px;
+            border-radius: 16px;
+            overflow: hidden;
+            box-shadow: 0 15px 40px rgba(0,48,73,0.15);
+        }
+        .about-image img {
+            width: 100%;
+            height: auto;
+            display: block;
+            object-fit: cover;
+        }
+    </style>
+</head>
+<body>
+    <!-- Sticky Navigation -->
+    <nav class="navbar" id="navbar">
+        <a href="index.html" class="logo">Neat<span>Live</span></a>
+        <div class="nav-links">
+            <a href="index.html">Home</a>
+            <a href="about.html" class="active">About Us</a>
+            <a href="services.html">Services</a>
+            <a href="membership.html">Membership</a>
+            <a href="contact.html">Contact Us</a>
+        </div>
+    </nav>
+
+    <header class="page-header">
+        <h1>Our Mission</h1>
+        <p style="font-size: 1.25rem; opacity: 0.9;">Bringing order and peace to your busy life.</p>
+    </header>
+
+    <section class="container">
+        <div class="about-content">
+            <div class="about-text">
+                <h2>The Reliable Alternative</h2>
+                <p>Finding a trustworthy cleaner shouldn't be a gamble. At Neat Live, we saw the frustration of scrolling through endless, unverified listings on platforms like Craigslist and Yelp. We knew there had to be a better way.</p>
+                <p>We created Neat Live to be the definitive solution for professionals and families who value their time and their space. We believe that a clean home isn't just about aesthetics—it's about mental clarity, order, and peace.</p>
+                <p>Every cleaner on our platform goes through a rigorous vetting process, including comprehensive background checks and in-depth 1-on-1 interviews. Our mission is to connect you with elite professionals who treat your home with the same respect and care that you do.</p>
+            </div>
+            <div class="about-image">
+                <img src="about_team.png" alt="A smiling, professional Neat Live team member holding cleaning supplies in a bright home.">
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer base -->
+    <footer class="footer">
+        <div class="footer-content">
+            <div class="footer-col">
+                <a href="index.html" class="logo" style="color:white; font-size: 1.5rem; display:block; margin-bottom: 1rem; font-family: var(--font-primary); font-weight:800;">Neat<span style="color:var(--color-accent-mint);">Live</span></a>
+                <p>Live Neatly.</p>
+            </div>
+            <div class="footer-col">
+                <h3>Quick Links</h3>
+                <ul style="padding:0;">
+                    <li><a href="about.html">About Us</a></li>
+                    <li><a href="services.html">Services</a></li>
+                    <li><a href="membership.html">Membership</a></li>
+                </ul>
+            </div>
+            <div class="footer-col">
+                <h3>Contact</h3>
+                <ul style="padding:0;">
+                    <li><a href="contact.html">Get in touch</a></li>
+                    <li>support@neatlive.com</li>
+                </ul>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2026 Neat Live. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script src="app.js"></script>
+</body>
+</html>
