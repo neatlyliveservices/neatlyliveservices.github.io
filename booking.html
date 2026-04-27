@@ -25,7 +25,7 @@
 
         .plans-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
             gap: 2rem;
             margin-top: 1.5rem;
         }
@@ -182,12 +182,30 @@
                     frequency needs.</p>
 
                 <div class="plans-grid">
+                    <!-- One-Time Clean -->
+                    <div class="plan-card" onclick="selectPlan('one-time', this)">
+                        <i class="fa-solid fa-circle-check select-indicator"></i>
+                        <h3>One-Time Clean</h3>
+                        <p>A single, comprehensive clean tailored exactly to your needs.</p>
+                        <div class="price">$180-$400</div>
+                        <ul
+                            style="text-align: left; font-size: 0.9rem; margin-top: 1rem; list-style: none; padding: 0;">
+                            <li style="margin-bottom: 0.5rem;"><i class="fa-solid fa-check"
+                                    style="color:var(--color-accent-mint); margin-right: 8px;"></i> On-demand
+                                flexibility</li>
+                            <li><i class="fa-solid fa-check"
+                                    style="color:var(--color-accent-mint); margin-right: 8px;"></i> Custom add-ons
+                                available</li>
+                        </ul>
+                    </div>
+
                     <!-- Essential Plan -->
                     <div class="plan-card" onclick="selectPlan('essential', this)">
                         <i class="fa-solid fa-circle-check select-indicator"></i>
                         <h3>NeatlyLive Essential</h3>
                         <p>Perfect for monthly maintenance or infrequent deep cleans.</p>
-                        <div class="price">$215 Per Month</div>
+                        <div class="price">$215<span style="font-size:1rem;font-weight:400;color:#6b7280;">/mo</span>
+                        </div>
                         <ul
                             style="text-align: left; font-size: 0.9rem; margin-top: 1rem; list-style: none; padding: 0;">
                             <li style="margin-bottom: 0.5rem;"><i class="fa-solid fa-check"
@@ -204,8 +222,7 @@
                         <i class="fa-solid fa-circle-check select-indicator"></i>
                         <h3>NeatlyLive Standard</h3>
                         <p>Our most popular tier. Consistent cleaning every two weeks.</p>
-                        <div class="price">$390 Per Month<span
-                                style="font-size:1rem;font-weight:400;color:#6b7280;">/mo</span>
+                        <div class="price">$390<span style="font-size:1rem;font-weight:400;color:#6b7280;">/mo</span>
                         </div>
                         <ul
                             style="text-align: left; font-size: 0.9rem; margin-top: 1rem; list-style: none; padding: 0;">
@@ -227,8 +244,7 @@
                         <i class="fa-solid fa-circle-check select-indicator"></i>
                         <h3>NeatlyLive Pristine</h3>
                         <p>Maintain an immaculate home without lifting a single finger.</p>
-                        <div class="price">$735 Per Month<span
-                                style="font-size:1rem;font-weight:400;color:#6b7280;">/mo</span>
+                        <div class="price">$735<span style="font-size:1rem;font-weight:400;color:#6b7280;">/mo</span>
                         </div>
                         <ul
                             style="text-align: left; font-size: 0.9rem; margin-top: 1rem; list-style: none; padding: 0;">
@@ -273,9 +289,78 @@
                     </div>
                 </div>
 
+                <!-- Home Details & Add-ons -->
+                <div class="form-section">
+                    <h3>3. Home Details & Add-ons</h3>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="bedrooms">Bedrooms</label>
+                            <input type="number" id="bedrooms" class="form-control" min="1" max="10"
+                                placeholder="e.g. 3" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="bathrooms">Bathrooms</label>
+                            <input type="number" id="bathrooms" class="form-control" min="1" max="10"
+                                placeholder="e.g. 2" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="floors">Number of Floors</label>
+                            <input type="number" id="floors" class="form-control" min="1" max="5" placeholder="e.g. 2"
+                                required>
+                        </div>
+                    </div>
+
+                    <label
+                        style="display: block; margin-bottom: 0.5rem; font-weight: 600; color: var(--color-primary-navy); font-size: 0.9rem; margin-top: 1.5rem;">Select
+                        Add-ons</label>
+                    <div
+                        style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 1rem; background: var(--color-bg-white); padding: 1.5rem; border-radius: 8px; border: 1px solid #d1d5db;">
+
+                        <label style="display: flex; align-items: start; gap: 0.75rem; cursor: pointer;">
+                            <input type="checkbox" name="addon_organization" style="margin-top: 4px;">
+                            <div>
+                                <span
+                                    style="font-weight: 600; color: var(--color-text-dark); display: block;">Organization
+                                    Services ($60/hr)</span>
+                                <span style="font-size: 0.85rem; color: #6b7280;">Pantry, Refrigerator, or
+                                    General</span>
+                            </div>
+                        </label>
+
+                        <label style="display: flex; align-items: start; gap: 0.75rem; cursor: pointer;">
+                            <input type="checkbox" name="addon_laundry" style="margin-top: 4px;">
+                            <div>
+                                <span style="font-weight: 600; color: var(--color-text-dark); display: block;">Laundry
+                                    ($25/load)</span>
+                                <span style="font-size: 0.85rem; color: #6b7280;">Wash, dry, and fold</span>
+                            </div>
+                        </label>
+
+                        <label style="display: flex; align-items: start; gap: 0.75rem; cursor: pointer;">
+                            <input type="checkbox" name="addon_eco" style="margin-top: 4px;">
+                            <div>
+                                <span
+                                    style="font-weight: 600; color: var(--color-text-dark); display: block;">Eco-Friendly
+                                    Products ($15)</span>
+                                <span style="font-size: 0.85rem; color: #6b7280;">100% natural cleaning agents</span>
+                            </div>
+                        </label>
+
+                        <label style="display: flex; align-items: start; gap: 0.75rem; cursor: pointer;">
+                            <input type="checkbox" name="addon_windows" style="margin-top: 4px;">
+                            <div>
+                                <span style="font-weight: 600; color: var(--color-text-dark); display: block;">Interior
+                                    Windows ($30-$50)</span>
+                                <span style="font-size: 0.85rem; color: #6b7280;">Streak-free shine inside</span>
+                            </div>
+                        </label>
+
+                    </div>
+                </div>
+
                 <!-- Location Info -->
                 <div class="form-section">
-                    <h3>3. Service Location Details</h3>
+                    <h3>4. Service Location Details</h3>
                     <div class="form-group">
                         <label for="address">Street Address</label>
                         <input type="text" id="address" class="form-control" placeholder="123 Clean St, Apt 4" required>
@@ -303,7 +388,7 @@
 
                 <!-- Payment Info -->
                 <div class="form-section">
-                    <h3>4. Payment Method</h3>
+                    <h3>5. Payment Method</h3>
                     <div class="payment-icons">
                         <i class="fa-brands fa-cc-visa"></i>
                         <i class="fa-brands fa-cc-mastercard"></i>
