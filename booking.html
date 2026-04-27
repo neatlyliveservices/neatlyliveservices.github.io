@@ -1,10 +1,13 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Booking & Checkout | NeatlyLive</title>
-    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;800&family=Open+Sans:wght@400;600&display=swap" rel="stylesheet">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;800&family=Open+Sans:wght@400;600&display=swap"
+        rel="stylesheet">
     <link rel="stylesheet" href="index.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
@@ -19,12 +22,14 @@
         .plans-container {
             margin-bottom: 3rem;
         }
+
         .plans-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
             gap: 2rem;
             margin-top: 1.5rem;
         }
+
         .plan-card {
             border: 2px solid #e5e7eb;
             border-radius: 12px;
@@ -35,25 +40,31 @@
             position: relative;
             background: var(--color-bg-white);
         }
+
         .plan-card:hover {
             border-color: var(--color-primary-teal);
             transform: translateY(-5px);
         }
+
         .plan-card.active {
             border-color: var(--color-accent-mint);
-            background-color: rgba(0, 176, 139, 0.05); /* very light mint tint */
+            background-color: rgba(0, 176, 139, 0.05);
+            /* very light mint tint */
             box-shadow: 0 4px 15px rgba(0, 176, 139, 0.15);
         }
+
         .plan-card h3 {
             font-size: 1.5rem;
             color: var(--color-primary-navy);
             margin-bottom: 1rem;
         }
+
         .plan-card p {
             color: var(--color-text-dark);
             font-size: 0.95rem;
             margin-bottom: 1.5rem;
         }
+
         .plan-card .price {
             font-size: 2rem;
             font-weight: 800;
@@ -61,6 +72,7 @@
             margin-bottom: 1.5rem;
             font-family: var(--font-primary);
         }
+
         .plan-card .select-indicator {
             position: absolute;
             top: 15px;
@@ -69,6 +81,7 @@
             color: var(--color-accent-mint);
             display: none;
         }
+
         .plan-card.active .select-indicator {
             display: block;
         }
@@ -83,24 +96,29 @@
             border-radius: 12px;
             border: 1px solid #e5e7eb;
         }
+
         .form-section {
             margin-bottom: 2rem;
         }
+
         .form-section h3 {
             border-bottom: 2px solid #e5e7eb;
             padding-bottom: 0.5rem;
             color: var(--color-primary-teal);
             margin-bottom: 1.5rem;
         }
+
         .form-row {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
             gap: 1rem;
             margin-bottom: 1rem;
         }
+
         .form-group {
             margin-bottom: 1rem;
         }
+
         .form-group label {
             display: block;
             margin-bottom: 0.5rem;
@@ -108,6 +126,7 @@
             color: var(--color-primary-navy);
             font-size: 0.9rem;
         }
+
         .form-control {
             width: 100%;
             padding: 0.8rem;
@@ -117,6 +136,7 @@
             font-size: 1rem;
             transition: border-color var(--transition-fast);
         }
+
         .form-control:focus {
             outline: none;
             border-color: var(--color-accent-mint-dark);
@@ -132,6 +152,7 @@
         }
     </style>
 </head>
+
 <body>
     <nav class="navbar" id="navbar">
         <a href="index.html" class="logo" style="display: flex; align-items: center;">
@@ -152,12 +173,14 @@
     </header>
 
     <section class="container" style="max-width: 900px;">
-        <form action="#" id="bookingForm" onsubmit="event.preventDefault(); alert('Booking successful! Welcome to Neatly Loyal.'); window.location.href='index.html';">
-            
+        <form action="#" id="bookingForm"
+            onsubmit="event.preventDefault(); alert('Booking successful! Welcome to Neatly Loyal.'); window.location.href='index.html';">
+
             <div class="plans-container">
                 <h2 style="text-align:center;">1. Choose Your Neatly Loyal Plan</h2>
-                <p style="text-align:center; color: var(--color-text-dark);">Select the tier that matches your cleaning frequency needs.</p>
-                
+                <p style="text-align:center; color: var(--color-text-dark);">Select the tier that matches your cleaning
+                    frequency needs.</p>
+
                 <div class="plans-grid">
                     <!-- Essential Plan -->
                     <div class="plan-card" onclick="selectPlan('essential', this)">
@@ -165,9 +188,13 @@
                         <h3>NeatlyLive Essential</h3>
                         <p>Perfect for monthly maintenance or infrequent deep cleans.</p>
                         <div class="price">Pay-As-You-Go</div>
-                        <ul style="text-align: left; font-size: 0.9rem; margin-top: 1rem; list-style: none; padding: 0;">
-                            <li style="margin-bottom: 0.5rem;"><i class="fa-solid fa-check" style="color:var(--color-accent-mint); margin-right: 8px;"></i> On-demand booking</li>
-                            <li><i class="fa-solid fa-check" style="color:var(--color-accent-mint); margin-right: 8px;"></i> Premium vetting</li>
+                        <ul
+                            style="text-align: left; font-size: 0.9rem; margin-top: 1rem; list-style: none; padding: 0;">
+                            <li style="margin-bottom: 0.5rem;"><i class="fa-solid fa-check"
+                                    style="color:var(--color-accent-mint); margin-right: 8px;"></i> On-demand booking
+                            </li>
+                            <li><i class="fa-solid fa-check"
+                                    style="color:var(--color-accent-mint); margin-right: 8px;"></i> Premium vetting</li>
                         </ul>
                     </div>
 
@@ -176,11 +203,18 @@
                         <i class="fa-solid fa-circle-check select-indicator"></i>
                         <h3>NeatlyLive Standard</h3>
                         <p>Our most popular tier. Consistent bi-weekly cleaning schedules.</p>
-                        <div class="price">$149<span style="font-size:1rem;font-weight:400;color:#6b7280;">/mo</span></div>
-                        <ul style="text-align: left; font-size: 0.9rem; margin-top: 1rem; list-style: none; padding: 0;">
-                            <li style="margin-bottom: 0.5rem;"><i class="fa-solid fa-check" style="color:var(--color-accent-mint); margin-right: 8px;"></i> Bi-weekly visits</li>
-                            <li style="margin-bottom: 0.5rem;"><i class="fa-solid fa-check" style="color:var(--color-accent-mint); margin-right: 8px;"></i> 10% off Add-ons</li>
-                            <li><i class="fa-solid fa-check" style="color:var(--color-accent-mint); margin-right: 8px;"></i> Priority matching</li>
+                        <div class="price">$149<span style="font-size:1rem;font-weight:400;color:#6b7280;">/mo</span>
+                        </div>
+                        <ul
+                            style="text-align: left; font-size: 0.9rem; margin-top: 1rem; list-style: none; padding: 0;">
+                            <li style="margin-bottom: 0.5rem;"><i class="fa-solid fa-check"
+                                    style="color:var(--color-accent-mint); margin-right: 8px;"></i> Bi-weekly visits
+                            </li>
+                            <li style="margin-bottom: 0.5rem;"><i class="fa-solid fa-check"
+                                    style="color:var(--color-accent-mint); margin-right: 8px;"></i> 10% off Add-ons</li>
+                            <li><i class="fa-solid fa-check"
+                                    style="color:var(--color-accent-mint); margin-right: 8px;"></i> Priority matching
+                            </li>
                         </ul>
                     </div>
 
@@ -189,11 +223,17 @@
                         <i class="fa-solid fa-circle-check select-indicator"></i>
                         <h3>NeatlyLive Pristine</h3>
                         <p>Maintain an immaculate home without lifting a single finger.</p>
-                        <div class="price">$289<span style="font-size:1rem;font-weight:400;color:#6b7280;">/mo</span></div>
-                        <ul style="text-align: left; font-size: 0.9rem; margin-top: 1rem; list-style: none; padding: 0;">
-                            <li style="margin-bottom: 0.5rem;"><i class="fa-solid fa-check" style="color:var(--color-accent-mint); margin-right: 8px;"></i> Weekly visits</li>
-                            <li style="margin-bottom: 0.5rem;"><i class="fa-solid fa-check" style="color:var(--color-accent-mint); margin-right: 8px;"></i> Dedicated cleaner</li>
-                            <li><i class="fa-solid fa-check" style="color:var(--color-accent-mint); margin-right: 8px;"></i> 20% off Add-ons</li>
+                        <div class="price">$289<span style="font-size:1rem;font-weight:400;color:#6b7280;">/mo</span>
+                        </div>
+                        <ul
+                            style="text-align: left; font-size: 0.9rem; margin-top: 1rem; list-style: none; padding: 0;">
+                            <li style="margin-bottom: 0.5rem;"><i class="fa-solid fa-check"
+                                    style="color:var(--color-accent-mint); margin-right: 8px;"></i> Weekly visits</li>
+                            <li style="margin-bottom: 0.5rem;"><i class="fa-solid fa-check"
+                                    style="color:var(--color-accent-mint); margin-right: 8px;"></i> Dedicated cleaner
+                            </li>
+                            <li><i class="fa-solid fa-check"
+                                    style="color:var(--color-accent-mint); margin-right: 8px;"></i> 20% off Add-ons</li>
                         </ul>
                     </div>
                 </div>
@@ -249,7 +289,8 @@
                     </div>
                     <div class="form-group">
                         <label for="instructions">Preferred Service Instructions</label>
-                        <textarea id="instructions" class="form-control" rows="3" placeholder="Gate codes, parking details, pet warnings, or specific cleaning focus areas..."></textarea>
+                        <textarea id="instructions" class="form-control" rows="3"
+                            placeholder="Gate codes, parking details, pet warnings, or specific cleaning focus areas..."></textarea>
                     </div>
                 </div>
 
@@ -268,7 +309,8 @@
                     </div>
                     <div class="form-group">
                         <label for="cardNumber">Card Number</label>
-                        <input type="text" id="cardNumber" class="form-control" placeholder="0000 0000 0000 0000" required>
+                        <input type="text" id="cardNumber" class="form-control" placeholder="0000 0000 0000 0000"
+                            required>
                     </div>
                     <div class="form-row">
                         <div class="form-group">
@@ -287,8 +329,11 @@
                 </div>
 
                 <div style="text-align: center; margin-top: 1rem;">
-                    <button type="submit" class="btn btn-primary" style="font-size: 1.25rem; padding: 1rem 3rem; width: 100%;"><i class="fa-solid fa-lock" style="margin-right:8px;"></i> Complete Booking</button>
-                    <p style="font-size: 0.85rem; color: #6b7280; margin-top: 1rem;"><i class="fa-solid fa-shield-halved"></i> Your payment information is securely processed.</p>
+                    <button type="submit" class="btn btn-primary"
+                        style="font-size: 1.25rem; padding: 1rem 3rem; width: 100%;"><i class="fa-solid fa-lock"
+                            style="margin-right:8px;"></i> Complete Booking</button>
+                    <p style="font-size: 0.85rem; color: #6b7280; margin-top: 1rem;"><i
+                            class="fa-solid fa-shield-halved"></i> Your payment information is securely processed.</p>
                 </div>
             </div>
         </form>
@@ -330,13 +375,14 @@
             // Remove active from all
             const cards = document.querySelectorAll('.plan-card');
             cards.forEach(card => card.classList.remove('active'));
-            
+
             // Add active to clicked
             element.classList.add('active');
-            
+
             // Update hidden input
             document.getElementById('selectedPlan').value = planName;
         }
     </script>
 </body>
+
 </html>
