@@ -94,6 +94,64 @@
         .service-features li i {
             color: var(--color-accent-mint-dark);
         }
+
+        /* Carousel and Enhanced Search Styles */
+        .carousel-container {
+            position: relative;
+            width: 100%;
+            max-width: 1000px;
+            height: 450px;
+            margin: 4rem auto 0;
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.15);
+            border: 8px solid white;
+        }
+
+        .carousel-slide {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            opacity: 0;
+            transition: opacity 1.5s ease-in-out;
+            background-size: cover;
+            background-position: center;
+        }
+
+        .carousel-slide.active {
+            opacity: 1;
+        }
+
+        .hero-search-container.enhanced {
+            max-width: 800px;
+            padding: 10px;
+            border-radius: 60px;
+            box-shadow: 0 15px 40px rgba(0,0,0,0.08);
+            border: 4px solid white;
+        }
+
+        .hero-search-input.enhanced {
+            font-size: 1.25rem;
+            padding: 20px 30px;
+        }
+
+        .hero-search-input.enhanced::placeholder {
+            color: #9ca3af;
+            font-size: 1.15rem;
+        }
+
+        .hero-search-btn.enhanced {
+            font-size: 1.15rem;
+            padding: 20px 45px;
+            background: var(--color-primary-navy);
+            color: var(--color-bg-white);
+        }
+
+        .hero-search-btn.enhanced:hover {
+            background: var(--color-primary-teal);
+        }
     </style>
 </head>
 
@@ -115,16 +173,23 @@
         </div>
     </nav>
 
-    <header class="page-header" style="padding: 6rem 5%; background: linear-gradient(135deg, var(--color-primary-navy), #1a244d);">
-        <h1 style="font-size: 3.5rem; margin-bottom: 1.5rem;">Check Availability</h1>
-        <p style="font-size: 1.3rem; opacity: 0.9; margin-bottom: 3rem; font-weight: 400;">Enter your address or zip code to see our professional cleaning services near you.</p>
+    <header class="page-header" style="padding: 6rem 5% 5rem; background: var(--color-bg-light);">
+        <h1 style="font-size: 3.5rem; margin-bottom: 1rem; color: var(--color-primary-navy);">Check Availability</h1>
+        <p style="font-size: 1.3rem; color: var(--color-primary-navy); opacity: 0.8; margin-bottom: 3rem; font-weight: 500;">Enter your address or zip code to see our professional cleaning services near you.</p>
         
-        <div class="hero-search-container" style="max-width: 700px;">
-            <input type="text" placeholder="Enter your home address or zip code" class="hero-search-input" id="zipInput" onkeypress="handleZipEnter(event)">
-            <button class="hero-search-btn" onclick="checkZip()">Check Availability</button>
+        <div class="hero-search-container enhanced">
+            <input type="text" placeholder="Enter your home address or zip code..." class="hero-search-input enhanced" id="zipInput" onkeypress="handleZipEnter(event)">
+            <button class="hero-search-btn enhanced" onclick="checkZip()">Check Availability</button>
         </div>
         
-        <p id="availabilityMsg" style="margin-top: 2rem; font-size: 1.1rem; font-weight: 600; display: none; color: var(--color-accent-mint);"></p>
+        <p id="availabilityMsg" style="margin-top: 2rem; font-size: 1.1rem; font-weight: 600; display: none; color: var(--color-primary-teal);"></p>
+
+        <!-- Image Carousel -->
+        <div class="carousel-container" id="servicesCarousel">
+            <div class="carousel-slide active" style="background-image: url('happy_cleaner_1.png');"></div>
+            <div class="carousel-slide" style="background-image: url('clean_home_1.png');"></div>
+            <div class="carousel-slide" style="background-image: url('happy_cleaner_2.png');"></div>
+        </div>
     </header>
 
     <section class="container" id="servicesSection" style="display: none; opacity: 0; transition: opacity 0.5s ease; padding-top: 3rem;">
@@ -270,6 +335,18 @@
             if (e.key === 'Enter') {
                 checkZip();
             }
+        }
+
+        // Carousel Logic
+        let currentSlide = 0;
+        const slides = document.querySelectorAll('.carousel-slide');
+        
+        if (slides.length > 0) {
+            setInterval(() => {
+                slides[currentSlide].classList.remove('active');
+                currentSlide = (currentSlide + 1) % slides.length;
+                slides[currentSlide].classList.add('active');
+            }, 4000);
         }
     </script>
 </body>
