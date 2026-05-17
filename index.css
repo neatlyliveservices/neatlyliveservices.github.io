@@ -4,6 +4,7 @@
   --color-primary-teal: #3a508b;
   --color-accent-mint: #10b981;
   --color-accent-mint-dark: #059669;
+  --color-accent-yellow: #fbbf24;
   
   --color-text-dark: #1f2937;
   --color-text-light: #f3f4f6;
@@ -113,7 +114,7 @@ img {
   height: 2px;
   bottom: -4px;
   left: 0;
-  background-color: var(--color-accent-mint);
+  background-color: var(--color-accent-yellow);
   transition: width var(--transition-normal);
 }
 
@@ -182,7 +183,7 @@ img {
   position: absolute;
   width: 50%;
   height: 4px;
-  background-color: var(--color-accent-mint);
+  background-color: var(--color-accent-yellow);
   bottom: -10px;
   left: 25%;
   border-radius: 2px;
