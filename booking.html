@@ -854,21 +854,43 @@
             <div class="wizard-step checkout-layout" id="step7">
                 <div class="form-section">
                     <h3>Customize Your Cleaning</h3>
-                    <p style="margin-bottom: 1.5rem; font-size: 0.95rem; color: var(--color-text-dark);">Choose the type of add-ons you would like to have for each cleaning.</p>
+                    <p style="margin-bottom: 1.5rem; font-size: 0.95rem; color: var(--color-text-dark);">Choose the type of cleaning and any add-ons you would like to have.</p>
                     
-                    <div class="form-row">
-                        <div class="form-group">
-                            <label for="bedrooms">Bedrooms</label>
-                            <input type="number" id="bedrooms" class="form-control" min="1" max="10" placeholder="e.g. 3" required>
-                        </div>
-                        <div class="form-group">
-                            <label for="bathrooms">Bathrooms</label>
-                            <input type="number" id="bathrooms" class="form-control" min="1" max="10" placeholder="e.g. 2" required>
-                        </div>
-                        <div class="form-group">
-                            <label for="floors">Number of Floors</label>
-                            <input type="number" id="floors" class="form-control" min="1" max="5" placeholder="e.g. 2" required>
-                        </div>
+                    <label style="display: block; margin-bottom: 0.5rem; font-weight: 600; color: var(--color-primary-navy); font-size: 0.9rem;">Select Cleaning Type</label>
+                    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1rem; margin-bottom: 1.5rem;">
+                        <label style="display: flex; align-items: start; gap: 0.75rem; cursor: pointer; padding: 1rem; border: 1px solid #e5e7eb; border-radius: 8px; background: #fff;">
+                            <input type="radio" name="cleaning_type" value="standard" style="margin-top: 4px;" checked>
+                            <div>
+                                <span style="font-weight: 600; color: var(--color-text-dark); display: block;">Standard Maintenance</span>
+                                <span style="font-size: 0.85rem; color: #6b7280;">Routine cleaning of essentials</span>
+                            </div>
+                        </label>
+                        <label style="display: flex; align-items: start; gap: 0.75rem; cursor: pointer; padding: 1rem; border: 1px solid #e5e7eb; border-radius: 8px; background: #fff;">
+                            <input type="radio" name="cleaning_type" value="deep" style="margin-top: 4px;">
+                            <div>
+                                <span style="font-weight: 600; color: var(--color-text-dark); display: block;">Deep Clean</span>
+                                <span style="font-size: 0.85rem; color: #6b7280;">Top-to-bottom thorough clean</span>
+                            </div>
+                        </label>
+                        <label style="display: flex; align-items: start; gap: 0.75rem; cursor: pointer; padding: 1rem; border: 1px solid #e5e7eb; border-radius: 8px; background: #fff;">
+                            <input type="radio" name="cleaning_type" value="office" style="margin-top: 4px;">
+                            <div>
+                                <span style="font-weight: 600; color: var(--color-text-dark); display: block;">Office Cleaning</span>
+                                <span style="font-size: 0.85rem; color: #6b7280;">Workspace sanitization</span>
+                            </div>
+                        </label>
+                        <label style="display: flex; align-items: start; gap: 0.75rem; cursor: pointer; padding: 1rem; border: 1px solid #e5e7eb; border-radius: 8px; background: #fff;">
+                            <input type="radio" name="cleaning_type" value="move" style="margin-top: 4px;">
+                            <div>
+                                <span style="font-weight: 600; color: var(--color-text-dark); display: block;">Move Clean</span>
+                                <span style="font-size: 0.85rem; color: #6b7280;">Empty home transition clean</span>
+                            </div>
+                        </label>
+                    </div>
+
+                    <div class="form-group" style="max-width: 200px;">
+                        <label for="floors">Number of Floors</label>
+                        <input type="number" id="floors" class="form-control" min="1" max="5" placeholder="e.g. 2" required>
                     </div>
 
                     <label style="display: block; margin-bottom: 0.5rem; font-weight: 600; color: var(--color-primary-navy); font-size: 0.9rem; margin-top: 1.5rem;">Select Add-ons</label>
