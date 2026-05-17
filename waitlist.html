@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Coming Soon | NeatlyLive</title>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;800&family=Open+Sans:wght@400;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="index.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        .page-header {
+            background-color: var(--color-bg-light);
+            padding: 6rem 5% 4rem;
+            text-align: center;
+        }
+
+        .checkout-layout {
+            background: var(--color-bg-white);
+            padding: 3rem;
+            border-radius: 12px;
+            border: 1px solid #e5e7eb;
+            max-width: 600px;
+            margin: 0 auto;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.05);
+        }
+
+        .form-group {
+            margin-bottom: 1.5rem;
+            text-align: left;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: 600;
+            color: var(--color-primary-navy);
+            font-size: 0.9rem;
+        }
+
+        .form-control {
+            width: 100%;
+            padding: 0.8rem;
+            border: 1px solid #d1d5db;
+            border-radius: 6px;
+            font-family: inherit;
+            font-size: 1rem;
+            transition: border-color var(--transition-fast);
+        }
+
+        .form-control:focus {
+            outline: none;
+            border-color: var(--color-accent-mint-dark);
+        }
+        
+        .success-message {
+            display: none;
+            background: rgba(16, 185, 129, 0.1);
+            border: 1px solid var(--color-accent-mint);
+            color: var(--color-accent-mint-dark);
+            padding: 1.5rem;
+            border-radius: 8px;
+            text-align: center;
+            font-weight: 600;
+        }
+    </style>
+</head>
+
+<body>
+    <nav class="navbar" id="navbar">
+        <a href="index.html" class="logo" style="display: flex; align-items: center;">
+            <img src="LogoRedesign.png" alt="NeatlyLive Logo" style="height: 60px; width: auto;">
+        </a>
+        <button class="mobile-menu-btn" aria-label="Menu" onclick="toggleMenu()">
+            <img src="menu-sparkles.png" alt="Menu" style="height: 30px; width: auto;">
+        </button>
+        <div class="nav-links" id="navLinks">
+            <a href="index.html">Home</a>
+            <a href="about.html">About Us</a>
+            <a href="services.html">Services</a>
+            <a href="membership.html">Membership</a>
+            <a href="contact.html">Contact Us</a>
+        </div>
+    </nav>
+
+    <header class="page-header">
+        <i class="fa-solid fa-location-dot" style="font-size: 4rem; color: var(--color-accent-mint); margin-bottom: 1.5rem;"></i>
+        <h1 style="font-size: 3.5rem; margin-bottom: 1rem; color: var(--color-primary-navy);">Coming to you soon.</h1>
+        <p style="font-size: 1.2rem; color: var(--color-text-dark); max-width: 600px; margin: 0 auto 3rem; line-height: 1.6;">
+            We are rapidly expanding, but unfortunately, we do not currently service your area. 
+            <br><br>
+            Join our waitlist! We will reach out when your zip code becomes eligible, and we will send you exclusive discounts for future uses!
+        </p>
+
+        <div class="checkout-layout" id="waitlistFormContainer">
+            <form id="waitlistForm" onsubmit="event.preventDefault(); submitWaitlist();">
+                <div class="form-group">
+                    <label for="fullName">Full Name</label>
+                    <input type="text" id="fullName" class="form-control" placeholder="John Doe" required>
+                </div>
+                <div class="form-group">
+                    <label for="email">Email Address</label>
+                    <input type="email" id="email" class="form-control" placeholder="john@example.com" required>
+                </div>
+                <div class="form-group">
+                    <label for="address">Address of Place to be Serviced</label>
+                    <input type="text" id="address" class="form-control" placeholder="123 Main St, City, State ZIP" required>
+                </div>
+                <button type="submit" class="btn btn-primary" style="width: 100%; font-size: 1.1rem; padding: 1rem;">Join the Waitlist</button>
+            </form>
+            <div id="successMessage" class="success-message">
+                <i class="fa-solid fa-check-circle" style="font-size: 2rem; margin-bottom: 0.5rem; display: block;"></i>
+                You're on the list! Keep an eye on your inbox for updates and exclusive discounts.
+            </div>
+        </div>
+    </header>
+
+    <footer class="footer">
+        <div class="footer-content">
+            <div class="footer-col">
+                <a href="index.html" class="logo" style="display:block; margin-bottom: 1rem;">
+                    <img src="LogoRedesign.png" alt="NeatlyLive Logo" style="height: 80px; width: auto;">
+                </a>
+                <p>Live Neatly.</p>
+            </div>
+            <div class="footer-col">
+                <h3>Quick Links</h3>
+                <ul style="padding:0;">
+                    <li><a href="about.html">About Us</a></li>
+                    <li><a href="services.html">Services</a></li>
+                    <li><a href="membership.html">Membership</a></li>
+                </ul>
+            </div>
+            <div class="footer-col">
+                <h3>Contact</h3>
+                <ul style="padding:0;">
+                    <li><a href="contact.html">Get in touch</a></li>
+                    <li>neatlylivesupport@gmail.com</li>
+                </ul>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2026 NeatlyLive. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script src="app.js"></script>
+    <script>
+        function submitWaitlist() {
+            document.getElementById('waitlistForm').style.display = 'none';
+            document.getElementById('successMessage').style.display = 'block';
+        }
+    </script>
+</body>
+</html>

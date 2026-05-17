@@ -306,10 +306,13 @@
             const msg = document.getElementById('availabilityMsg');
             const section = document.getElementById('servicesSection');
             
-            if (input.length < 5) {
+            // Look for a 5 digit number
+            const zipMatch = input.match(/\b\d{5}\b/);
+            
+            if (!zipMatch) {
                 msg.style.display = 'block';
                 msg.style.color = '#ff6b6b'; 
-                msg.textContent = 'Please enter a valid address or zip code.';
+                msg.textContent = 'Please include a valid 5-digit zip code.';
                 section.style.display = 'none';
                 section.style.opacity = '0';
                 return;
@@ -317,18 +320,26 @@
             
             // Simulate checking
             msg.style.display = 'block';
-            msg.style.color = 'var(--color-accent-mint)';
+            msg.style.color = 'var(--color-primary-navy)';
             msg.textContent = 'Checking availability...';
             
+            const zip = parseInt(zipMatch[0], 10);
+            // Washington State zip codes are roughly 98000 to 99499
+            const isEligible = (zip >= 98000 && zip <= 99499);
+            
             setTimeout(() => {
-                msg.style.display = 'none';
-                section.style.display = 'block';
-                // Trigger reflow for fade in
-                void section.offsetWidth;
-                section.style.opacity = '1';
-                
-                // Scroll down to services
-                section.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                if (isEligible) {
+                    msg.style.display = 'none';
+                    section.style.display = 'block';
+                    // Trigger reflow for fade in
+                    void section.offsetWidth;
+                    section.style.opacity = '1';
+                    
+                    // Scroll down to services
+                    section.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                } else {
+                    window.location.href = 'waitlist.html';
+                }
             }, 800);
         }
 

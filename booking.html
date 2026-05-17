@@ -17,17 +17,21 @@
         }
 
         .plans-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-            gap: 2rem;
-            margin-top: 1.5rem;
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+            margin-top: 2rem;
+            margin-bottom: 2rem;
         }
 
         .plan-card {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
             border: 2px solid #e5e7eb;
             border-radius: 12px;
-            padding: 2rem;
-            text-align: center;
+            padding: 1.5rem 2rem;
+            text-align: left;
             cursor: pointer;
             transition: all var(--transition-normal);
             position: relative;
@@ -36,14 +40,14 @@
 
         .plan-card:hover {
             border-color: var(--color-primary-teal);
-            transform: translateY(-5px);
+            transform: translateY(-2px);
         }
 
         .plan-card.active {
             border: 3px solid var(--color-primary-navy);
             background-color: var(--color-bg-white);
-            box-shadow: 0 8px 25px rgba(36, 49, 96, 0.15);
-            transform: translateY(-5px);
+            box-shadow: 0 4px 15px rgba(36, 49, 96, 0.1);
+            transform: translateY(-2px);
         }
 
         .plan-card h3 {
@@ -68,8 +72,9 @@
 
         .plan-card .select-indicator {
             position: absolute;
-            top: 15px;
-            right: 15px;
+            top: 50%;
+            right: 20px;
+            transform: translateY(-50%);
             font-size: 1.8rem;
             color: var(--color-primary-navy);
             display: none;
@@ -145,6 +150,23 @@
 
         .wizard-step.active {
             display: block;
+        }
+
+        @media (max-width: 600px) {
+            .plan-card {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+            .plan-price-section {
+                text-align: left !important;
+                margin-right: 0 !important;
+                margin-top: 1rem;
+            }
+            .plan-card .select-indicator {
+                top: 15px;
+                right: 15px;
+                transform: none;
+            }
         }
 
         @keyframes fadeIn {
@@ -321,55 +343,76 @@
                 <div class="plans-grid">
                     <!-- One-Time Clean -->
                     <div class="plan-card" onclick="selectPlan('one-time', this)">
+                        <div class="plan-info">
+                            <h3 style="margin-bottom: 0.5rem;">One-Time Clean</h3>
+                            <p style="margin-bottom: 0.5rem; font-size: 0.95rem; color: var(--color-text-dark);">A single, comprehensive clean tailored exactly to your needs.</p>
+                            <ul style="font-size: 0.85rem; list-style: none; padding: 0; display: flex; gap: 1rem; flex-wrap: wrap;">
+                                <li><i class="fa-solid fa-check" style="color:var(--color-accent-mint); margin-right: 4px;"></i> On-demand flexibility</li>
+                                <li><i class="fa-solid fa-check" style="color:var(--color-accent-mint); margin-right: 4px;"></i> Custom add-ons available</li>
+                            </ul>
+                        </div>
+                        <div class="plan-price-section" style="text-align: right; margin-right: 3rem;">
+                            <div class="price" style="font-size: 1.8rem; font-weight: 800; color: var(--color-accent-mint-dark);">$180-$400</div>
+                        </div>
                         <i class="fa-solid fa-circle-check select-indicator"></i>
-                        <h3>One-Time Clean</h3>
-                        <p>A single, comprehensive clean tailored exactly to your needs.</p>
-                        <div class="price">$180-$400</div>
-                        <ul style="text-align: left; font-size: 0.9rem; margin-top: 1rem; list-style: none; padding: 0;">
-                            <li style="margin-bottom: 0.5rem;"><i class="fa-solid fa-check" style="color:var(--color-accent-mint); margin-right: 8px;"></i> On-demand flexibility</li>
-                            <li><i class="fa-solid fa-check" style="color:var(--color-accent-mint); margin-right: 8px;"></i> Custom add-ons available</li>
-                        </ul>
                     </div>
 
                     <!-- Essential Plan -->
                     <div class="plan-card" onclick="selectPlan('essential', this)">
+                        <div class="plan-info">
+                            <h3 style="margin-bottom: 0.5rem;">NeatlyLive Essential</h3>
+                            <p style="margin-bottom: 0.5rem; font-size: 0.95rem; color: var(--color-text-dark);">Perfect for monthly maintenance or infrequent deep cleans.</p>
+                            <ul style="font-size: 0.85rem; list-style: none; padding: 0; display: flex; gap: 1rem; flex-wrap: wrap;">
+                                <li><i class="fa-solid fa-check" style="color:var(--color-accent-mint); margin-right: 4px;"></i> 1 Cleaning/Mo</li>
+                                <li><i class="fa-solid fa-check" style="color:var(--color-accent-mint); margin-right: 4px;"></i> 10% Off</li>
+                                <li><i class="fa-solid fa-check" style="color:var(--color-accent-mint); margin-right: 4px;"></i> Priority Booking</li>
+                            </ul>
+                        </div>
+                        <div class="plan-price-section" style="text-align: right; margin-right: 3rem;">
+                            <div class="price" style="font-size: 1.8rem; font-weight: 800; color: var(--color-accent-mint-dark);">$215<span style="font-size:1rem;font-weight:400;color:#6b7280;">/mo</span></div>
+                        </div>
                         <i class="fa-solid fa-circle-check select-indicator"></i>
-                        <h3>NeatlyLive Essential</h3>
-                        <p>Perfect for monthly maintenance or infrequent deep cleans.</p>
-                        <div class="price">$215<span style="font-size:1rem;font-weight:400;color:#6b7280;">/mo</span></div>
-                        <ul style="text-align: left; font-size: 0.9rem; margin-top: 1rem; list-style: none; padding: 0;">
-                            <li style="margin-bottom: 0.5rem;"><i class="fa-solid fa-check" style="color:var(--color-accent-mint); margin-right: 8px;"></i> Savings of 10% Off</li>
-                            <li><i class="fa-solid fa-check" style="color:var(--color-accent-mint); margin-right: 8px;"></i> One Standard Cleaning Per Month + Priority Booking</li>
-                        </ul>
                     </div>
 
                     <!-- Standard Plan -->
                     <div class="plan-card active" onclick="selectPlan('standard', this)">
+                        <div class="plan-info">
+                            <h3 style="margin-bottom: 0.5rem;">NeatlyLive Standard</h3>
+                            <p style="margin-bottom: 0.5rem; font-size: 0.95rem; color: var(--color-text-dark);">Our most popular tier. Consistent cleaning every one to two weeks.</p>
+                            <ul style="font-size: 0.85rem; list-style: none; padding: 0; display: flex; gap: 1rem; flex-wrap: wrap;">
+                                <li><i class="fa-solid fa-check" style="color:var(--color-accent-mint); margin-right: 4px;"></i> 2 Cleanings/Mo</li>
+                                <li><i class="fa-solid fa-check" style="color:var(--color-accent-mint); margin-right: 4px;"></i> 15% Off</li>
+                                <li><i class="fa-solid fa-check" style="color:var(--color-accent-mint); margin-right: 4px;"></i> Priority Booking</li>
+                            </ul>
+                        </div>
+                        <div class="plan-price-section" style="text-align: right; margin-right: 3rem;">
+                            <div class="price" style="font-size: 1.8rem; font-weight: 800; color: var(--color-accent-mint-dark);">$390<span style="font-size:1rem;font-weight:400;color:#6b7280;">/mo</span></div>
+                        </div>
                         <i class="fa-solid fa-circle-check select-indicator"></i>
-                        <h3>NeatlyLive Standard</h3>
-                        <p>Our most popular tier. Consistent cleaning every one to two weeks.</p>
-                        <div class="price">$390<span style="font-size:1rem;font-weight:400;color:#6b7280;">/mo</span></div>
-                        <ul style="text-align: left; font-size: 0.9rem; margin-top: 1rem; list-style: none; padding: 0;">
-                            <li style="margin-bottom: 0.5rem;"><i class="fa-solid fa-check" style="color:var(--color-accent-mint); margin-right: 8px;"></i> Two Standard Cleanings Per Month</li>
-                            <li style="margin-bottom: 0.5rem;"><i class="fa-solid fa-check" style="color:var(--color-accent-mint); margin-right: 8px;"></i> Savings of 15% Off</li>
-                            <li><i class="fa-solid fa-check" style="color:var(--color-accent-mint); margin-right: 8px;"></i> Priority Booking</li>
-                        </ul>
                     </div>
 
                     <!-- Pristine Plan -->
                     <div class="plan-card" onclick="selectPlan('pristine', this)">
+                        <div class="plan-info">
+                            <h3 style="margin-bottom: 0.5rem;">NeatlyLive Pristine</h3>
+                            <p style="margin-bottom: 0.5rem; font-size: 0.95rem; color: var(--color-text-dark);">Maintain an immaculate home without lifting a single finger.</p>
+                            <ul style="font-size: 0.85rem; list-style: none; padding: 0; display: flex; gap: 1rem; flex-wrap: wrap;">
+                                <li><i class="fa-solid fa-check" style="color:var(--color-accent-mint); margin-right: 4px;"></i> Weekly Cleanings</li>
+                                <li><i class="fa-solid fa-check" style="color:var(--color-accent-mint); margin-right: 4px;"></i> Dedicated Cleaner</li>
+                                <li><i class="fa-solid fa-check" style="color:var(--color-accent-mint); margin-right: 4px;"></i> 20% Off</li>
+                            </ul>
+                        </div>
+                        <div class="plan-price-section" style="text-align: right; margin-right: 3rem;">
+                            <div class="price" style="font-size: 1.8rem; font-weight: 800; color: var(--color-accent-mint-dark);">$735<span style="font-size:1rem;font-weight:400;color:#6b7280;">/mo</span></div>
+                        </div>
                         <i class="fa-solid fa-circle-check select-indicator"></i>
-                        <h3>NeatlyLive Pristine</h3>
-                        <p>Maintain an immaculate home without lifting a single finger.</p>
-                        <div class="price">$735<span style="font-size:1rem;font-weight:400;color:#6b7280;">/mo</span></div>
-                        <ul style="text-align: left; font-size: 0.9rem; margin-top: 1rem; list-style: none; padding: 0;">
-                            <li style="margin-bottom: 0.5rem;"><i class="fa-solid fa-check" style="color:var(--color-accent-mint); margin-right: 8px;"></i> Weekly Cleanings</li>
-                            <li style="margin-bottom: 0.5rem;"><i class="fa-solid fa-check" style="color:var(--color-accent-mint); margin-right: 8px;"></i> Dedicated Cleaner</li>
-                            <li><i class="fa-solid fa-check" style="color:var(--color-accent-mint); margin-right: 8px;"></i> Savings of 20% Off</li>
-                        </ul>
                     </div>
                 </div>
                 <input type="hidden" id="selectedPlan" name="selectedPlan" value="standard" required>
+                
+                <div class="button-group" style="justify-content: flex-end;">
+                    <button type="button" class="btn btn-primary" onclick="nextStep()">Next Step <i class="fa-solid fa-arrow-right"></i></button>
+                </div>
             </div>
 
             <!-- Step 2: Location -->
@@ -822,11 +865,6 @@
 
             // Update hidden input
             document.getElementById('selectedPlan').value = planName;
-            
-            // Advance to next step automatically
-            setTimeout(() => {
-                nextStep();
-            }, 300);
         }
 
         function verifyAddress() {
