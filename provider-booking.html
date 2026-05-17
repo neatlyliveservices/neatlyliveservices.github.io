@@ -1,0 +1,787 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Professional Application | NeatlyLive</title>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;800&family=Open+Sans:wght@400;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="index.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        .page-header {
+            background-color: var(--color-primary-navy);
+            color: var(--color-bg-white);
+            padding: 4rem 5%;
+            text-align: center;
+        }
+
+        .checkout-layout {
+            background: var(--color-bg-white);
+            padding: 3rem;
+            border-radius: 12px;
+            border: 1px solid #e5e7eb;
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        .form-section h3 {
+            border-bottom: 2px solid #e5e7eb;
+            padding-bottom: 0.5rem;
+            color: var(--color-primary-teal);
+            margin-bottom: 1.5rem;
+        }
+
+        .form-row {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1rem;
+            margin-bottom: 1rem;
+        }
+
+        .form-group {
+            margin-bottom: 1rem;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: 600;
+            color: var(--color-primary-navy);
+            font-size: 0.9rem;
+        }
+
+        .form-control {
+            width: 100%;
+            padding: 0.8rem;
+            border: 1px solid #d1d5db;
+            border-radius: 6px;
+            font-family: inherit;
+            font-size: 1rem;
+            transition: border-color var(--transition-fast);
+        }
+
+        .form-control:focus {
+            outline: none;
+            border-color: var(--color-accent-mint-dark);
+        }
+
+        /* Wizard Specific Styles */
+        .wizard-step {
+            display: none;
+            animation: fadeIn 0.4s ease-in-out;
+        }
+
+        .wizard-step.active {
+            display: block;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .step-indicator {
+            display: flex;
+            justify-content: center;
+            gap: 0.5rem;
+            margin-bottom: 2rem;
+            flex-wrap: wrap;
+        }
+
+        .step-dot {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            background: #d1d5db;
+            transition: all 0.3s ease;
+        }
+
+        .step-dot.active {
+            background: var(--color-accent-yellow);
+            transform: scale(1.2);
+        }
+
+        .terms-box {
+            height: 150px;
+            overflow-y: scroll;
+            border: 2px solid #e5e7eb;
+            padding: 1rem;
+            border-radius: 6px;
+            background: var(--color-bg-white);
+            font-size: 0.85rem;
+            color: var(--color-text-dark);
+            margin-bottom: 1rem;
+        }
+
+        .terms-box.highlight {
+            border-color: var(--color-primary-teal);
+            box-shadow: 0 0 10px rgba(0, 123, 161, 0.2);
+        }
+
+        .btn:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+
+        .btn-secondary {
+            background-color: transparent;
+            color: var(--color-primary-navy);
+            border: 2px solid var(--color-primary-navy);
+        }
+
+        .btn-secondary:hover {
+            background-color: rgba(36, 49, 96, 0.05);
+        }
+
+        .button-group {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 2rem;
+            gap: 1rem;
+        }
+        
+        .availability-grid {
+            display: grid;
+            grid-template-columns: repeat(7, 1fr);
+            gap: 0.5rem;
+            margin-bottom: 1rem;
+            overflow-x: auto;
+        }
+
+        .day-column {
+            text-align: center;
+            min-width: 80px;
+        }
+
+        .day-label {
+            font-weight: 600;
+            font-size: 0.8rem;
+            margin-bottom: 0.5rem;
+            color: var(--color-primary-navy);
+        }
+
+        .time-slot {
+            display: block;
+            background: #f3f4f6;
+            padding: 0.5rem;
+            margin-bottom: 0.5rem;
+            border-radius: 4px;
+            font-size: 0.8rem;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            border: 1px solid transparent;
+            user-select: none;
+        }
+
+        .time-slot:hover {
+            background: #e5e7eb;
+        }
+
+        .time-slot.selected {
+            background: rgba(16, 185, 129, 0.1);
+            border-color: var(--color-accent-mint);
+            color: var(--color-accent-mint-dark);
+            font-weight: 600;
+        }
+
+        .addon-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1rem;
+            background: var(--color-bg-white);
+            padding: 1.5rem;
+            border-radius: 8px;
+            border: 1px solid #d1d5db;
+        }
+        
+        .disclaimer-box {
+            background: rgba(16, 185, 129, 0.05);
+            border-left: 4px solid var(--color-accent-mint);
+            padding: 1rem;
+            margin-bottom: 1.5rem;
+            font-size: 0.9rem;
+            color: var(--color-text-dark);
+            border-radius: 4px;
+        }
+
+        .radio-group {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+            background: #f9fafb;
+            padding: 1.5rem;
+            border-radius: 8px;
+            border: 1px solid #e5e7eb;
+        }
+
+        .radio-option {
+            display: flex;
+            align-items: flex-start;
+            gap: 1rem;
+            cursor: pointer;
+        }
+
+        .radio-option input[type="radio"] {
+            margin-top: 4px;
+            transform: scale(1.2);
+        }
+
+        .review-section {
+            background: #f9fafb;
+            padding: 1.5rem;
+            border-radius: 8px;
+            border: 1px solid #e5e7eb;
+            margin-bottom: 1.5rem;
+        }
+
+        .review-item {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 0.5rem;
+            border-bottom: 1px solid #e5e7eb;
+            padding-bottom: 0.5rem;
+        }
+        
+        .review-item:last-child {
+            border-bottom: none;
+            margin-bottom: 0;
+            padding-bottom: 0;
+        }
+
+        .review-label {
+            font-weight: 600;
+            color: var(--color-primary-navy);
+            font-size: 0.9rem;
+        }
+
+        .review-value {
+            color: var(--color-text-dark);
+            font-size: 0.9rem;
+        }
+    </style>
+</head>
+
+<body>
+    <nav class="navbar" id="navbar">
+        <a href="index.html" class="logo" style="display: flex; align-items: center;">
+            <img src="LogoRedesign.png" alt="NeatlyLive Logo" style="height: 60px; width: auto;">
+        </a>
+        <button class="mobile-menu-btn" aria-label="Menu" onclick="toggleMenu()">
+            <img src="menu-sparkles.png" alt="Menu" style="height: 30px; width: auto;">
+        </button>
+        <div class="nav-links" id="navLinks">
+            <a href="index.html">Home</a>
+            <a href="about.html">About Us</a>
+            <a href="services.html">Services</a>
+            <a href="membership.html">Membership</a>
+            <a href="contact.html">Contact Us</a>
+        </div>
+    </nav>
+
+    <header class="page-header">
+        <h1>Professional Application</h1>
+        <p style="font-size: 1.25rem; opacity: 0.9;">Join the NeatlyLive network of trusted cleaners.</p>
+    </header>
+
+    <section class="container" style="max-width: 1000px; padding-top: 2rem; margin-bottom: 4rem;">
+        
+        <!-- Step Indicators -->
+        <div class="step-indicator" id="stepIndicator">
+            <div class="step-dot active"></div>
+            <div class="step-dot"></div>
+            <div class="step-dot"></div>
+            <div class="step-dot"></div>
+            <div class="step-dot"></div>
+            <div class="step-dot"></div>
+            <div class="step-dot"></div>
+            <div class="step-dot"></div>
+        </div>
+
+        <form action="#" id="providerForm" onsubmit="event.preventDefault(); submitForm();">
+            
+            <!-- Step 1: Contact Information -->
+            <div class="wizard-step active checkout-layout" id="step1">
+                <div class="form-section">
+                    <h2 style="text-align: center; color: var(--color-primary-navy); margin-bottom: 0.5rem;">1. Contact Information</h2>
+                    <p style="text-align: center; color: var(--color-text-dark); margin-bottom: 2rem;">Let's start with the basics.</p>
+                    
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="firstName">First Name</label>
+                            <input type="text" id="firstName" class="form-control" placeholder="John" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="lastName">Last Name</label>
+                            <input type="text" id="lastName" class="form-control" placeholder="Doe" required>
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="email">Email Address</label>
+                            <input type="email" id="email" class="form-control" placeholder="john@example.com" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="phone">Phone Number</label>
+                            <input type="tel" id="phone" class="form-control" placeholder="(555) 123-4567" required>
+                        </div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="address">Home Address</label>
+                        <input type="text" id="address" class="form-control" placeholder="123 Main St" required>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="city">City</label>
+                            <input type="text" id="city" class="form-control" placeholder="Seattle" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="state">State</label>
+                            <input type="text" id="state" class="form-control" placeholder="WA" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="zip">ZIP Code</label>
+                            <input type="text" id="zip" class="form-control" placeholder="98101" required>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="button-group" style="justify-content: flex-end;">
+                    <button type="button" class="btn btn-primary" onclick="nextStep()">Continue <i class="fa-solid fa-arrow-right"></i></button>
+                </div>
+            </div>
+
+            <!-- Step 2: Business Registration -->
+            <div class="wizard-step checkout-layout" id="step2">
+                <div class="form-section">
+                    <h2 style="text-align: center; color: var(--color-primary-navy); margin-bottom: 0.5rem;">2. Business Status</h2>
+                    <p style="text-align: center; color: var(--color-text-dark); margin-bottom: 2rem;">How do you operate your cleaning services?</p>
+                    
+                    <div class="radio-group">
+                        <label class="radio-option">
+                            <input type="radio" name="businessStatus" value="registered" checked>
+                            <div>
+                                <span style="font-weight: 600; color: var(--color-primary-navy); display: block;">Officially Registered Business</span>
+                                <span style="font-size: 0.85rem; color: #6b7280;">I operate under an LLC, Corporation, or registered DBA with a valid EIN.</span>
+                            </div>
+                        </label>
+                        <label class="radio-option">
+                            <input type="radio" name="businessStatus" value="independent">
+                            <div>
+                                <span style="font-weight: 600; color: var(--color-primary-navy); display: block;">Independent Operator</span>
+                                <span style="font-size: 0.85rem; color: #6b7280;">I operate as an individual independent contractor (Sole Proprietor) using my SSN.</span>
+                            </div>
+                        </label>
+                    </div>
+                </div>
+
+                <div class="button-group">
+                    <button type="button" class="btn btn-secondary" onclick="prevStep()"><i class="fa-solid fa-arrow-left"></i> Back</button>
+                    <button type="button" class="btn btn-primary" onclick="nextStep()">Continue <i class="fa-solid fa-arrow-right"></i></button>
+                </div>
+            </div>
+
+            <!-- Step 3: Banking Information -->
+            <div class="wizard-step checkout-layout" id="step3">
+                <div class="form-section">
+                    <h2 style="text-align: center; color: var(--color-primary-navy); margin-bottom: 0.5rem;">3. Banking Information</h2>
+                    <p style="text-align: center; color: var(--color-text-dark); margin-bottom: 2rem;">Where should we send your payments?</p>
+                    
+                    <div class="disclaimer-box" style="display: flex; align-items: center; gap: 1rem;">
+                        <i class="fa-solid fa-building-columns" style="font-size: 2rem; color: var(--color-accent-mint);"></i>
+                        <p style="margin:0;">Payments are securely processed and deposited directly into your bank account on a weekly basis.</p>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="bankName">Bank Name</label>
+                        <input type="text" id="bankName" class="form-control" placeholder="Chase, Bank of America, etc." required>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="routingNumber">Routing Number</label>
+                            <input type="text" id="routingNumber" class="form-control" placeholder="9 digits" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="accountNumber">Account Number</label>
+                            <input type="password" id="accountNumber" class="form-control" placeholder="Account Number" required>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="button-group">
+                    <button type="button" class="btn btn-secondary" onclick="prevStep()"><i class="fa-solid fa-arrow-left"></i> Back</button>
+                    <button type="button" class="btn btn-primary" onclick="nextStep()">Continue <i class="fa-solid fa-arrow-right"></i></button>
+                </div>
+            </div>
+
+            <!-- Step 4: Terms and Conditions -->
+            <div class="wizard-step checkout-layout" id="step4">
+                <div class="form-section">
+                    <h2 style="text-align: center; color: var(--color-primary-navy); margin-bottom: 0.5rem;">4. Provider Agreement</h2>
+                    <p style="text-align: center; color: var(--color-text-dark); margin-bottom: 2rem;">Please read and scroll through the terms to continue.</p>
+                    
+                    <div class="terms-box highlight" id="termsBox" onscroll="checkTermsScroll()">
+                        <h4>NEATLYLIVE PROFESSIONAL AGREEMENT</h4>
+                        <p><strong>Effective Date:</strong> May 17, 2026</p>
+                        <p>Welcome to NeatlyLive. These terms govern your application and potential engagement as an independent professional cleaner.</p>
+                        <br>
+                        <h4>1. Independent Contractor Status</h4>
+                        <p>You acknowledge that you are applying as an independent contractor, not an employee of NeatlyLive. You control your schedule, methods, and acceptance of jobs.</p>
+                        <br><br><br>
+                        <h4>2. Background Screening</h4>
+                        <p>You consent to a comprehensive background check. NeatlyLive does not retain raw data but uses the results to determine platform eligibility.</p>
+                        <br><br><br>
+                        <h4>3. Performance Standards</h4>
+                        <p>Professionals are expected to arrive on time, communicate clearly with clients, and perform services to the highest standard. Repeated complaints or no-shows may result in removal from the platform.</p>
+                        <br><br><br>
+                        <h4>4. Payments & Fees</h4>
+                        <p>NeatlyLive facilitates payments from clients and remits them to you, minus our standard platform fee, on a weekly basis.</p>
+                        <br><br>
+                        <p><i>End of Terms and Conditions.</i></p>
+                    </div>
+                </div>
+
+                <div class="button-group">
+                    <button type="button" class="btn btn-secondary" onclick="prevStep()"><i class="fa-solid fa-arrow-left"></i> Back</button>
+                    <button type="button" class="btn btn-primary" id="acceptTermsBtn" onclick="nextStep()" disabled>Accept & Continue <i class="fa-solid fa-arrow-right"></i></button>
+                </div>
+            </div>
+
+            <!-- Step 5: Background Check -->
+            <div class="wizard-step checkout-layout" id="step5">
+                <div class="form-section">
+                    <h2 style="text-align: center; color: var(--color-primary-navy); margin-bottom: 0.5rem;">5. Background Check Information</h2>
+                    <p style="text-align: center; color: var(--color-text-dark); margin-bottom: 2rem;">Safety and trust are our top priorities.</p>
+                    
+                    <div class="disclaimer-box">
+                        <i class="fa-solid fa-circle-info" style="color: var(--color-accent-mint); margin-right: 5px;"></i>
+                        <strong>Notice:</strong> We perform comprehensive background checks on all service professionals to guarantee the safety of our customers. 
+                        <br><br>
+                        <em>Disclaimer: We do not keep the background check information, we use it solely to determine your eligibility to offer services on the NeatlyLive platform.</em>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="legalFirst">Legal First Name</label>
+                            <input type="text" id="legalFirst" class="form-control" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="legalMiddle">Legal Middle Name</label>
+                            <input type="text" id="legalMiddle" class="form-control">
+                            <label style="display: flex; align-items: center; gap: 0.5rem; margin-top: 0.5rem; font-weight: 400; cursor: pointer;">
+                                <input type="checkbox" id="noMiddleName" onchange="toggleMiddleName()"> I don't have a middle name
+                            </label>
+                        </div>
+                        <div class="form-group">
+                            <label for="legalLast">Legal Last Name</label>
+                            <input type="text" id="legalLast" class="form-control" required>
+                        </div>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="ssn">Social Security Number</label>
+                            <input type="password" id="ssn" class="form-control" placeholder="XXX-XX-XXXX" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="dob">Date of Birth</label>
+                            <input type="date" id="dob" class="form-control" required>
+                        </div>
+                    </div>
+
+                    <div class="form-group" style="margin-top: 1.5rem;">
+                        <label>Identity Verification</label>
+                        <p style="font-size: 0.85rem; color: #6b7280; margin-bottom: 0.5rem;">Please upload your Driver's License, Passport, or State ID.</p>
+                        <div style="border: 2px dashed #d1d5db; padding: 2rem; text-align: center; border-radius: 6px; background: var(--color-bg-white);">
+                            <i class="fa-solid fa-id-card" style="font-size: 2rem; color: var(--color-primary-teal); margin-bottom: 1rem;"></i>
+                            <br>
+                            <input type="file" id="idUpload" accept="image/*,.pdf" style="margin: 0 auto; display: block;" required>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="button-group">
+                    <button type="button" class="btn btn-secondary" onclick="prevStep()"><i class="fa-solid fa-arrow-left"></i> Back</button>
+                    <button type="button" class="btn btn-primary" onclick="nextStep()">Securely Submit & Continue <i class="fa-solid fa-arrow-right"></i></button>
+                </div>
+            </div>
+
+            <!-- Step 6: Profile & Availability -->
+            <div class="wizard-step checkout-layout" id="step6">
+                <div class="form-section">
+                    <h2 style="text-align: center; color: var(--color-primary-navy); margin-bottom: 0.5rem;">6. Profile & Availability</h2>
+                    <p style="text-align: center; color: var(--color-text-dark); margin-bottom: 2rem;">Showcase yourself to potential clients.</p>
+                    
+                    <div class="form-group">
+                        <label>Public Profile Photo</label>
+                        <div style="display: flex; align-items: center; gap: 1rem; margin-bottom: 1rem;">
+                            <div style="width: 80px; height: 80px; border-radius: 50%; background: #e5e7eb; display: flex; align-items: center; justify-content: center; overflow: hidden;" id="profilePreview">
+                                <i class="fa-solid fa-user" style="font-size: 2rem; color: #9ca3af;"></i>
+                            </div>
+                            <div>
+                                <input type="file" id="photoUpload" accept="image/*" style="margin-bottom: 0.5rem; display: block;">
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="bio">Short Bio (max 200 characters)</label>
+                        <textarea id="bio" class="form-control" rows="3" maxlength="200" placeholder="e.g. I have 5 years of professional cleaning experience and pay extreme attention to detail!"></textarea>
+                    </div>
+                </div>
+
+                <div class="form-section">
+                    <h3>Your Working Availability</h3>
+                    <p style="font-size: 0.9rem; margin-bottom: 1rem;">Select the general times you are available to take cleaning jobs:</p>
+                    <div class="availability-grid">
+                        <div class="day-column">
+                            <div class="day-label">Mon</div>
+                            <div class="time-slot" onclick="this.classList.toggle('selected')">Morning</div>
+                            <div class="time-slot" onclick="this.classList.toggle('selected')">Afternoon</div>
+                            <div class="time-slot" onclick="this.classList.toggle('selected')">Evening</div>
+                        </div>
+                        <div class="day-column">
+                            <div class="day-label">Tue</div>
+                            <div class="time-slot" onclick="this.classList.toggle('selected')">Morning</div>
+                            <div class="time-slot" onclick="this.classList.toggle('selected')">Afternoon</div>
+                            <div class="time-slot" onclick="this.classList.toggle('selected')">Evening</div>
+                        </div>
+                        <div class="day-column">
+                            <div class="day-label">Wed</div>
+                            <div class="time-slot" onclick="this.classList.toggle('selected')">Morning</div>
+                            <div class="time-slot" onclick="this.classList.toggle('selected')">Afternoon</div>
+                            <div class="time-slot" onclick="this.classList.toggle('selected')">Evening</div>
+                        </div>
+                        <div class="day-column">
+                            <div class="day-label">Thu</div>
+                            <div class="time-slot" onclick="this.classList.toggle('selected')">Morning</div>
+                            <div class="time-slot" onclick="this.classList.toggle('selected')">Afternoon</div>
+                            <div class="time-slot" onclick="this.classList.toggle('selected')">Evening</div>
+                        </div>
+                        <div class="day-column">
+                            <div class="day-label">Fri</div>
+                            <div class="time-slot" onclick="this.classList.toggle('selected')">Morning</div>
+                            <div class="time-slot" onclick="this.classList.toggle('selected')">Afternoon</div>
+                            <div class="time-slot" onclick="this.classList.toggle('selected')">Evening</div>
+                        </div>
+                        <div class="day-column">
+                            <div class="day-label">Sat</div>
+                            <div class="time-slot" onclick="this.classList.toggle('selected')">Morning</div>
+                            <div class="time-slot" onclick="this.classList.toggle('selected')">Afternoon</div>
+                            <div class="time-slot" onclick="this.classList.toggle('selected')">Evening</div>
+                        </div>
+                        <div class="day-column">
+                            <div class="day-label">Sun</div>
+                            <div class="time-slot" onclick="this.classList.toggle('selected')">Morning</div>
+                            <div class="time-slot" onclick="this.classList.toggle('selected')">Afternoon</div>
+                            <div class="time-slot" onclick="this.classList.toggle('selected')">Evening</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="button-group">
+                    <button type="button" class="btn btn-secondary" onclick="prevStep()"><i class="fa-solid fa-arrow-left"></i> Back</button>
+                    <button type="button" class="btn btn-primary" onclick="nextStep()">Continue <i class="fa-solid fa-arrow-right"></i></button>
+                </div>
+            </div>
+
+            <!-- Step 7: Services Provided -->
+            <div class="wizard-step checkout-layout" id="step7">
+                <div class="form-section">
+                    <h2 style="text-align: center; color: var(--color-primary-navy); margin-bottom: 0.5rem;">7. Services Provided</h2>
+                    <p style="text-align: center; color: var(--color-text-dark); margin-bottom: 2rem;">What types of cleans are you equipped and willing to perform?</p>
+                    
+                    <div class="addon-grid">
+                        <label style="display: flex; align-items: start; gap: 0.75rem; cursor: pointer;">
+                            <input type="checkbox" name="service_standard" style="margin-top: 4px;" checked>
+                            <div>
+                                <span style="font-weight: 600; color: var(--color-text-dark); display: block;">Standard Cleans</span>
+                                <span style="font-size: 0.85rem; color: #6b7280;">General upkeep, dusting, mopping, and surface wiping.</span>
+                            </div>
+                        </label>
+
+                        <label style="display: flex; align-items: start; gap: 0.75rem; cursor: pointer;">
+                            <input type="checkbox" name="service_deep" style="margin-top: 4px;">
+                            <div>
+                                <span style="font-weight: 600; color: var(--color-text-dark); display: block;">Deep Cleans</span>
+                                <span style="font-size: 0.85rem; color: #6b7280;">Thorough scrubbing, inside appliances, and hard-to-reach areas.</span>
+                            </div>
+                        </label>
+
+                        <label style="display: flex; align-items: start; gap: 0.75rem; cursor: pointer;">
+                            <input type="checkbox" name="service_residential" style="margin-top: 4px;" checked>
+                            <div>
+                                <span style="font-weight: 600; color: var(--color-text-dark); display: block;">Residential Cleans</span>
+                                <span style="font-size: 0.85rem; color: #6b7280;">Standard apartments, condos, and single-family homes.</span>
+                            </div>
+                        </label>
+                    </div>
+                </div>
+
+                <div class="button-group">
+                    <button type="button" class="btn btn-secondary" onclick="prevStep()"><i class="fa-solid fa-arrow-left"></i> Back</button>
+                    <button type="button" class="btn btn-primary" onclick="nextStep()">Review Application <i class="fa-solid fa-arrow-right"></i></button>
+                </div>
+            </div>
+
+            <!-- Step 8: Review & Submit -->
+            <div class="wizard-step checkout-layout" id="step8">
+                <div class="form-section">
+                    <h2 style="text-align: center; color: var(--color-primary-navy); margin-bottom: 0.5rem;">8. Review & Submit</h2>
+                    <p style="text-align: center; color: var(--color-text-dark); margin-bottom: 2rem;">Please verify your information before submitting.</p>
+                    
+                    <div class="review-section">
+                        <div class="review-item">
+                            <span class="review-label">Name</span>
+                            <span class="review-value" id="reviewName">John Doe</span>
+                        </div>
+                        <div class="review-item">
+                            <span class="review-label">Email</span>
+                            <span class="review-value" id="reviewEmail">john@example.com</span>
+                        </div>
+                        <div class="review-item">
+                            <span class="review-label">Business Type</span>
+                            <span class="review-value" id="reviewBusiness">Officially Registered Business</span>
+                        </div>
+                        <div class="review-item">
+                            <span class="review-label">Services</span>
+                            <span class="review-value" id="reviewServices">Standard, Residential</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="button-group">
+                    <button type="button" class="btn btn-secondary" onclick="prevStep()"><i class="fa-solid fa-arrow-left"></i> Back</button>
+                    <button type="submit" class="btn btn-primary" style="font-size: 1.1rem; padding: 1rem 2rem;"><i class="fa-solid fa-paper-plane" style="margin-right:8px;"></i> Submit Application</button>
+                </div>
+            </div>
+
+        </form>
+    </section>
+
+    <!-- Footer base -->
+    <footer class="footer">
+        <div class="footer-content">
+            <div class="footer-col">
+                <a href="index.html" class="logo" style="display:block; margin-bottom: 1rem;">
+                    <img src="LogoRedesign.png" alt="NeatlyLive Logo" style="height: 80px; width: auto;">
+                </a>
+                <p>Live Neatly.</p>
+            </div>
+            <div class="footer-col">
+                <h3>Quick Links</h3>
+                <ul style="padding:0;">
+                    <li><a href="about.html">About Us</a></li>
+                    <li><a href="services.html">Services</a></li>
+                    <li><a href="membership.html">Membership</a></li>
+                </ul>
+            </div>
+            <div class="footer-col">
+                <h3>Contact</h3>
+                <ul style="padding:0;">
+                    <li><a href="contact.html">Get in touch</a></li>
+                    <li>neatlylivesupport@gmail.com</li>
+                </ul>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2026 NeatlyLive. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script src="app.js"></script>
+    <script>
+        let currentStep = 1;
+        const totalSteps = 8;
+
+        function updateIndicators() {
+            const dots = document.querySelectorAll('.step-dot');
+            dots.forEach((dot, index) => {
+                if (index < currentStep) {
+                    dot.classList.add('active');
+                } else {
+                    dot.classList.remove('active');
+                }
+            });
+        }
+
+        function showStep(step) {
+            document.querySelectorAll('.wizard-step').forEach(el => el.classList.remove('active'));
+            document.getElementById(`step${step}`).classList.add('active');
+            updateIndicators();
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+            
+            if (step === 8) {
+                populateReview();
+            }
+        }
+
+        function nextStep() {
+            if (currentStep < totalSteps) {
+                currentStep++;
+                showStep(currentStep);
+            }
+        }
+
+        function prevStep() {
+            if (currentStep > 1) {
+                currentStep--;
+                showStep(currentStep);
+            }
+        }
+
+        function checkTermsScroll() {
+            const box = document.getElementById('termsBox');
+            const btn = document.getElementById('acceptTermsBtn');
+            
+            if (box.scrollHeight - box.scrollTop <= box.clientHeight + 5) {
+                btn.disabled = false;
+                box.classList.remove('highlight');
+                box.style.borderColor = 'var(--color-accent-mint)';
+            }
+        }
+
+        function toggleMiddleName() {
+            const noMiddle = document.getElementById('noMiddleName').checked;
+            const middleInput = document.getElementById('legalMiddle');
+            
+            if (noMiddle) {
+                middleInput.value = '';
+                middleInput.disabled = true;
+                middleInput.style.backgroundColor = '#f3f4f6';
+            } else {
+                middleInput.disabled = false;
+                middleInput.style.backgroundColor = '#ffffff';
+            }
+        }
+        
+        function populateReview() {
+            const first = document.getElementById('firstName').value || 'John';
+            const last = document.getElementById('lastName').value || 'Doe';
+            const email = document.getElementById('email').value || 'john@example.com';
+            
+            const radios = document.getElementsByName('businessStatus');
+            let business = 'Officially Registered Business';
+            for(let r of radios) {
+                if(r.checked && r.value === 'independent') business = 'Independent Operator';
+            }
+            
+            let services = [];
+            if(document.getElementsByName('service_standard')[0].checked) services.push('Standard');
+            if(document.getElementsByName('service_deep')[0].checked) services.push('Deep');
+            if(document.getElementsByName('service_residential')[0].checked) services.push('Residential');
+            
+            document.getElementById('reviewName').textContent = `${first} ${last}`;
+            document.getElementById('reviewEmail').textContent = email;
+            document.getElementById('reviewBusiness').textContent = business;
+            document.getElementById('reviewServices').textContent = services.length > 0 ? services.join(', ') : 'None selected';
+        }
+
+        function submitForm() {
+            alert('Application submitted successfully! NeatlyLive will get back to you ASAP with your eligibility results.');
+            window.location.href = 'index.html';
+        }
+    </script>
+</body>
+</html>
