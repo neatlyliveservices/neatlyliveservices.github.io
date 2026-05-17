@@ -5,9 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Booking & Checkout | NeatlyLive</title>
-    <link
-        href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;800&family=Open+Sans:wght@400;600&display=swap"
-        rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;800&family=Open+Sans:wght@400;600&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="index.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
@@ -16,11 +14,6 @@
             color: var(--color-bg-white);
             padding: 4rem 5%;
             text-align: center;
-        }
-
-        /* Plans Section */
-        .plans-container {
-            margin-bottom: 3rem;
         }
 
         .plans-grid {
@@ -86,19 +79,13 @@
             display: block;
         }
 
-        /* Form Layout */
         .checkout-layout {
-            display: grid;
-            grid-template-columns: 1fr;
-            gap: 3rem;
-            background: var(--color-bg-light);
+            background: var(--color-bg-white);
             padding: 3rem;
             border-radius: 12px;
             border: 1px solid #e5e7eb;
-        }
-
-        .form-section {
-            margin-bottom: 2rem;
+            max-width: 900px;
+            margin: 0 auto;
         }
 
         .form-section h3 {
@@ -142,13 +129,150 @@
             border-color: var(--color-accent-mint-dark);
         }
 
-        /* Payment Icons */
         .payment-icons {
             display: flex;
             gap: 0.5rem;
             color: #6b7280;
             font-size: 1.5rem;
             margin-bottom: 1rem;
+        }
+
+        /* Wizard Specific Styles */
+        .wizard-step {
+            display: none;
+            animation: fadeIn 0.4s ease-in-out;
+        }
+
+        .wizard-step.active {
+            display: block;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .step-indicator {
+            display: flex;
+            justify-content: center;
+            gap: 0.5rem;
+            margin-bottom: 2rem;
+        }
+
+        .step-dot {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            background: #d1d5db;
+            transition: all 0.3s ease;
+        }
+
+        .step-dot.active {
+            background: var(--color-accent-yellow);
+            transform: scale(1.2);
+        }
+
+        .terms-box {
+            height: 150px;
+            overflow-y: scroll;
+            border: 2px solid #e5e7eb;
+            padding: 1rem;
+            border-radius: 6px;
+            background: var(--color-bg-white);
+            font-size: 0.85rem;
+            color: var(--color-text-dark);
+            margin-bottom: 1rem;
+        }
+
+        .terms-box.highlight {
+            border-color: var(--color-primary-teal);
+            box-shadow: 0 0 10px rgba(0, 123, 161, 0.2);
+        }
+
+        .btn:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+
+        .btn-secondary {
+            background-color: transparent;
+            color: var(--color-primary-navy);
+            border: 2px solid var(--color-primary-navy);
+        }
+
+        .btn-secondary:hover {
+            background-color: rgba(36, 49, 96, 0.05);
+        }
+
+        .button-group {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 2rem;
+            gap: 1rem;
+        }
+        
+        .availability-grid {
+            display: grid;
+            grid-template-columns: repeat(7, 1fr);
+            gap: 0.5rem;
+            margin-bottom: 1rem;
+            overflow-x: auto;
+        }
+
+        .day-column {
+            text-align: center;
+            min-width: 80px;
+        }
+
+        .day-label {
+            font-weight: 600;
+            font-size: 0.8rem;
+            margin-bottom: 0.5rem;
+            color: var(--color-primary-navy);
+        }
+
+        .time-slot {
+            display: block;
+            background: #f3f4f6;
+            padding: 0.5rem;
+            margin-bottom: 0.5rem;
+            border-radius: 4px;
+            font-size: 0.8rem;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            border: 1px solid transparent;
+            user-select: none;
+        }
+
+        .time-slot:hover {
+            background: #e5e7eb;
+        }
+
+        .time-slot.selected {
+            background: rgba(16, 185, 129, 0.1);
+            border-color: var(--color-accent-mint);
+            color: var(--color-accent-mint-dark);
+            font-weight: 600;
+        }
+
+        .addon-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1rem;
+            background: var(--color-bg-white);
+            padding: 1.5rem;
+            border-radius: 8px;
+            border: 1px solid #d1d5db;
+        }
+        
+        .disclaimer-box {
+            background: rgba(16, 185, 129, 0.05);
+            border-left: 4px solid var(--color-accent-mint);
+            padding: 1rem;
+            margin-bottom: 1.5rem;
+            font-size: 0.9rem;
+            color: var(--color-text-dark);
+            border-radius: 4px;
         }
     </style>
 </head>
@@ -175,14 +299,24 @@
         <p style="font-size: 1.25rem; opacity: 0.9;">Join Neatly Loyal and finalize your booking.</p>
     </header>
 
-    <section class="container" style="max-width: 900px;">
-        <form action="#" id="bookingForm"
-            onsubmit="event.preventDefault(); alert('Booking successful! Welcome to Neatly Loyal.'); window.location.href='index.html';">
+    <section class="container" style="max-width: 1000px; padding-top: 2rem;">
+        
+        <!-- Step Indicators -->
+        <div class="step-indicator" id="stepIndicator">
+            <div class="step-dot active"></div>
+            <div class="step-dot"></div>
+            <div class="step-dot"></div>
+            <div class="step-dot"></div>
+            <div class="step-dot"></div>
+            <div class="step-dot"></div>
+        </div>
 
-            <div class="plans-container">
+        <form action="#" id="bookingForm" onsubmit="event.preventDefault(); submitForm();">
+            
+            <!-- Step 1: Plan Selection -->
+            <div class="wizard-step active" id="step1">
                 <h2 style="text-align:center;">1. Choose Your Neatly Loyal Plan</h2>
-                <p style="text-align:center; color: var(--color-text-dark);">Select the tier that matches your cleaning
-                    frequency needs.</p>
+                <p style="text-align:center; color: var(--color-text-dark);">Select the tier that matches your cleaning frequency needs.</p>
 
                 <div class="plans-grid">
                     <!-- One-Time Clean -->
@@ -191,14 +325,9 @@
                         <h3>One-Time Clean</h3>
                         <p>A single, comprehensive clean tailored exactly to your needs.</p>
                         <div class="price">$180-$400</div>
-                        <ul
-                            style="text-align: left; font-size: 0.9rem; margin-top: 1rem; list-style: none; padding: 0;">
-                            <li style="margin-bottom: 0.5rem;"><i class="fa-solid fa-check"
-                                    style="color:var(--color-accent-mint); margin-right: 8px;"></i> On-demand
-                                flexibility</li>
-                            <li><i class="fa-solid fa-check"
-                                    style="color:var(--color-accent-mint); margin-right: 8px;"></i> Custom add-ons
-                                available</li>
+                        <ul style="text-align: left; font-size: 0.9rem; margin-top: 1rem; list-style: none; padding: 0;">
+                            <li style="margin-bottom: 0.5rem;"><i class="fa-solid fa-check" style="color:var(--color-accent-mint); margin-right: 8px;"></i> On-demand flexibility</li>
+                            <li><i class="fa-solid fa-check" style="color:var(--color-accent-mint); margin-right: 8px;"></i> Custom add-ons available</li>
                         </ul>
                     </div>
 
@@ -207,16 +336,10 @@
                         <i class="fa-solid fa-circle-check select-indicator"></i>
                         <h3>NeatlyLive Essential</h3>
                         <p>Perfect for monthly maintenance or infrequent deep cleans.</p>
-                        <div class="price">$215<span style="font-size:1rem;font-weight:400;color:#6b7280;">/mo</span>
-                        </div>
-                        <ul
-                            style="text-align: left; font-size: 0.9rem; margin-top: 1rem; list-style: none; padding: 0;">
-                            <li style="margin-bottom: 0.5rem;"><i class="fa-solid fa-check"
-                                    style="color:var(--color-accent-mint); margin-right: 8px;"></i> Savings of 10% Off
-                            </li>
-                            <li><i class="fa-solid fa-check"
-                                    style="color:var(--color-accent-mint); margin-right: 8px;"></i> One Standard
-                                Cleaning Per Month + Priority Booking</li>
+                        <div class="price">$215<span style="font-size:1rem;font-weight:400;color:#6b7280;">/mo</span></div>
+                        <ul style="text-align: left; font-size: 0.9rem; margin-top: 1rem; list-style: none; padding: 0;">
+                            <li style="margin-bottom: 0.5rem;"><i class="fa-solid fa-check" style="color:var(--color-accent-mint); margin-right: 8px;"></i> Savings of 10% Off</li>
+                            <li><i class="fa-solid fa-check" style="color:var(--color-accent-mint); margin-right: 8px;"></i> One Standard Cleaning Per Month + Priority Booking</li>
                         </ul>
                     </div>
 
@@ -225,20 +348,11 @@
                         <i class="fa-solid fa-circle-check select-indicator"></i>
                         <h3>NeatlyLive Standard</h3>
                         <p>Our most popular tier. Consistent cleaning every one to two weeks.</p>
-                        <div class="price">$390<span style="font-size:1rem;font-weight:400;color:#6b7280;">/mo</span>
-                        </div>
-                        <ul
-                            style="text-align: left; font-size: 0.9rem; margin-top: 1rem; list-style: none; padding: 0;">
-                            <li style="margin-bottom: 0.5rem;"><i class="fa-solid fa-check"
-                                    style="color:var(--color-accent-mint); margin-right: 8px;"></i> Two Standard
-                                Cleanings Per Month
-                            </li>
-                            <li style="margin-bottom: 0.5rem;"><i class="fa-solid fa-check"
-                                    style="color:var(--color-accent-mint); margin-right: 8px;"></i> Savings of 15% Off
-                            </li>
-                            <li><i class="fa-solid fa-check"
-                                    style="color:var(--color-accent-mint); margin-right: 8px;"></i> Priority Booking
-                            </li>
+                        <div class="price">$390<span style="font-size:1rem;font-weight:400;color:#6b7280;">/mo</span></div>
+                        <ul style="text-align: left; font-size: 0.9rem; margin-top: 1rem; list-style: none; padding: 0;">
+                            <li style="margin-bottom: 0.5rem;"><i class="fa-solid fa-check" style="color:var(--color-accent-mint); margin-right: 8px;"></i> Two Standard Cleanings Per Month</li>
+                            <li style="margin-bottom: 0.5rem;"><i class="fa-solid fa-check" style="color:var(--color-accent-mint); margin-right: 8px;"></i> Savings of 15% Off</li>
+                            <li><i class="fa-solid fa-check" style="color:var(--color-accent-mint); margin-right: 8px;"></i> Priority Booking</li>
                         </ul>
                     </div>
 
@@ -247,29 +361,57 @@
                         <i class="fa-solid fa-circle-check select-indicator"></i>
                         <h3>NeatlyLive Pristine</h3>
                         <p>Maintain an immaculate home without lifting a single finger.</p>
-                        <div class="price">$735<span style="font-size:1rem;font-weight:400;color:#6b7280;">/mo</span>
-                        </div>
-                        <ul
-                            style="text-align: left; font-size: 0.9rem; margin-top: 1rem; list-style: none; padding: 0;">
-                            <li style="margin-bottom: 0.5rem;"><i class="fa-solid fa-check"
-                                    style="color:var(--color-accent-mint); margin-right: 8px;"></i> Weekly Cleanings
-                            </li>
-                            <li style="margin-bottom: 0.5rem;"><i class="fa-solid fa-check"
-                                    style="color:var(--color-accent-mint); margin-right: 8px;"></i> Dedicated Cleaner
-                            </li>
-                            <li><i class="fa-solid fa-check"
-                                    style="color:var(--color-accent-mint); margin-right: 8px;"></i> Savings of 20% Off
-                            </li>
+                        <div class="price">$735<span style="font-size:1rem;font-weight:400;color:#6b7280;">/mo</span></div>
+                        <ul style="text-align: left; font-size: 0.9rem; margin-top: 1rem; list-style: none; padding: 0;">
+                            <li style="margin-bottom: 0.5rem;"><i class="fa-solid fa-check" style="color:var(--color-accent-mint); margin-right: 8px;"></i> Weekly Cleanings</li>
+                            <li style="margin-bottom: 0.5rem;"><i class="fa-solid fa-check" style="color:var(--color-accent-mint); margin-right: 8px;"></i> Dedicated Cleaner</li>
+                            <li><i class="fa-solid fa-check" style="color:var(--color-accent-mint); margin-right: 8px;"></i> Savings of 20% Off</li>
                         </ul>
                     </div>
                 </div>
                 <input type="hidden" id="selectedPlan" name="selectedPlan" value="standard" required>
             </div>
 
-            <div class="checkout-layout">
-                <!-- Personal Info -->
+            <!-- Step 2: Location -->
+            <div class="wizard-step checkout-layout" id="step2">
                 <div class="form-section">
-                    <h3>2. Contact Information</h3>
+                    <h3>Service Location Details</h3>
+                    <p style="margin-bottom: 1.5rem; font-size: 0.95rem; color: var(--color-text-dark);">Please enter the address of the home you would like us to clean.</p>
+                    
+                    <div class="form-group">
+                        <label for="address">Street Address</label>
+                        <input type="text" id="address" class="form-control" placeholder="123 Clean St, Apt 4" required>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="city">City</label>
+                            <input type="text" id="city" class="form-control" placeholder="Seattle" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="state">State</label>
+                            <input type="text" id="state" class="form-control" placeholder="WA" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="zip">ZIP Code</label>
+                            <input type="text" id="zip" class="form-control" placeholder="98101" required>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="instructions">Preferred Service Instructions (Optional)</label>
+                        <textarea id="instructions" class="form-control" rows="2" placeholder="Gate codes, parking details, pet warnings..."></textarea>
+                    </div>
+
+                    <div class="button-group">
+                        <button type="button" class="btn btn-secondary" onclick="prevStep()"><i class="fa-solid fa-arrow-left"></i> Back</button>
+                        <button type="button" class="btn btn-primary" id="verifyAddressBtn" onclick="verifyAddress()"><i class="fa-solid fa-location-dot"></i> Verify Address & Continue</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Step 3: Contact, Banking & Terms -->
+            <div class="wizard-step checkout-layout" id="step3">
+                <div class="form-section">
+                    <h3>Contact Information</h3>
                     <div class="form-row">
                         <div class="form-group">
                             <label for="firstName">First Name</label>
@@ -292,106 +434,8 @@
                     </div>
                 </div>
 
-                <!-- Home Details & Add-ons -->
                 <div class="form-section">
-                    <h3>3. Home Details & Add-ons</h3>
-                    <div class="form-row">
-                        <div class="form-group">
-                            <label for="bedrooms">Bedrooms</label>
-                            <input type="number" id="bedrooms" class="form-control" min="1" max="10"
-                                placeholder="e.g. 3" required>
-                        </div>
-                        <div class="form-group">
-                            <label for="bathrooms">Bathrooms</label>
-                            <input type="number" id="bathrooms" class="form-control" min="1" max="10"
-                                placeholder="e.g. 2" required>
-                        </div>
-                        <div class="form-group">
-                            <label for="floors">Number of Floors</label>
-                            <input type="number" id="floors" class="form-control" min="1" max="5" placeholder="e.g. 2"
-                                required>
-                        </div>
-                    </div>
-
-                    <label
-                        style="display: block; margin-bottom: 0.5rem; font-weight: 600; color: var(--color-primary-navy); font-size: 0.9rem; margin-top: 1.5rem;">Select
-                        Add-ons</label>
-                    <div
-                        style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 1rem; background: var(--color-bg-white); padding: 1.5rem; border-radius: 8px; border: 1px solid #d1d5db;">
-
-                        <label style="display: flex; align-items: start; gap: 0.75rem; cursor: pointer;">
-                            <input type="checkbox" name="addon_organization" style="margin-top: 4px;">
-                            <div>
-                                <span
-                                    style="font-weight: 600; color: var(--color-text-dark); display: block;">Organization
-                                    Services ($60/hr)</span>
-                                <span style="font-size: 0.85rem; color: #6b7280;">Pantry, Refrigerator, or
-                                    General</span>
-                            </div>
-                        </label>
-
-                        <label style="display: flex; align-items: start; gap: 0.75rem; cursor: pointer;">
-                            <input type="checkbox" name="addon_laundry" style="margin-top: 4px;">
-                            <div>
-                                <span style="font-weight: 600; color: var(--color-text-dark); display: block;">Laundry
-                                    ($25/load)</span>
-                                <span style="font-size: 0.85rem; color: #6b7280;">Wash, dry, and fold</span>
-                            </div>
-                        </label>
-
-                        <label style="display: flex; align-items: start; gap: 0.75rem; cursor: pointer;">
-                            <input type="checkbox" name="addon_eco" style="margin-top: 4px;">
-                            <div>
-                                <span
-                                    style="font-weight: 600; color: var(--color-text-dark); display: block;">Eco-Friendly
-                                    Products ($15)</span>
-                                <span style="font-size: 0.85rem; color: #6b7280;">100% natural cleaning agents</span>
-                            </div>
-                        </label>
-
-                        <label style="display: flex; align-items: start; gap: 0.75rem; cursor: pointer;">
-                            <input type="checkbox" name="addon_windows" style="margin-top: 4px;">
-                            <div>
-                                <span style="font-weight: 600; color: var(--color-text-dark); display: block;">Interior
-                                    Windows ($30-$50)</span>
-                                <span style="font-size: 0.85rem; color: #6b7280;">Streak-free shine inside</span>
-                            </div>
-                        </label>
-
-                    </div>
-                </div>
-
-                <!-- Location Info -->
-                <div class="form-section">
-                    <h3>4. Service Location Details</h3>
-                    <div class="form-group">
-                        <label for="address">Street Address</label>
-                        <input type="text" id="address" class="form-control" placeholder="123 Clean St, Apt 4" required>
-                    </div>
-                    <div class="form-row">
-                        <div class="form-group">
-                            <label for="city">City</label>
-                            <input type="text" id="city" class="form-control" placeholder="Seattle" required>
-                        </div>
-                        <div class="form-group">
-                            <label for="state">State</label>
-                            <input type="text" id="state" class="form-control" placeholder="WA" required>
-                        </div>
-                        <div class="form-group">
-                            <label for="zip">ZIP Code</label>
-                            <input type="text" id="zip" class="form-control" placeholder="98101" required>
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <label for="instructions">Preferred Service Instructions</label>
-                        <textarea id="instructions" class="form-control" rows="3"
-                            placeholder="Gate codes, parking details, pet warnings, or specific cleaning focus areas..."></textarea>
-                    </div>
-                </div>
-
-                <!-- Payment Info -->
-                <div class="form-section">
-                    <h3>5. Payment Method</h3>
+                    <h3>Payment Method</h3>
                     <div class="payment-icons">
                         <i class="fa-brands fa-cc-visa"></i>
                         <i class="fa-brands fa-cc-mastercard"></i>
@@ -404,8 +448,7 @@
                     </div>
                     <div class="form-group">
                         <label for="cardNumber">Card Number</label>
-                        <input type="text" id="cardNumber" class="form-control" placeholder="0000 0000 0000 0000"
-                            required>
+                        <input type="text" id="cardNumber" class="form-control" placeholder="0000 0000 0000 0000" required>
                     </div>
                     <div class="form-row">
                         <div class="form-group">
@@ -423,14 +466,239 @@
                     </div>
                 </div>
 
-                <div style="text-align: center; margin-top: 1rem;">
-                    <button type="submit" class="btn btn-primary"
-                        style="font-size: 1.25rem; padding: 1rem 3rem; width: 100%;"><i class="fa-solid fa-lock"
-                            style="margin-right:8px;"></i> Complete Booking</button>
-                    <p style="font-size: 0.85rem; color: #6b7280; margin-top: 1rem;"><i
-                            class="fa-solid fa-shield-halved"></i> Your payment information is securely processed.</p>
+                <div class="form-section">
+                    <h3>Terms and Conditions</h3>
+                    <p style="font-size: 0.9rem; margin-bottom: 0.5rem;">Please read and scroll through the terms to continue.</p>
+                    <div class="terms-box highlight" id="termsBox" onscroll="checkTermsScroll()">
+                        <h4>1. Services Provided</h4>
+                        <p>NeatlyLive agrees to provide professional cleaning services as selected in the booking flow...</p>
+                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
+                        <br><br><br>
+                        <h4>2. Cancellations</h4>
+                        <p>Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.</p>
+                        <br><br><br>
+                        <h4>3. Liability</h4>
+                        <p>Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+                        <br><br><br>
+                        <h4>4. Payment</h4>
+                        <p>All payments are processed securely. Subscriptions are billed monthly based on your selected tier.</p>
+                        <br><br>
+                        <p><i>End of Terms and Conditions.</i></p>
+                    </div>
+                </div>
+
+                <div class="button-group">
+                    <button type="button" class="btn btn-secondary" onclick="prevStep()"><i class="fa-solid fa-arrow-left"></i> Back</button>
+                    <button type="button" class="btn btn-primary" id="acceptTermsBtn" onclick="nextStep()" disabled>Accept & Continue <i class="fa-solid fa-arrow-right"></i></button>
                 </div>
             </div>
+
+            <!-- Step 4: Background Check -->
+            <div class="wizard-step checkout-layout" id="step4">
+                <div class="form-section">
+                    <h3>Background Check Information</h3>
+                    
+                    <div class="disclaimer-box">
+                        <i class="fa-solid fa-circle-info" style="color: var(--color-accent-mint); margin-right: 5px;"></i>
+                        <strong>Notice:</strong> We perform background checks on our customers for the safety of our professional cleaners. 
+                        <br><br>
+                        <em>Disclaimer: We do not keep the background check information, we use it to determine your elegibility for access to professional cleaners.</em>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="legalFirst">Legal First Name</label>
+                            <input type="text" id="legalFirst" class="form-control" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="legalMiddle">Legal Middle Name</label>
+                            <input type="text" id="legalMiddle" class="form-control">
+                            <label style="display: flex; align-items: center; gap: 0.5rem; margin-top: 0.5rem; font-weight: 400; cursor: pointer;">
+                                <input type="checkbox" id="noMiddleName" onchange="toggleMiddleName()"> I don't have a middle name
+                            </label>
+                        </div>
+                        <div class="form-group">
+                            <label for="legalLast">Legal Last Name</label>
+                            <input type="text" id="legalLast" class="form-control" required>
+                        </div>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="ssn">Social Security Number</label>
+                            <input type="password" id="ssn" class="form-control" placeholder="XXX-XX-XXXX" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="dob">Date of Birth</label>
+                            <input type="date" id="dob" class="form-control" required>
+                        </div>
+                    </div>
+
+                    <div class="form-group" style="margin-top: 1.5rem;">
+                        <label>Identity Verification</label>
+                        <p style="font-size: 0.85rem; color: #6b7280; margin-bottom: 0.5rem;">Please upload your Driver's License, Passport, or State ID to verify your identity.</p>
+                        <div style="border: 2px dashed #d1d5db; padding: 2rem; text-align: center; border-radius: 6px; background: var(--color-bg-white);">
+                            <i class="fa-solid fa-id-card" style="font-size: 2rem; color: var(--color-primary-teal); margin-bottom: 1rem;"></i>
+                            <br>
+                            <input type="file" id="idUpload" accept="image/*,.pdf" style="margin: 0 auto; display: block;" required>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="button-group">
+                    <button type="button" class="btn btn-secondary" onclick="prevStep()"><i class="fa-solid fa-arrow-left"></i> Back</button>
+                    <button type="button" class="btn btn-primary" onclick="nextStep()">Securely Submit & Continue <i class="fa-solid fa-arrow-right"></i></button>
+                </div>
+            </div>
+
+            <!-- Step 5: Profile & Availability -->
+            <div class="wizard-step checkout-layout" id="step5">
+                <div class="form-section">
+                    <h3>Create Your Profile</h3>
+                    
+                    <div class="form-group">
+                        <label>Profile Photo</label>
+                        <div style="display: flex; align-items: center; gap: 1rem; margin-bottom: 1rem;">
+                            <div style="width: 80px; height: 80px; border-radius: 50%; background: #e5e7eb; display: flex; align-items: center; justify-content: center; overflow: hidden;" id="profilePreview">
+                                <i class="fa-solid fa-user" style="font-size: 2rem; color: #9ca3af;"></i>
+                            </div>
+                            <div>
+                                <input type="file" id="photoUpload" accept="image/*" style="margin-bottom: 0.5rem; display: block;">
+                                <label style="display: flex; align-items: center; gap: 0.5rem; font-weight: 400; cursor: pointer; font-size: 0.9rem;">
+                                    <input type="checkbox" id="useIdPhoto"> Use photo from my identification method
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="bio">Short Bio (max 200 characters)</label>
+                        <textarea id="bio" class="form-control" rows="3" maxlength="200" placeholder="Tell us a little bit about yourself!"></textarea>
+                    </div>
+                </div>
+
+                <div class="form-section">
+                    <h3>Your Availability</h3>
+                    <div class="disclaimer-box">
+                        <p style="margin:0;">The more availability you provide, the easier it will be to find you a perfect match. You do not have to be at home while our background-checked professionals perform work their craft.</p>
+                    </div>
+
+                    <p style="font-size: 0.9rem; font-weight: 600; margin-bottom: 1rem;">Select generally free times during the week:</p>
+                    <div class="availability-grid">
+                        <div class="day-column">
+                            <div class="day-label">Mon</div>
+                            <div class="time-slot" onclick="this.classList.toggle('selected')">Morning</div>
+                            <div class="time-slot" onclick="this.classList.toggle('selected')">Afternoon</div>
+                            <div class="time-slot" onclick="this.classList.toggle('selected')">Evening</div>
+                        </div>
+                        <div class="day-column">
+                            <div class="day-label">Tue</div>
+                            <div class="time-slot" onclick="this.classList.toggle('selected')">Morning</div>
+                            <div class="time-slot" onclick="this.classList.toggle('selected')">Afternoon</div>
+                            <div class="time-slot" onclick="this.classList.toggle('selected')">Evening</div>
+                        </div>
+                        <div class="day-column">
+                            <div class="day-label">Wed</div>
+                            <div class="time-slot" onclick="this.classList.toggle('selected')">Morning</div>
+                            <div class="time-slot" onclick="this.classList.toggle('selected')">Afternoon</div>
+                            <div class="time-slot" onclick="this.classList.toggle('selected')">Evening</div>
+                        </div>
+                        <div class="day-column">
+                            <div class="day-label">Thu</div>
+                            <div class="time-slot" onclick="this.classList.toggle('selected')">Morning</div>
+                            <div class="time-slot" onclick="this.classList.toggle('selected')">Afternoon</div>
+                            <div class="time-slot" onclick="this.classList.toggle('selected')">Evening</div>
+                        </div>
+                        <div class="day-column">
+                            <div class="day-label">Fri</div>
+                            <div class="time-slot" onclick="this.classList.toggle('selected')">Morning</div>
+                            <div class="time-slot" onclick="this.classList.toggle('selected')">Afternoon</div>
+                            <div class="time-slot" onclick="this.classList.toggle('selected')">Evening</div>
+                        </div>
+                        <div class="day-column">
+                            <div class="day-label">Sat</div>
+                            <div class="time-slot" onclick="this.classList.toggle('selected')">Morning</div>
+                            <div class="time-slot" onclick="this.classList.toggle('selected')">Afternoon</div>
+                            <div class="time-slot" onclick="this.classList.toggle('selected')">Evening</div>
+                        </div>
+                        <div class="day-column">
+                            <div class="day-label">Sun</div>
+                            <div class="time-slot" onclick="this.classList.toggle('selected')">Morning</div>
+                            <div class="time-slot" onclick="this.classList.toggle('selected')">Afternoon</div>
+                            <div class="time-slot" onclick="this.classList.toggle('selected')">Evening</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="button-group">
+                    <button type="button" class="btn btn-secondary" onclick="prevStep()"><i class="fa-solid fa-arrow-left"></i> Back</button>
+                    <button type="button" class="btn btn-primary" onclick="nextStep()">Continue <i class="fa-solid fa-arrow-right"></i></button>
+                </div>
+            </div>
+
+            <!-- Step 6: Add-ons & Home Details -->
+            <div class="wizard-step checkout-layout" id="step6">
+                <div class="form-section">
+                    <h3>Customize Your Cleaning</h3>
+                    <p style="margin-bottom: 1.5rem; font-size: 0.95rem; color: var(--color-text-dark);">Choose the type of add-ons you would like to have for each cleaning.</p>
+                    
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="bedrooms">Bedrooms</label>
+                            <input type="number" id="bedrooms" class="form-control" min="1" max="10" placeholder="e.g. 3" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="bathrooms">Bathrooms</label>
+                            <input type="number" id="bathrooms" class="form-control" min="1" max="10" placeholder="e.g. 2" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="floors">Number of Floors</label>
+                            <input type="number" id="floors" class="form-control" min="1" max="5" placeholder="e.g. 2" required>
+                        </div>
+                    </div>
+
+                    <label style="display: block; margin-bottom: 0.5rem; font-weight: 600; color: var(--color-primary-navy); font-size: 0.9rem; margin-top: 1.5rem;">Select Add-ons</label>
+                    <div class="addon-grid">
+                        <label style="display: flex; align-items: start; gap: 0.75rem; cursor: pointer;">
+                            <input type="checkbox" name="addon_organization" style="margin-top: 4px;">
+                            <div>
+                                <span style="font-weight: 600; color: var(--color-text-dark); display: block;">Organization Services ($60/hr)</span>
+                                <span style="font-size: 0.85rem; color: #6b7280;">Pantry, Refrigerator, or General</span>
+                            </div>
+                        </label>
+
+                        <label style="display: flex; align-items: start; gap: 0.75rem; cursor: pointer;">
+                            <input type="checkbox" name="addon_laundry" style="margin-top: 4px;">
+                            <div>
+                                <span style="font-weight: 600; color: var(--color-text-dark); display: block;">Laundry ($25/load)</span>
+                                <span style="font-size: 0.85rem; color: #6b7280;">Wash, dry, and fold</span>
+                            </div>
+                        </label>
+
+                        <label style="display: flex; align-items: start; gap: 0.75rem; cursor: pointer;">
+                            <input type="checkbox" name="addon_eco" style="margin-top: 4px;">
+                            <div>
+                                <span style="font-weight: 600; color: var(--color-text-dark); display: block;">Eco-Friendly Products ($15)</span>
+                                <span style="font-size: 0.85rem; color: #6b7280;">100% natural cleaning agents</span>
+                            </div>
+                        </label>
+
+                        <label style="display: flex; align-items: start; gap: 0.75rem; cursor: pointer;">
+                            <input type="checkbox" name="addon_windows" style="margin-top: 4px;">
+                            <div>
+                                <span style="font-weight: 600; color: var(--color-text-dark); display: block;">Interior Windows ($30-$50)</span>
+                                <span style="font-size: 0.85rem; color: #6b7280;">Streak-free shine inside</span>
+                            </div>
+                        </label>
+                    </div>
+                </div>
+
+                <div class="button-group">
+                    <button type="button" class="btn btn-secondary" onclick="prevStep()"><i class="fa-solid fa-arrow-left"></i> Back</button>
+                    <button type="submit" class="btn btn-primary" style="font-size: 1.1rem; padding: 1rem 2rem;"><i class="fa-solid fa-lock" style="margin-right:8px;"></i> Complete Booking</button>
+                </div>
+            </div>
+
         </form>
     </section>
 
@@ -466,6 +734,41 @@
 
     <script src="app.js"></script>
     <script>
+        let currentStep = 1;
+        const totalSteps = 6;
+
+        function updateIndicators() {
+            const dots = document.querySelectorAll('.step-dot');
+            dots.forEach((dot, index) => {
+                if (index < currentStep) {
+                    dot.classList.add('active');
+                } else {
+                    dot.classList.remove('active');
+                }
+            });
+        }
+
+        function showStep(step) {
+            document.querySelectorAll('.wizard-step').forEach(el => el.classList.remove('active'));
+            document.getElementById(`step${step}`).classList.add('active');
+            updateIndicators();
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        function nextStep() {
+            if (currentStep < totalSteps) {
+                currentStep++;
+                showStep(currentStep);
+            }
+        }
+
+        function prevStep() {
+            if (currentStep > 1) {
+                currentStep--;
+                showStep(currentStep);
+            }
+        }
+
         function selectPlan(planName, element) {
             // Remove active from all
             const cards = document.querySelectorAll('.plan-card');
@@ -476,6 +779,56 @@
 
             // Update hidden input
             document.getElementById('selectedPlan').value = planName;
+            
+            // Advance to next step automatically
+            setTimeout(() => {
+                nextStep();
+            }, 300);
+        }
+
+        function verifyAddress() {
+            const btn = document.getElementById('verifyAddressBtn');
+            const originalText = btn.innerHTML;
+            btn.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> Verifying...';
+            btn.disabled = true;
+            
+            // Simulate API verification delay
+            setTimeout(() => {
+                btn.innerHTML = originalText;
+                btn.disabled = false;
+                nextStep();
+            }, 1000);
+        }
+
+        function checkTermsScroll() {
+            const box = document.getElementById('termsBox');
+            const btn = document.getElementById('acceptTermsBtn');
+            
+            // Check if user has scrolled to the bottom (with a small 5px buffer for rounding issues)
+            if (box.scrollHeight - box.scrollTop <= box.clientHeight + 5) {
+                btn.disabled = false;
+                box.classList.remove('highlight');
+                box.style.borderColor = 'var(--color-accent-mint)';
+            }
+        }
+
+        function toggleMiddleName() {
+            const noMiddle = document.getElementById('noMiddleName').checked;
+            const middleInput = document.getElementById('legalMiddle');
+            
+            if (noMiddle) {
+                middleInput.value = '';
+                middleInput.disabled = true;
+                middleInput.style.backgroundColor = '#f3f4f6';
+            } else {
+                middleInput.disabled = false;
+                middleInput.style.backgroundColor = '#ffffff';
+            }
+        }
+
+        function submitForm() {
+            alert('Booking submitted successfully! Welcome to Neatly Loyal.');
+            window.location.href = 'index.html';
         }
     </script>
 </body>
