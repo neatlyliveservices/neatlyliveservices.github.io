@@ -115,12 +115,20 @@
         </div>
     </nav>
 
-    <header class="page-header">
-        <h1>Our Services</h1>
-        <p style="font-size: 1.25rem; opacity: 0.9;">Tailored cleaning solutions for your everyday needs.</p>
+    <header class="page-header" style="padding: 6rem 5%; background: linear-gradient(135deg, var(--color-primary-navy), #1a244d);">
+        <h1 style="font-size: 3.5rem; margin-bottom: 1.5rem;">Check Availability</h1>
+        <p style="font-size: 1.3rem; opacity: 0.9; margin-bottom: 3rem; font-weight: 400;">Enter your address or zip code to see our professional cleaning services near you.</p>
+        
+        <div class="hero-search-container" style="max-width: 700px;">
+            <input type="text" placeholder="Enter your home address or zip code" class="hero-search-input" id="zipInput" onkeypress="handleZipEnter(event)">
+            <button class="hero-search-btn" onclick="checkZip()">Check Availability</button>
+        </div>
+        
+        <p id="availabilityMsg" style="margin-top: 2rem; font-size: 1.1rem; font-weight: 600; display: none; color: var(--color-accent-mint);"></p>
     </header>
 
-    <section class="container">
+    <section class="container" id="servicesSection" style="display: none; opacity: 0; transition: opacity 0.5s ease; padding-top: 3rem;">
+        <h2 style="text-align: center; color: var(--color-primary-navy); margin-bottom: 2rem; font-size: 2rem;">Great news! We service your area.</h2>
         <div class="services-grid">
             <!-- Service 1 -->
             <div class="service-card">
@@ -226,6 +234,44 @@
     </footer>
 
     <script src="app.js"></script>
+    <script>
+        function checkZip() {
+            const input = document.getElementById('zipInput').value.trim();
+            const msg = document.getElementById('availabilityMsg');
+            const section = document.getElementById('servicesSection');
+            
+            if (input.length < 5) {
+                msg.style.display = 'block';
+                msg.style.color = '#ff6b6b'; 
+                msg.textContent = 'Please enter a valid address or zip code.';
+                section.style.display = 'none';
+                section.style.opacity = '0';
+                return;
+            }
+            
+            // Simulate checking
+            msg.style.display = 'block';
+            msg.style.color = 'var(--color-accent-mint)';
+            msg.textContent = 'Checking availability...';
+            
+            setTimeout(() => {
+                msg.style.display = 'none';
+                section.style.display = 'block';
+                // Trigger reflow for fade in
+                void section.offsetWidth;
+                section.style.opacity = '1';
+                
+                // Scroll down to services
+                section.scrollIntoView({ behavior: 'smooth', block: 'start' });
+            }, 800);
+        }
+
+        function handleZipEnter(e) {
+            if (e.key === 'Enter') {
+                checkZip();
+            }
+        }
+    </script>
 </body>
 
 </html>
