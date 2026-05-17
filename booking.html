@@ -526,10 +526,10 @@
             <!-- Step 2: Savings Summary -->
             <div class="wizard-step checkout-layout" id="step2">
                 <div class="form-section">
-                    <h2 style="text-align:center; color: var(--color-primary-teal); margin-bottom: 0.5rem;">Your Neatly Loyal Savings</h2>
-                    <p style="text-align:center; color: var(--color-text-dark); margin-bottom: 2rem;">See how much you save compared to average market rates.</p>
+                    <h2 id="savings-title" style="text-align:center; color: var(--color-primary-teal); margin-bottom: 0.5rem;">Your Neatly Loyal Savings</h2>
+                    <p id="savings-subtitle" style="text-align:center; color: var(--color-text-dark); margin-bottom: 2rem;">See how much you save compared to average market rates.</p>
 
-                    <div style="background: #f9fafb; border-radius: 8px; padding: 1.5rem; border: 1px solid #e5e7eb; margin-bottom: 1.5rem;">
+                    <div id="market-cost-comparison" style="background: #f9fafb; border-radius: 8px; padding: 1.5rem; border: 1px solid #e5e7eb; margin-bottom: 1.5rem;">
                         <h4 style="margin-bottom: 1rem; color: var(--color-primary-navy);">Highest Seattle Market Cost for Your Home</h4>
                         <div style="display: flex; justify-content: space-between; margin-bottom: 0.5rem; color: #4b5563;">
                             <span>Highest Standard Clean:</span>
@@ -545,7 +545,7 @@
                         </div>
                     </div>
 
-                    <div class="savings-box">
+                    <div id="loyal-rate-box" class="savings-box">
                         <h3 style="color: var(--color-primary-navy); font-size: 1.5rem; margin-bottom: 0.5rem;">Your Neatly Loyal Rate</h3>
                         <div id="savings-loyal-rate" style="font-size: 2.5rem; font-weight: 800; color: var(--color-accent-mint-dark); margin-bottom: 0.5rem;">--</div>
                         <div style="font-size: 1.1rem; font-weight: 600; color: var(--color-primary-teal);">
@@ -1180,11 +1180,27 @@
             document.getElementById('savings-standard-cost').textContent = format(seattleHighStandard) + ' /visit';
             document.getElementById('savings-deep-cost').textContent = format(seattleHighDeep) + ' /visit';
             
+            const savingsTitle = document.getElementById('savings-title');
+            const savingsSubtitle = document.getElementById('savings-subtitle');
+            const marketComparisonBox = document.getElementById('market-cost-comparison');
+            const loyalRateBox = document.getElementById('loyal-rate-box');
+
             if (selectedPlan === 'one-time') {
+                savingsTitle.textContent = "NeatlyLive Benefits";
+                savingsSubtitle.textContent = "Experience the peace of mind that comes with a NeatlyLive standard of clean.";
+                marketComparisonBox.style.display = 'none';
+                loyalRateBox.style.display = 'none';
+                
+                // Keep these for background logic just in case
                 document.getElementById('savings-market-cost').textContent = format(seattleHighStandard);
                 document.getElementById('savings-loyal-rate').textContent = format(selectedPrice);
                 document.getElementById('savings-total-saved').textContent = '$0.00';
             } else {
+                savingsTitle.textContent = "Your Neatly Loyal Savings";
+                savingsSubtitle.textContent = "See how much you save compared to average market rates.";
+                marketComparisonBox.style.display = 'block';
+                loyalRateBox.style.display = 'block';
+
                 document.getElementById('savings-market-cost').textContent = format(totalMarketCost) + ' /mo';
                 document.getElementById('savings-loyal-rate').textContent = format(selectedPrice) + ' /mo';
                 document.getElementById('savings-total-saved').textContent = format(savings > 0 ? savings : 0) + ' /mo!';
