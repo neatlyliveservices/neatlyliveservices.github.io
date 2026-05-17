@@ -174,6 +174,59 @@
             to { opacity: 1; transform: translateY(0); }
         }
 
+        .strike-through-container {
+            position: relative;
+            display: inline-block;
+        }
+
+        .strike-through-container::after {
+            content: '';
+            position: absolute;
+            left: -5%;
+            top: 50%;
+            width: 110%;
+            height: 3px;
+            background-color: #ef4444;
+            transform: translateY(-50%) rotate(-10deg);
+            transform-origin: left center;
+            animation: strike 0.6s ease-out forwards;
+            opacity: 0;
+        }
+
+        @keyframes strike {
+            0% { width: 0; opacity: 1; }
+            100% { width: 110%; opacity: 1; }
+        }
+        
+        .savings-box {
+            background: rgba(16, 185, 129, 0.1);
+            border: 2px solid var(--color-accent-mint);
+            border-radius: 8px;
+            padding: 1.5rem;
+            text-align: center;
+            margin-top: 1.5rem;
+        }
+        
+        .benefits-list {
+            margin-top: 2rem;
+            text-align: left;
+            list-style: none;
+            padding: 0;
+        }
+        
+        .benefits-list li {
+            margin-bottom: 1rem;
+            font-size: 1.05rem;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .benefits-list li i {
+            color: var(--color-accent-mint);
+            font-size: 1.2rem;
+        }
+
         .step-indicator {
             display: flex;
             justify-content: center;
@@ -331,6 +384,7 @@
             <div class="step-dot"></div>
             <div class="step-dot"></div>
             <div class="step-dot"></div>
+            <div class="step-dot"></div>
         </div>
 
         <form action="#" id="bookingForm" onsubmit="event.preventDefault(); submitForm();">
@@ -339,6 +393,31 @@
             <div class="wizard-step active" id="step1">
                 <h2 style="text-align:center;">1. Choose Your Neatly Loyal Plan</h2>
                 <p style="text-align:center; color: var(--color-text-dark);">Select the tier that matches your cleaning frequency needs.</p>
+
+                <div class="checkout-layout" style="margin-top: 2rem; margin-bottom: 2rem; padding: 2rem;">
+                    <h3 style="border-bottom: 2px solid #e5e7eb; padding-bottom: 0.5rem; color: var(--color-primary-teal); margin-bottom: 1.5rem;">Tell Us About Your Home</h3>
+                    <p style="margin-bottom: 1.5rem; font-size: 0.95rem; color: var(--color-text-dark);">Your pricing is dynamically calculated based on the size and details of your space.</p>
+                    
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="homeSqft">Square Footage</label>
+                            <input type="number" id="homeSqft" class="form-control" placeholder="e.g. 1500" value="1500" oninput="calculatePricing()" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="homeBeds">Bedrooms</label>
+                            <input type="number" id="homeBeds" class="form-control" placeholder="e.g. 3" value="3" oninput="calculatePricing()" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="homeBaths">Bathrooms</label>
+                            <input type="number" id="homeBaths" class="form-control" placeholder="e.g. 2.5" step="0.5" value="2.5" oninput="calculatePricing()" required>
+                        </div>
+                    </div>
+                    <div class="form-group" style="margin-bottom: 0;">
+                        <label style="display: flex; align-items: center; gap: 0.5rem; font-weight: 600; cursor: pointer;">
+                            <input type="checkbox" id="homePets" onchange="calculatePricing()"> I have indoor pets (dogs, cats, etc.)
+                        </label>
+                    </div>
+                </div>
 
                 <div class="plans-grid">
                     <!-- One-Time Clean -->
@@ -352,41 +431,40 @@
                             </ul>
                         </div>
                         <div class="plan-price-section" style="text-align: right; margin-right: 3rem;">
-                            <div class="price" style="font-size: 1.8rem; font-weight: 800; color: var(--color-accent-mint-dark);">$180-$400</div>
-                        </div>
-                        <i class="fa-solid fa-circle-check select-indicator"></i>
-                    </div>
-
-                    <!-- Essential Plan -->
-                    <div class="plan-card" onclick="selectPlan('essential', this)">
-                        <div class="plan-info">
-                            <h3 style="margin-bottom: 0.5rem;">NeatlyLive Essential</h3>
-                            <p style="margin-bottom: 0.5rem; font-size: 0.95rem; color: var(--color-text-dark);">Perfect for monthly maintenance or infrequent deep cleans.</p>
-                            <ul style="font-size: 0.85rem; list-style: none; padding: 0; display: flex; gap: 1rem; flex-wrap: wrap;">
-                                <li><i class="fa-solid fa-check" style="color:var(--color-accent-mint); margin-right: 4px;"></i> 1 Cleaning/Mo</li>
-                                <li><i class="fa-solid fa-check" style="color:var(--color-accent-mint); margin-right: 4px;"></i> 10% Off</li>
-                                <li><i class="fa-solid fa-check" style="color:var(--color-accent-mint); margin-right: 4px;"></i> Priority Booking</li>
-                            </ul>
-                        </div>
-                        <div class="plan-price-section" style="text-align: right; margin-right: 3rem;">
-                            <div class="price" style="font-size: 1.8rem; font-weight: 800; color: var(--color-accent-mint-dark);">$215<span style="font-size:1rem;font-weight:400;color:#6b7280;">/mo</span></div>
+                            <div class="price" id="price-onetime" style="font-size: 1.8rem; font-weight: 800; color: var(--color-accent-mint-dark);">--</div>
                         </div>
                         <i class="fa-solid fa-circle-check select-indicator"></i>
                     </div>
 
                     <!-- Standard Plan -->
-                    <div class="plan-card active" onclick="selectPlan('standard', this)">
+                    <div class="plan-card" onclick="selectPlan('standard', this)">
                         <div class="plan-info">
                             <h3 style="margin-bottom: 0.5rem;">NeatlyLive Standard</h3>
-                            <p style="margin-bottom: 0.5rem; font-size: 0.95rem; color: var(--color-text-dark);">Our most popular tier. Consistent cleaning every one to two weeks.</p>
+                            <p style="margin-bottom: 0.5rem; font-size: 0.95rem; color: var(--color-text-dark);">Perfect for bi-weekly maintenance or infrequent deep cleans.</p>
                             <ul style="font-size: 0.85rem; list-style: none; padding: 0; display: flex; gap: 1rem; flex-wrap: wrap;">
                                 <li><i class="fa-solid fa-check" style="color:var(--color-accent-mint); margin-right: 4px;"></i> 2 Cleanings/Mo</li>
-                                <li><i class="fa-solid fa-check" style="color:var(--color-accent-mint); margin-right: 4px;"></i> 15% Off</li>
                                 <li><i class="fa-solid fa-check" style="color:var(--color-accent-mint); margin-right: 4px;"></i> Priority Booking</li>
                             </ul>
                         </div>
                         <div class="plan-price-section" style="text-align: right; margin-right: 3rem;">
-                            <div class="price" style="font-size: 1.8rem; font-weight: 800; color: var(--color-accent-mint-dark);">$390<span style="font-size:1rem;font-weight:400;color:#6b7280;">/mo</span></div>
+                            <div class="price" id="price-standard" style="font-size: 1.8rem; font-weight: 800; color: var(--color-accent-mint-dark);">--</div>
+                        </div>
+                        <i class="fa-solid fa-circle-check select-indicator"></i>
+                    </div>
+
+                    <!-- Loyal Plan -->
+                    <div class="plan-card active" onclick="selectPlan('loyal', this)">
+                        <div class="plan-info">
+                            <h3 style="margin-bottom: 0.5rem;">NeatlyLive Loyal</h3>
+                            <p style="margin-bottom: 0.5rem; font-size: 0.95rem; color: var(--color-text-dark);">Our most popular tier. Consistent full top-to-bottom clean every week.</p>
+                            <ul style="font-size: 0.85rem; list-style: none; padding: 0; display: flex; gap: 1rem; flex-wrap: wrap;">
+                                <li><i class="fa-solid fa-check" style="color:var(--color-accent-mint); margin-right: 4px;"></i> 4 Cleanings/Mo</li>
+                                <li><i class="fa-solid fa-check" style="color:var(--color-accent-mint); margin-right: 4px;"></i> 10% Volume Discount</li>
+                                <li><i class="fa-solid fa-check" style="color:var(--color-accent-mint); margin-right: 4px;"></i> Priority Booking</li>
+                            </ul>
+                        </div>
+                        <div class="plan-price-section" style="text-align: right; margin-right: 3rem;">
+                            <div class="price" id="price-loyal" style="font-size: 1.8rem; font-weight: 800; color: var(--color-accent-mint-dark);">--</div>
                         </div>
                         <i class="fa-solid fa-circle-check select-indicator"></i>
                     </div>
@@ -403,20 +481,69 @@
                             </ul>
                         </div>
                         <div class="plan-price-section" style="text-align: right; margin-right: 3rem;">
-                            <div class="price" style="font-size: 1.8rem; font-weight: 800; color: var(--color-accent-mint-dark);">$735<span style="font-size:1rem;font-weight:400;color:#6b7280;">/mo</span></div>
+                            <div class="price" id="price-pristine" style="font-size: 1.8rem; font-weight: 800; color: var(--color-accent-mint-dark);">--</div>
                         </div>
                         <i class="fa-solid fa-circle-check select-indicator"></i>
                     </div>
                 </div>
-                <input type="hidden" id="selectedPlan" name="selectedPlan" value="standard" required>
+                <input type="hidden" id="selectedPlan" name="selectedPlan" value="loyal" required>
                 
+                <div style="margin-bottom: 2rem; padding: 1rem; background: #f9fafb; border-radius: 8px; border: 1px solid #e5e7eb; font-size: 0.9rem; color: #4b5563;">
+                    <i class="fa-solid fa-circle-info" style="color: var(--color-accent-mint); margin-right: 5px;"></i>
+                    <strong>Initial Reset Fee:</strong> If your home hasn't been professionally cleaned in the last 30 days, your very first visit will include a one-time surcharge (75% of your base cost) to account for the extra time required for the initial deep clean reset.
+                </div>
+
                 <div class="button-group" style="justify-content: flex-end;">
                     <button type="button" class="btn btn-primary" onclick="nextStep()">Next Step <i class="fa-solid fa-arrow-right"></i></button>
                 </div>
             </div>
 
-            <!-- Step 2: Location -->
+            <!-- Step 2: Savings Summary -->
             <div class="wizard-step checkout-layout" id="step2">
+                <div class="form-section">
+                    <h2 style="text-align:center; color: var(--color-primary-teal); margin-bottom: 0.5rem;">Your Neatly Loyal Savings</h2>
+                    <p style="text-align:center; color: var(--color-text-dark); margin-bottom: 2rem;">See how much you save compared to average market rates.</p>
+
+                    <div style="background: #f9fafb; border-radius: 8px; padding: 1.5rem; border: 1px solid #e5e7eb; margin-bottom: 1.5rem;">
+                        <h4 style="margin-bottom: 1rem; color: var(--color-primary-navy);">Estimated Market Cost for Your Home</h4>
+                        <div style="display: flex; justify-content: space-between; margin-bottom: 0.5rem; color: #4b5563;">
+                            <span>Average Standard Clean:</span>
+                            <span id="savings-standard-cost" style="font-weight: 600;">--</span>
+                        </div>
+                        <div style="display: flex; justify-content: space-between; margin-bottom: 1rem; color: #4b5563;">
+                            <span>Average Deep Clean (Initial):</span>
+                            <span id="savings-deep-cost" style="font-weight: 600;">--</span>
+                        </div>
+                        <div style="border-top: 1px solid #d1d5db; padding-top: 1rem; display: flex; justify-content: space-between; font-size: 1.2rem; font-weight: 800; color: var(--color-text-dark);">
+                            <span>Total Market Cost:</span>
+                            <span class="strike-through-container" id="savings-market-cost">--</span>
+                        </div>
+                    </div>
+
+                    <div class="savings-box">
+                        <h3 style="color: var(--color-primary-navy); font-size: 1.5rem; margin-bottom: 0.5rem;">Your Neatly Loyal Rate</h3>
+                        <div id="savings-loyal-rate" style="font-size: 2.5rem; font-weight: 800; color: var(--color-accent-mint-dark); margin-bottom: 0.5rem;">--</div>
+                        <div style="font-size: 1.1rem; font-weight: 600; color: var(--color-primary-teal);">
+                            You Save: <span id="savings-total-saved">--</span>
+                        </div>
+                    </div>
+
+                    <ul class="benefits-list">
+                        <li><i class="fa-solid fa-circle-check"></i> (A) Lock in exclusive volume discounts on every clean.</li>
+                        <li><i class="fa-solid fa-circle-check"></i> (B) Priority scheduling and dedicated customer support.</li>
+                        <li><i class="fa-solid fa-circle-check"></i> (C) Trust in licensed, background-checked professionals.</li>
+                        <li><i class="fa-solid fa-circle-check"></i> (D) A consistently immaculate home without lifting a finger.</li>
+                    </ul>
+
+                    <div class="button-group">
+                        <button type="button" class="btn btn-secondary" onclick="prevStep()"><i class="fa-solid fa-arrow-left"></i> Back</button>
+                        <button type="button" class="btn btn-primary" onclick="nextStep()">Continue to Details <i class="fa-solid fa-arrow-right"></i></button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Step 3: Location -->
+            <div class="wizard-step checkout-layout" id="step3">
                 <div class="form-section">
                     <h3>Service Location Details</h3>
                     <p style="margin-bottom: 1.5rem; font-size: 0.95rem; color: var(--color-text-dark);">Please enter the address of the home you would like us to clean.</p>
@@ -451,8 +578,8 @@
                 </div>
             </div>
 
-            <!-- Step 3: Contact, Banking & Terms -->
-            <div class="wizard-step checkout-layout" id="step3">
+            <!-- Step 4: Contact, Banking & Terms -->
+            <div class="wizard-step checkout-layout" id="step4">
                 <div class="form-section">
                     <h3>Contact Information</h3>
                     <div class="form-row">
@@ -579,8 +706,8 @@
                 </div>
             </div>
 
-            <!-- Step 4: Background Check -->
-            <div class="wizard-step checkout-layout" id="step4">
+            <!-- Step 5: Background Check -->
+            <div class="wizard-step checkout-layout" id="step5">
                 <div class="form-section">
                     <h3>Background Check Information</h3>
                     
@@ -637,8 +764,8 @@
                 </div>
             </div>
 
-            <!-- Step 5: Profile & Availability -->
-            <div class="wizard-step checkout-layout" id="step5">
+            <!-- Step 6: Profile & Availability -->
+            <div class="wizard-step checkout-layout" id="step6">
                 <div class="form-section">
                     <h3>Create Your Profile</h3>
                     
@@ -722,8 +849,8 @@
                 </div>
             </div>
 
-            <!-- Step 6: Add-ons & Home Details -->
-            <div class="wizard-step checkout-layout" id="step6">
+            <!-- Step 7: Add-ons & Home Details -->
+            <div class="wizard-step checkout-layout" id="step7">
                 <div class="form-section">
                     <h3>Customize Your Cleaning</h3>
                     <p style="margin-bottom: 1.5rem; font-size: 0.95rem; color: var(--color-text-dark);">Choose the type of add-ons you would like to have for each cleaning.</p>
@@ -821,7 +948,7 @@
     <script src="app.js"></script>
     <script>
         let currentStep = 1;
-        const totalSteps = 6;
+        const totalSteps = 7;
 
         function updateIndicators() {
             const dots = document.querySelectorAll('.step-dot');
@@ -911,6 +1038,70 @@
             alert('Booking submitted successfully! Welcome to Neatly Loyal.');
             window.location.href = 'index.html';
         }
+
+        function calculatePricing() {
+            const sqft = parseFloat(document.getElementById('homeSqft').value) || 0;
+            const beds = parseFloat(document.getElementById('homeBeds').value) || 0;
+            const baths = parseFloat(document.getElementById('homeBaths').value) || 0;
+            const hasPets = document.getElementById('homePets').checked;
+
+            // Base Cost Formula
+            const baseCost = (sqft * 0.10) + (beds * 25) + (baths * 45);
+            
+            // Pet Fees
+            const standardPetFee = hasPets ? 25 : 0;
+            const premiumPetFee = hasPets ? 50 : 0;
+
+            // Tiers
+            const priceOneTime = baseCost;
+            const priceStandard = (baseCost * 2 * 1.05) + standardPetFee; // 2 visits
+            const priceLoyal = (baseCost * 4 * 0.90) + premiumPetFee; // 4 visits
+            const pricePristine = (baseCost * 4 * 0.90) + 400 + premiumPetFee; // 4 visits + Housekeeping
+
+            // Format Currency
+            const format = (num) => '$' + num.toLocaleString('en-US', {minimumFractionDigits: 2, maximumFractionDigits: 2});
+
+            document.getElementById('price-onetime').innerHTML = format(priceOneTime);
+            document.getElementById('price-standard').innerHTML = format(priceStandard) + '<span style="font-size:1rem;font-weight:400;color:#6b7280;">/mo</span>';
+            document.getElementById('price-loyal').innerHTML = format(priceLoyal) + '<span style="font-size:1rem;font-weight:400;color:#6b7280;">/mo</span>';
+            document.getElementById('price-pristine').innerHTML = format(pricePristine) + '<span style="font-size:1rem;font-weight:400;color:#6b7280;">/mo</span>';
+
+            // --- Savings Summary Update ---
+            const selectedPlan = document.getElementById('selectedPlan').value;
+            let selectedVisits = 1;
+            let selectedPrice = priceOneTime;
+            
+            if (selectedPlan === 'standard') {
+                selectedVisits = 2;
+                selectedPrice = priceStandard;
+            } else if (selectedPlan === 'loyal') {
+                selectedVisits = 4;
+                selectedPrice = priceLoyal;
+            } else if (selectedPlan === 'pristine') {
+                selectedVisits = 4;
+                selectedPrice = pricePristine;
+            }
+
+            const deepCost = baseCost * 1.75;
+            const totalMarketCost = (baseCost * selectedVisits); // If they were to pay base market rate each time
+            const savings = totalMarketCost - selectedPrice;
+
+            document.getElementById('savings-standard-cost').textContent = format(baseCost) + ' /visit';
+            document.getElementById('savings-deep-cost').textContent = format(deepCost) + ' /visit';
+            
+            if (selectedPlan === 'one-time') {
+                document.getElementById('savings-market-cost').textContent = format(baseCost);
+                document.getElementById('savings-loyal-rate').textContent = format(selectedPrice);
+                document.getElementById('savings-total-saved').textContent = '$0.00';
+            } else {
+                document.getElementById('savings-market-cost').textContent = format(totalMarketCost) + ' /mo';
+                document.getElementById('savings-loyal-rate').textContent = format(selectedPrice) + ' /mo';
+                document.getElementById('savings-total-saved').textContent = format(savings > 0 ? savings : 0) + ' /mo!';
+            }
+        }
+
+        // Initialize pricing on load
+        calculatePricing();
     </script>
 </body>
 
