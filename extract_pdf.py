@@ -1,6 +1,6 @@
 import PyPDF2
 try:
-    with open('NeatlyLive_Terms_and_Conditions.pdf', 'rb') as file:
+    with open('NeatlyLive_Provider_Agreement.pdf', 'rb') as file:
         reader = PyPDF2.PdfReader(file)
         text = ""
         for page in reader.pages:
