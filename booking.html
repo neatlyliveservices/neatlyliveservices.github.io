@@ -364,7 +364,7 @@
             <a href="index.html">Home</a>
             <a href="about.html">About Us</a>
             <a href="services.html">Services</a>
-            <a href="membership.html">Membership</a>
+            <a href="membership.html">Sign In / Sign Up</a>
             <a href="contact.html">Contact Us</a>
         </div>
     </nav>
@@ -1138,7 +1138,16 @@
         }
 
         // Initialize pricing on load
-        calculatePricing();
+        window.onload = function() {
+            const params = new URLSearchParams(window.location.search);
+            if (params.has('sqft')) document.getElementById('homeSqft').value = params.get('sqft');
+            if (params.has('beds')) document.getElementById('homeBeds').value = params.get('beds');
+            if (params.has('baths')) document.getElementById('homeBaths').value = params.get('baths');
+            if (params.has('floors')) document.getElementById('floors').value = params.get('floors');
+            if (params.has('pets') && params.get('pets') === 'true') document.getElementById('homePets').checked = true;
+            
+            calculatePricing();
+        };
     </script>
 </body>
 
