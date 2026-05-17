@@ -1,9 +1,9 @@
 :root {
   /* Color Palette */
-  --color-primary-navy: #00568c;
-  --color-primary-teal: #007ba1;
-  --color-accent-mint: #00b08b;
-  --color-accent-mint-dark: #008f71;
+  --color-primary-navy: #243160;
+  --color-primary-teal: #3a508b;
+  --color-accent-mint: #10b981;
+  --color-accent-mint-dark: #059669;
   
   --color-text-dark: #1f2937;
   --color-text-light: #f3f4f6;
