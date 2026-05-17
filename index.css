@@ -10,6 +10,7 @@
   --color-text-light: #f3f4f6;
   --color-bg-white: #ffffff;
   --color-bg-light: #f9fafb;
+  --color-bg-main: #fff9e6;
 
   --font-primary: 'Montserrat', sans-serif;
   --font-secondary: 'Open Sans', sans-serif;
@@ -38,7 +39,7 @@ html {
 body {
   font-family: var(--font-secondary);
   color: var(--color-text-dark);
-  background-color: var(--color-bg-white);
+  background-color: var(--color-bg-main);
   line-height: 1.6;
 }
 
