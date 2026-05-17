@@ -487,10 +487,11 @@
                     </div>
                 </div>
                 <input type="hidden" id="selectedPlan" name="selectedPlan" value="loyal" required>
+                <input type="hidden" id="maxAllowedHours" name="maxAllowedHours" value="">
                 
                 <div style="margin-bottom: 2rem; padding: 1rem; background: #f9fafb; border-radius: 8px; border: 1px solid #e5e7eb; font-size: 0.9rem; color: #4b5563;">
                     <i class="fa-solid fa-circle-info" style="color: var(--color-accent-mint); margin-right: 5px;"></i>
-                    <strong>Initial Reset Fee:</strong> If your home hasn't been professionally cleaned in the last 30 days, your very first visit will include a one-time surcharge (75% of your base cost) to account for the extra time required for the initial deep clean reset.
+                    <strong>Initial Reset Fee:</strong> If your home hasn't been professionally cleaned in the last 30 days, your very first visit will include a one-time surcharge of <strong id="initial-reset-fee-amount" style="color: var(--color-primary-navy);">--</strong> to account for the extra time required for the initial deep clean reset.
                 </div>
 
                 <div class="button-group" style="justify-content: flex-end;">
@@ -1048,6 +1049,13 @@
             // Base Cost Formula
             const baseCost = (sqft * 0.10) + (beds * 25) + (baths * 45);
             
+            // Initial Reset Fee Calculation
+            const initialResetFee = baseCost * 0.75;
+            
+            // Contractor Split Guard (Target rate: $50/hr)
+            const targetRate = 50;
+            const maxAllowedHours = (baseCost * 0.70) / targetRate;
+            
             // Pet Fees
             const standardPetFee = hasPets ? 25 : 0;
             const premiumPetFee = hasPets ? 50 : 0;
@@ -1061,6 +1069,9 @@
             // Format Currency
             const format = (num) => '$' + num.toLocaleString('en-US', {minimumFractionDigits: 2, maximumFractionDigits: 2});
 
+            // Update UI & Hidden Fields
+            document.getElementById('initial-reset-fee-amount').textContent = format(initialResetFee);
+            document.getElementById('maxAllowedHours').value = maxAllowedHours.toFixed(2);
             document.getElementById('price-onetime').innerHTML = format(priceOneTime);
             document.getElementById('price-standard').innerHTML = format(priceStandard) + '<span style="font-size:1rem;font-weight:400;color:#6b7280;">/mo</span>';
             document.getElementById('price-loyal').innerHTML = format(priceLoyal) + '<span style="font-size:1rem;font-weight:400;color:#6b7280;">/mo</span>';
