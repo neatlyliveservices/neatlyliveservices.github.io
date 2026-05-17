@@ -1,10 +1,13 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Membership | NeatlyLive</title>
-    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;800&family=Open+Sans:wght@400;600&display=swap" rel="stylesheet">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;800&family=Open+Sans:wght@400;600&display=swap"
+        rel="stylesheet">
     <link rel="stylesheet" href="index.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
@@ -14,11 +17,13 @@
             padding: 4rem 5%;
             text-align: center;
         }
+
         .page-header h1 {
             color: var(--color-bg-white);
             font-size: 3rem;
             margin-bottom: 1rem;
         }
+
         .pricing-section {
             display: flex;
             justify-content: center;
@@ -26,30 +31,35 @@
             flex-wrap: wrap;
             margin-top: 3rem;
         }
+
         .pricing-card {
             background: var(--color-bg-white);
             border-radius: 12px;
             padding: 3rem 2rem;
             text-align: center;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
             flex: 1 1 300px;
             max-width: 380px;
-            border: 1px solid rgba(0,0,0,0.05);
+            border: 1px solid rgba(0, 0, 0, 0.05);
             position: relative;
             transition: transform var(--transition-normal);
         }
+
         .pricing-card:hover {
             transform: translateY(-8px);
-            box-shadow: 0 15px 30px rgba(0,0,0,0.1);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1);
         }
+
         .pricing-card.popular {
             border: 2px solid var(--color-accent-mint);
             transform: scale(1.05);
             z-index: 2;
         }
+
         .pricing-card.popular:hover {
             transform: scale(1.05) translateY(-8px);
         }
+
         .popular-badge {
             position: absolute;
             top: -15px;
@@ -63,11 +73,13 @@
             font-size: 0.85rem;
             text-transform: uppercase;
         }
+
         .pricing-title {
             font-size: 1.5rem;
             color: var(--color-primary-teal);
             margin-bottom: 0.5rem;
         }
+
         .pricing-price {
             font-size: 3.5rem;
             font-weight: 800;
@@ -75,6 +87,7 @@
             margin-bottom: 1rem;
             font-family: var(--font-primary);
         }
+
         .pricing-price span {
             font-size: 1rem;
             font-weight: 400;
@@ -82,27 +95,32 @@
             opacity: 0.7;
             display: block;
         }
+
         .perks-list {
             text-align: left;
             margin-bottom: 2rem;
             padding: 0;
             font-size: 1.05rem;
         }
+
         .perks-list li {
             margin-bottom: 1rem;
             display: flex;
             align-items: center;
             gap: 0.75rem;
         }
+
         .perks-list li i {
             color: var(--color-accent-mint-dark);
             flex-shrink: 0;
         }
+
         .btn-full {
             width: 100%;
         }
     </style>
 </head>
+
 <body>
     <nav class="navbar" id="navbar">
         <a href="index.html" class="logo" style="display: flex; align-items: center;">
@@ -128,7 +146,8 @@
             <div class="pricing-card">
                 <h3 class="pricing-title">Monthly</h3>
                 <div class="pricing-price">-5% <span>off standard rate</span></div>
-                <p style="margin-bottom: 2rem; color: var(--color-text-dark);">For regular upkeep and maintaining a baseline of order.</p>
+                <p style="margin-bottom: 2rem; color: var(--color-text-dark);">For regular upkeep and maintaining a
+                    baseline of order.</p>
                 <ul class="perks-list">
                     <li><i class="fa-solid fa-check"></i> 1 clean every 4 weeks</li>
                     <li><i class="fa-solid fa-check"></i> Standard vetted cleaner</li>
@@ -142,10 +161,14 @@
                 <div class="popular-badge">Most Popular</div>
                 <h3 class="pricing-title" style="color:var(--color-primary-navy);">Bi-Weekly</h3>
                 <div class="pricing-price">-10% <span>off standard rate</span></div>
-                <p style="margin-bottom: 2rem; color: var(--color-text-dark);">The sweet spot. Ideal for busy professionals.</p>
+                <p style="margin-bottom: 2rem; color: var(--color-text-dark);">The sweet spot. Ideal for busy
+                    professionals.</p>
                 <ul class="perks-list">
-                    <li><i class="fa-solid fa-star" style="color:var(--color-accent-mint-dark);"></i> <strong>Priority Booking</strong></li>
-                    <li><i class="fa-solid fa-user-shield" style="color:var(--color-accent-mint-dark);"></i> <strong>Dedicated Cleaner</strong></li>
+                    <li><i class="fa-solid fa-star" style="color:var(--color-accent-mint-dark);"></i> <strong>Priority
+                            Booking</strong></li>
+                    <li><i class="fa-solid fa-user-shield" style="color:var(--color-accent-mint-dark);"></i>
+                        <strong>Dedicated Cleaner</strong>
+                    </li>
                     <li><i class="fa-solid fa-check"></i> 1 clean every 2 weeks</li>
                     <li><i class="fa-solid fa-check"></i> Free add-on rotation</li>
                 </ul>
@@ -156,10 +179,14 @@
             <div class="pricing-card">
                 <h3 class="pricing-title">Weekly</h3>
                 <div class="pricing-price">-15% <span>off standard rate</span></div>
-                <p style="margin-bottom: 2rem; color: var(--color-text-dark);">Absolute tranquility. Your home is always guest-ready.</p>
+                <p style="margin-bottom: 2rem; color: var(--color-text-dark);">Absolute tranquility. Your home is always
+                    guest-ready.</p>
                 <ul class="perks-list">
-                    <li><i class="fa-solid fa-star" style="color:var(--color-accent-mint-dark);"></i> <strong>Highest Priority Booking</strong></li>
-                    <li><i class="fa-solid fa-user-shield" style="color:var(--color-accent-mint-dark);"></i> <strong>Dedicated Elite Cleaner</strong></li>
+                    <li><i class="fa-solid fa-star" style="color:var(--color-accent-mint-dark);"></i> <strong>Highest
+                            Priority Booking</strong></li>
+                    <li><i class="fa-solid fa-user-shield" style="color:var(--color-accent-mint-dark);"></i>
+                        <strong>Dedicated Elite Cleaner</strong>
+                    </li>
                     <li><i class="fa-solid fa-check"></i> Weekly touch-ups</li>
                     <li><i class="fa-solid fa-check"></i> Complete peace of mind</li>
                 </ul>
@@ -199,4 +226,5 @@
     </footer>
     <script src="app.js"></script>
 </body>
+
 </html>
