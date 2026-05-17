@@ -506,13 +506,13 @@
                     <p style="text-align:center; color: var(--color-text-dark); margin-bottom: 2rem;">See how much you save compared to average market rates.</p>
 
                     <div style="background: #f9fafb; border-radius: 8px; padding: 1.5rem; border: 1px solid #e5e7eb; margin-bottom: 1.5rem;">
-                        <h4 style="margin-bottom: 1rem; color: var(--color-primary-navy);">Estimated Market Cost for Your Home</h4>
+                        <h4 style="margin-bottom: 1rem; color: var(--color-primary-navy);">Highest Seattle Market Cost for Your Home</h4>
                         <div style="display: flex; justify-content: space-between; margin-bottom: 0.5rem; color: #4b5563;">
-                            <span>Average Standard Clean:</span>
+                            <span>Highest Standard Clean:</span>
                             <span id="savings-standard-cost" style="font-weight: 600;">--</span>
                         </div>
                         <div style="display: flex; justify-content: space-between; margin-bottom: 1rem; color: #4b5563;">
-                            <span>Average Deep Clean (Initial):</span>
+                            <span>Highest Deep Clean (Initial):</span>
                             <span id="savings-deep-cost" style="font-weight: 600;">--</span>
                         </div>
                         <div style="border-top: 1px solid #d1d5db; padding-top: 1rem; display: flex; justify-content: space-between; font-size: 1.2rem; font-weight: 800; color: var(--color-text-dark);">
@@ -993,6 +993,9 @@
 
             // Update hidden input
             document.getElementById('selectedPlan').value = planName;
+            
+            // Recalculate to update the savings summary with new plan
+            calculatePricing();
         }
 
         function verifyAddress() {
@@ -1093,15 +1096,16 @@
                 selectedPrice = pricePristine;
             }
 
-            const deepCost = baseCost * 1.75;
-            const totalMarketCost = (baseCost * selectedVisits); // If they were to pay base market rate each time
+            const seattleHighStandard = baseCost * 1.35;
+            const seattleHighDeep = baseCost * 2.0;
+            const totalMarketCost = seattleHighStandard * selectedVisits;
             const savings = totalMarketCost - selectedPrice;
 
-            document.getElementById('savings-standard-cost').textContent = format(baseCost) + ' /visit';
-            document.getElementById('savings-deep-cost').textContent = format(deepCost) + ' /visit';
+            document.getElementById('savings-standard-cost').textContent = format(seattleHighStandard) + ' /visit';
+            document.getElementById('savings-deep-cost').textContent = format(seattleHighDeep) + ' /visit';
             
             if (selectedPlan === 'one-time') {
-                document.getElementById('savings-market-cost').textContent = format(baseCost);
+                document.getElementById('savings-market-cost').textContent = format(seattleHighStandard);
                 document.getElementById('savings-loyal-rate').textContent = format(selectedPrice);
                 document.getElementById('savings-total-saved').textContent = '$0.00';
             } else {
