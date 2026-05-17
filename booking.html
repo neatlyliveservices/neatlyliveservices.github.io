@@ -499,6 +499,30 @@
                 </div>
             </div>
 
+            <!-- Step 1.5: Interceptor (One-Time Clean) -->
+            <div class="wizard-step checkout-layout" id="step1_5">
+                <div class="form-section" style="text-align: center; padding: 3rem 2rem;">
+                    <h2 style="color: var(--color-primary-teal); font-size: 2rem; margin-bottom: 1rem;">Have a Discount Code?</h2>
+                    <p style="color: var(--color-text-dark); margin-bottom: 2rem; font-size: 1.1rem;">Enter it now to apply savings to your One-Time Clean!</p>
+                    
+                    <div style="max-width: 400px; margin: 0 auto 3rem auto; display: flex; gap: 0.5rem;">
+                        <input type="text" class="form-control" placeholder="Discount Code" style="flex: 1;">
+                        <button class="btn btn-secondary">Apply</button>
+                    </div>
+
+                    <div style="background: #f0fdf4; border: 2px solid var(--color-accent-mint); border-radius: 12px; padding: 2rem; margin-bottom: 2rem;">
+                        <h3 style="color: var(--color-primary-navy); margin-bottom: 1rem; font-size: 1.5rem;">Or, sign up for an account within the next 10 minutes for <span style="color: var(--color-accent-mint-dark);">5% off</span> your first clean!</h3>
+                        
+                        <div id="countdown-timer" style="font-size: 3rem; font-weight: 800; font-family: monospace; color: var(--color-primary-teal); margin-bottom: 2rem; letter-spacing: 2px;">
+                            10:00
+                        </div>
+
+                        <button type="button" class="btn btn-accent" style="width: 100%; font-size: 1.2rem; padding: 1rem; margin-bottom: 1rem;" onclick="redirectToMembershipOffer()">Claim 5% Off & Create Account</button>
+                        <button type="button" class="btn btn-secondary" style="width: 100%; background: transparent; border: none; color: #6b7280;" onclick="skipDiscountOffer()">No thanks, continue as guest</button>
+                    </div>
+                </div>
+            </div>
+
             <!-- Step 2: Savings Summary -->
             <div class="wizard-step checkout-layout" id="step2">
                 <div class="form-section">
@@ -975,8 +999,9 @@
 
         function updateIndicators() {
             const dots = document.querySelectorAll('.step-dot');
+            const visualStep = currentStep === 1.5 ? 1 : currentStep;
             dots.forEach((dot, index) => {
-                if (index < currentStep) {
+                if (index < visualStep) {
                     dot.classList.add('active');
                 } else {
                     dot.classList.remove('active');
@@ -986,12 +1011,24 @@
 
         function showStep(step) {
             document.querySelectorAll('.wizard-step').forEach(el => el.classList.remove('active'));
-            document.getElementById(`step${step}`).classList.add('active');
+            let targetId = step === 1.5 ? 'step1_5' : `step${step}`;
+            document.getElementById(targetId).classList.add('active');
             updateIndicators();
             window.scrollTo({ top: 0, behavior: 'smooth' });
         }
 
         function nextStep() {
+            if (currentStep === 1 && document.getElementById('selectedPlan').value === 'one-time') {
+                currentStep = 1.5;
+                showStep(currentStep);
+                startTimer();
+                return;
+            }
+            if (currentStep === 1.5) {
+                currentStep = 2;
+                showStep(currentStep);
+                return;
+            }
             if (currentStep < totalSteps) {
                 currentStep++;
                 showStep(currentStep);
@@ -999,6 +1036,16 @@
         }
 
         function prevStep() {
+            if (currentStep === 2 && document.getElementById('selectedPlan').value === 'one-time') {
+                currentStep = 1.5;
+                showStep(currentStep);
+                return;
+            }
+            if (currentStep === 1.5) {
+                currentStep = 1;
+                showStep(currentStep);
+                return;
+            }
             if (currentStep > 1) {
                 currentStep--;
                 showStep(currentStep);
@@ -1086,7 +1133,14 @@
             const premiumPetFee = hasPets ? 50 : 0;
 
             // Tiers
-            const priceOneTime = baseCost;
+            let priceOneTime = baseCost;
+            
+            // Apply 5% discount if parameter is present
+            const urlParams = new URLSearchParams(window.location.search);
+            if (urlParams.get('discount') === '5') {
+                priceOneTime = priceOneTime * 0.95;
+            }
+
             const priceStandard = (baseCost * 2 * 1.05) + standardPetFee; // 2 visits
             const priceLoyal = (baseCost * 4 * 0.90) + premiumPetFee; // 4 visits
             const pricePristine = (baseCost * 4 * 0.90) + 400 + premiumPetFee; // 4 visits + Housekeeping
@@ -1148,6 +1202,48 @@
             
             calculatePricing();
         };
+
+        let timerInterval;
+
+        function startTimer() {
+            clearInterval(timerInterval);
+            let timeLeft = 600; // 10 minutes
+            const timerEl = document.getElementById('countdown-timer');
+            timerEl.textContent = '10:00';
+            
+            timerInterval = setInterval(() => {
+                timeLeft--;
+                if (timeLeft < 0) {
+                    clearInterval(timerInterval);
+                    timerEl.textContent = '00:00';
+                    return;
+                }
+                const m = Math.floor(timeLeft / 60);
+                const s = timeLeft % 60;
+                timerEl.textContent = `${m.toString().padStart(2, '0')}:${s.toString().padStart(2, '0')}`;
+            }, 1000);
+        }
+
+        function redirectToMembershipOffer() {
+            const sqft = document.getElementById('homeSqft').value;
+            const beds = document.getElementById('homeBeds').value;
+            const baths = document.getElementById('homeBaths').value;
+            const pets = document.getElementById('homePets').checked;
+            
+            const params = new URLSearchParams();
+            params.append('offer', '5percent');
+            if (sqft) params.append('sqft', sqft);
+            if (beds) params.append('beds', beds);
+            if (baths) params.append('baths', baths);
+            if (pets) params.append('pets', 'true');
+            
+            window.location.href = `membership.html?${params.toString()}`;
+        }
+
+        function skipDiscountOffer() {
+            currentStep = 2;
+            showStep(currentStep);
+        }
     </script>
 </body>
 

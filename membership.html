@@ -338,6 +338,12 @@
                 params.append('pets', 'true');
             }
             
+            // Check if coming from 5% offer funnel
+            const currentParams = new URLSearchParams(window.location.search);
+            if (currentParams.get('offer') === '5percent') {
+                params.append('discount', '5');
+            }
+            
             window.location.href = `booking.html?${params.toString()}`;
         }
     </script>
