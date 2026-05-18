@@ -201,8 +201,98 @@
                         <label>Years of Professional Cleaning Experience</label>
                         <input type="number" class="form-control" placeholder="e.g. 5">
                     </div>
-                    <button class="btn btn-accent btn-full" onclick="alert('Registration complete! Our onboarding team will contact you.')">Complete Registration</button>
+                    <div class="form-group" style="margin-top: 1.5rem;">
+                        <label>Are you an officially registered business?</label>
+                        <div style="display: flex; gap: 1rem; margin-top: 0.5rem;">
+                            <label style="cursor: pointer;"><input type="radio" name="registered_biz" value="yes" onchange="toggleBizNext(true)"> Yes</label>
+                            <label style="cursor: pointer;"><input type="radio" name="registered_biz" value="no" onchange="toggleBizNext(false)" checked> No</label>
+                        </div>
+                    </div>
+                    
+                    <button id="btnCompleteReg" class="btn btn-accent btn-full" onclick="completeCleanerRegistration()">Complete Registration</button>
+                    <button id="btnBizNext" class="btn btn-primary btn-full" style="display: none;" onclick="nextSignupStep(4)">Continue to Business Details <i class="fa-solid fa-arrow-right"></i></button>
+                    
                     <button class="btn btn-secondary btn-full" style="margin-top: 1rem; background: transparent; color: #6b7280; border: none;" onclick="nextSignupStep(2)">Back</button>
+                </div>
+
+                <!-- Step 4A: Business Details -->
+                <div id="signupStep4A" class="step-container">
+                    <h2 style="margin-bottom: 1.5rem; color: var(--color-primary-navy);">Business Registration</h2>
+                    
+                    <div class="form-group">
+                        <label>Business Name</label>
+                        <input type="text" class="form-control" placeholder="Sparkle Cleaners LLC">
+                    </div>
+                    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin-bottom: 1.5rem;">
+                        <div class="form-group" style="margin-bottom: 0;">
+                            <label>Business Tax ID (EIN)</label>
+                            <input type="text" class="form-control" placeholder="XX-XXXXXXX">
+                        </div>
+                        <div class="form-group" style="margin-bottom: 0;">
+                            <label>Designation</label>
+                            <select class="form-control">
+                                <option>LLC</option>
+                                <option>PLLC</option>
+                                <option>Sole Proprietorship</option>
+                                <option>S-Corp</option>
+                                <option>C-Corp</option>
+                                <option>Other</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin-bottom: 1.5rem;">
+                        <div class="form-group" style="margin-bottom: 0;">
+                            <label>Date Incorporated</label>
+                            <input type="date" class="form-control">
+                        </div>
+                        <div class="form-group" style="margin-bottom: 0;">
+                            <label>Date Entity Ends</label>
+                            <label style="display: flex; align-items: center; gap: 0.5rem; font-weight: 400; font-size: 0.8rem; margin-bottom: 0.2rem; cursor: pointer;">
+                                <input type="checkbox" onchange="document.getElementById('dateEnds').disabled = this.checked"> Perpetual
+                            </label>
+                            <input type="date" id="dateEnds" class="form-control">
+                        </div>
+                    </div>
+
+                    <h3 style="font-size: 1.1rem; color: var(--color-primary-teal); margin-bottom: 1rem; margin-top: 2rem;">Addresses</h3>
+                    <div class="form-group">
+                        <label>Business Address (In-State)</label>
+                        <label style="display: flex; align-items: center; gap: 0.5rem; font-weight: 400; font-size: 0.9rem; margin-bottom: 0.5rem; cursor: pointer;">
+                            <input type="checkbox" onchange="document.getElementById('bizAddress').value = this.checked ? document.getElementById('regAddress').value : ''"> Same as residential
+                        </label>
+                        <input type="text" id="bizAddress" class="form-control" placeholder="123 Office St">
+                    </div>
+                    <div class="form-group">
+                        <label>Registered Agent Name</label>
+                        <input type="text" class="form-control" placeholder="John Doe">
+                    </div>
+                    <div class="form-group">
+                        <label>Registered Agent Address</label>
+                        <label style="display: flex; align-items: center; gap: 0.5rem; font-weight: 400; font-size: 0.9rem; margin-bottom: 0.5rem; cursor: pointer;">
+                            <input type="checkbox" onchange="document.getElementById('agentAddress').value = this.checked ? document.getElementById('bizAddress').value : ''"> Same as Business Address
+                        </label>
+                        <input type="text" id="agentAddress" class="form-control" placeholder="123 Agent St">
+                    </div>
+
+                    <h3 style="font-size: 1.1rem; color: var(--color-primary-teal); margin-bottom: 1rem; margin-top: 2rem;">Compliance</h3>
+                    <div class="form-group">
+                        <label>Licenses</label>
+                        <div style="display: flex; gap: 0.5rem; margin-bottom: 0.5rem;">
+                            <input type="text" class="form-control" placeholder="License Title" style="flex: 2;">
+                            <input type="date" class="form-control" title="Expiration Date" style="flex: 1;">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label>Insurance</label>
+                        <div style="display: flex; gap: 0.5rem; margin-bottom: 0.5rem;">
+                            <input type="text" class="form-control" placeholder="Provider/Title" style="flex: 2;">
+                            <input type="text" class="form-control" placeholder="Coverage Amt" style="flex: 1;">
+                            <input type="date" class="form-control" title="Expiration Date" style="flex: 1;">
+                        </div>
+                    </div>
+
+                    <button class="btn btn-accent btn-full" style="margin-top: 1rem;" onclick="completeCleanerRegistration()">Complete Registration</button>
+                    <button class="btn btn-secondary btn-full" style="margin-top: 1rem; background: transparent; color: #6b7280; border: none;" onclick="nextSignupStep(3)">Back</button>
                 </div>
 
                 <!-- Step 3B: Client -->
@@ -295,9 +385,26 @@
                 const role = document.getElementById('selectedRole').value;
                 if (role === 'cleaner') document.getElementById('signupStep3A').classList.add('active');
                 else document.getElementById('signupStep3B').classList.add('active');
+            } else if (step === 4) {
+                document.getElementById('signupStep4A').classList.add('active');
             } else {
                 document.getElementById('signupStep' + step).classList.add('active');
             }
+        }
+
+        function toggleBizNext(isBiz) {
+            if (isBiz) {
+                document.getElementById('btnCompleteReg').style.display = 'none';
+                document.getElementById('btnBizNext').style.display = 'block';
+            } else {
+                document.getElementById('btnCompleteReg').style.display = 'block';
+                document.getElementById('btnBizNext').style.display = 'none';
+            }
+        }
+
+        function completeCleanerRegistration() {
+            alert('Registration complete! Our onboarding team will review your details and contact you.');
+            window.location.href = 'index.html';
         }
 
         function selectRole(role) {
