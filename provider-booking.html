@@ -644,14 +644,14 @@
                             <!-- Nested Subsets -->
                             <div id="residentialSubsets" style="margin-left: 2rem; display: flex; flex-direction: column; gap: 0.75rem; padding-left: 1rem; border-left: 2px solid #e5e7eb;">
                                 <label style="display: flex; align-items: start; gap: 0.75rem; cursor: pointer;">
-                                    <input type="checkbox" name="service_standard" class="res-subset" style="margin-top: 4px;" checked>
+                                    <input type="checkbox" name="service_standard" class="res-subset" style="margin-top: 4px;" onchange="checkSingleService()" checked>
                                     <div>
                                         <span style="font-weight: 600; color: var(--color-text-dark); display: block;">Standard Cleans</span>
                                         <span style="font-size: 0.85rem; color: #6b7280;">General upkeep, dusting, mopping, and surface wiping.</span>
                                     </div>
                                 </label>
                                 <label style="display: flex; align-items: start; gap: 0.75rem; cursor: pointer;">
-                                    <input type="checkbox" name="service_deep" class="res-subset" style="margin-top: 4px;">
+                                    <input type="checkbox" name="service_deep" class="res-subset" style="margin-top: 4px;" onchange="checkSingleService()">
                                     <div>
                                         <span style="font-weight: 600; color: var(--color-text-dark); display: block;">Deep Cleans</span>
                                         <span style="font-size: 0.85rem; color: #6b7280;">Thorough scrubbing, inside appliances, and hard-to-reach areas.</span>
@@ -661,7 +661,7 @@
                         </div>
 
                         <label style="display: flex; align-items: start; gap: 0.75rem; cursor: pointer; padding: 1rem; border: 1px solid #e5e7eb; border-radius: 8px; background: #fff;">
-                            <input type="checkbox" name="service_move" style="margin-top: 4px;">
+                            <input type="checkbox" name="service_move" style="margin-top: 4px;" onchange="checkSingleService()">
                             <div>
                                 <span style="font-weight: 600; color: var(--color-primary-navy); display: block;">Move In / Move Out Cleans</span>
                                 <span style="font-size: 0.85rem; color: #6b7280;">Deep cleaning for empty homes in transition.</span>
@@ -669,12 +669,19 @@
                         </label>
 
                         <label style="display: flex; align-items: start; gap: 0.75rem; cursor: pointer; padding: 1rem; border: 1px solid #e5e7eb; border-radius: 8px; background: #fff;">
-                            <input type="checkbox" name="service_office" style="margin-top: 4px;">
+                            <input type="checkbox" name="service_office" style="margin-top: 4px;" onchange="checkSingleService()">
                             <div>
                                 <span style="font-weight: 600; color: var(--color-primary-navy); display: block;">Office Cleanings</span>
                                 <span style="font-size: 0.85rem; color: #6b7280;">Workspace sanitization and commercial cleaning.</span>
                             </div>
                         </label>
+                    </div>
+
+                    <div id="singleServiceWarning" style="display: block; margin-top: 1.5rem; padding: 1rem; background: #fffbeb; border: 1px solid #fde68a; border-radius: 8px;">
+                        <i class="fa-solid fa-lightbulb" style="color: var(--color-accent-yellow); margin-right: 8px;"></i>
+                        <span id="singleServiceWarningText" style="font-size: 0.9rem; color: #92400e; font-weight: 500;">
+                            You indicated you are only available for <strong>'Residential - Standard Cleans'</strong>. Would you like to select more? Selecting more cleaning types means more appointments will be available to you!
+                        </span>
                     </div>
                 </div>
 
@@ -831,6 +838,27 @@
                 subsetContainer.style.opacity = '1';
             } else {
                 subsetContainer.style.opacity = '0.5';
+            }
+            checkSingleService();
+        }
+
+        function checkSingleService() {
+            let selectedTypes = [];
+            if(document.getElementsByName('service_standard')[0] && document.getElementsByName('service_standard')[0].checked) selectedTypes.push("Residential - Standard Cleans");
+            if(document.getElementsByName('service_deep')[0] && document.getElementsByName('service_deep')[0].checked) selectedTypes.push("Residential - Deep Cleans");
+            if(document.getElementsByName('service_move')[0] && document.getElementsByName('service_move')[0].checked) selectedTypes.push("Move In / Move Out Cleans");
+            if(document.getElementsByName('service_office')[0] && document.getElementsByName('service_office')[0].checked) selectedTypes.push("Office Cleanings");
+
+            const warningBox = document.getElementById('singleServiceWarning');
+            const warningText = document.getElementById('singleServiceWarningText');
+
+            if (warningBox && warningText) {
+                if (selectedTypes.length === 1) {
+                    warningText.innerHTML = `You indicated you are only available for <strong>'${selectedTypes[0]}'</strong>. Would you like to select more? Selecting more cleaning types means more appointments will be available to you!`;
+                    warningBox.style.display = 'block';
+                } else {
+                    warningBox.style.display = 'none';
+                }
             }
         }
         
