@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Account Under Review | NeatlyLive</title>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;800&family=Open+Sans:wght@400;600&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="index.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        .verification-container {
+            max-width: 600px;
+            margin: 6rem auto;
+            background: var(--color-bg-white);
+            border-radius: 12px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+            padding: 4rem 2rem;
+            text-align: center;
+        }
+
+        .icon-circle {
+            width: 100px;
+            height: 100px;
+            background: #e0f2fe;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 2rem auto;
+        }
+
+        .icon-circle i {
+            font-size: 3rem;
+            color: var(--color-primary-teal);
+        }
+
+        h1 {
+            color: var(--color-primary-navy);
+            margin-bottom: 1rem;
+            font-size: 2rem;
+        }
+
+        p {
+            color: var(--color-text-dark);
+            font-size: 1.1rem;
+            line-height: 1.6;
+            margin-bottom: 2rem;
+        }
+    </style>
+</head>
+
+<body>
+    <nav class="navbar" id="navbar">
+        <a href="index.html" class="logo" style="display: flex; align-items: center;">
+            <img src="LogoRedesign.png" alt="NeatlyLive Logo" style="height: 60px; width: auto;">
+        </a>
+        <button class="mobile-menu-btn" aria-label="Menu" onclick="toggleMenu()">
+            <img src="menu-sparkles.png" alt="Menu" style="height: 30px; width: auto;">
+        </button>
+        <div class="nav-links" id="navLinks">
+            <a href="index.html">Home</a>
+            <a href="about.html">About Us</a>
+            <a href="services.html">Services</a>
+            <a href="membership.html">Sign In / Sign Up</a>
+            <a href="contact.html">Contact Us</a>
+        </div>
+    </nav>
+
+    <div class="verification-container">
+        <div class="icon-circle">
+            <i class="fa-solid fa-envelope-open-text"></i>
+        </div>
+        <h1>Your account is under review</h1>
+        <p>Thank you for registering with NeatlyLive! We have received your information.</p>
+        <p style="font-weight: 600; color: var(--color-primary-teal);">Please check your email to verify your email address and complete the next steps.</p>
+        <a href="index.html" class="btn btn-primary" style="display: inline-block; margin-top: 1rem; padding: 1rem 2rem;">Return to Homepage</a>
+    </div>
+
+    <footer class="footer" style="margin-top: auto;">
+        <div class="footer-bottom">
+            <p>&copy; 2026 NeatlyLive. All rights reserved.</p>
+        </div>
+    </footer>
+    
+    <script src="app.js"></script>
+</body>
+
+</html>
