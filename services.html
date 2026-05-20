@@ -104,7 +104,7 @@
             margin: 4rem auto 0;
             border-radius: 20px;
             overflow: hidden;
-            box-shadow: 0 20px 40px rgba(0,0,0,0.15);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
             border: 8px solid white;
         }
 
@@ -129,7 +129,7 @@
             margin: 0 auto;
             padding: 10px;
             border-radius: 60px;
-            box-shadow: 0 15px 40px rgba(0,0,0,0.08);
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.08);
             border: 4px solid white;
         }
 
@@ -176,14 +176,19 @@
 
     <header class="page-header" style="padding: 6rem 5% 5rem; background: var(--color-bg-light);">
         <h1 style="font-size: 3.5rem; margin-bottom: 1rem; color: var(--color-primary-navy);">Check Availability</h1>
-        <p style="font-size: 1.3rem; color: var(--color-primary-navy); opacity: 0.8; margin-bottom: 3rem; font-weight: 500;">Enter your address or zip code to see our professional cleaning services near you.</p>
-        
+        <p
+            style="font-size: 1.3rem; color: var(--color-primary-navy); opacity: 0.8; margin-bottom: 3rem; font-weight: 500;">
+            Enter your address or zip code to see our professional cleaning services near you.</p>
+
         <div class="hero-search-container enhanced">
-            <input type="text" placeholder="Enter your home address or zip code..." class="hero-search-input enhanced" id="zipInput" onkeypress="handleZipEnter(event)">
+            <input type="text" placeholder="Enter your home address or zip code..." class="hero-search-input enhanced"
+                id="zipInput" onkeypress="handleZipEnter(event)">
             <button class="hero-search-btn enhanced" onclick="checkZip()">Check Availability</button>
         </div>
-        
-        <p id="availabilityMsg" style="margin-top: 2rem; font-size: 1.1rem; font-weight: 600; display: none; color: var(--color-primary-teal);"></p>
+
+        <p id="availabilityMsg"
+            style="margin-top: 2rem; font-size: 1.1rem; font-weight: 600; display: none; color: var(--color-primary-teal);">
+        </p>
 
         <!-- Image Carousel -->
         <div class="carousel-container" id="servicesCarousel">
@@ -193,11 +198,15 @@
         </div>
     </header>
 
-    <section class="container" id="servicesSection" style="display: none; opacity: 0; transition: opacity 0.5s ease; padding-top: 3rem;">
-        <h2 style="text-align: center; color: var(--color-primary-navy); margin-bottom: 2rem; font-size: 2rem;">Great news! We service your area.</h2>
+    <section class="container" id="servicesSection"
+        style="display: none; opacity: 0; transition: opacity 0.5s ease; padding-top: 3rem;">
+        <h2 style="text-align: center; color: var(--color-primary-navy); margin-bottom: 2rem; font-size: 2rem;">Great
+            news! We service your area.</h2>
         <div style="text-align: center; margin-bottom: 4rem;">
-            <p style="font-size: 1.2rem; color: var(--color-text-dark); margin-bottom: 2rem;">Continue to our booking flow to customize your cleaning plan and select your services.</p>
-            <a href="booking.html" class="btn btn-primary" style="font-size: 1.2rem; padding: 1rem 3rem;">Start My Booking <i class="fa-solid fa-arrow-right" style="margin-left: 8px;"></i></a>
+            <p style="font-size: 1.2rem; color: var(--color-text-dark); margin-bottom: 2rem;">Continue to our booking
+                flow to customize your cleaning plan and select your services.</p>
+            <a href="booking.html" class="btn btn-primary" style="font-size: 1.2rem; padding: 1rem 3rem;">Start My
+                Booking <i class="fa-solid fa-arrow-right" style="margin-left: 8px;"></i></a>
         </div>
     </section>
 
@@ -237,28 +246,28 @@
             const input = document.getElementById('zipInput').value.trim();
             const msg = document.getElementById('availabilityMsg');
             const section = document.getElementById('servicesSection');
-            
+
             // Look for a 5 digit number
             const zipMatch = input.match(/\b\d{5}\b/);
-            
+
             if (!zipMatch) {
                 msg.style.display = 'block';
-                msg.style.color = '#ff6b6b'; 
+                msg.style.color = '#ff6b6b';
                 msg.textContent = 'Please include a valid 5-digit zip code.';
                 section.style.display = 'none';
                 section.style.opacity = '0';
                 return;
             }
-            
+
             // Simulate checking
             msg.style.display = 'block';
             msg.style.color = 'var(--color-primary-navy)';
             msg.textContent = 'Checking availability...';
-            
+
             const zip = parseInt(zipMatch[0], 10);
             // Washington State zip codes are roughly 98000 to 99499
             const isEligible = (zip >= 98000 && zip <= 99499);
-            
+
             setTimeout(() => {
                 if (isEligible) {
                     msg.style.display = 'none';
@@ -266,7 +275,7 @@
                     // Trigger reflow for fade in
                     void section.offsetWidth;
                     section.style.opacity = '1';
-                    
+
                     // Scroll down to services
                     section.scrollIntoView({ behavior: 'smooth', block: 'start' });
                 } else {
@@ -284,7 +293,7 @@
         // Carousel Logic
         let currentSlide = 0;
         const slides = document.querySelectorAll('.carousel-slide');
-        
+
         if (slides.length > 0) {
             setInterval(() => {
                 slides[currentSlide].classList.remove('active');
