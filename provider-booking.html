@@ -784,6 +784,17 @@
         }
 
         function nextStep() {
+            if (currentStep === 7) {
+                const resChecked = document.getElementById('serviceResidential').checked;
+                const standardChecked = document.getElementsByName('service_standard')[0].checked;
+                const deepChecked = document.getElementsByName('service_deep')[0].checked;
+
+                if (!resChecked || (!standardChecked && !deepChecked)) {
+                    alert('Please select at least one type of residential clean (Standard or Deep) to continue.');
+                    return;
+                }
+            }
+
             if (currentStep < totalSteps) {
                 currentStep++;
                 showStep(currentStep);
