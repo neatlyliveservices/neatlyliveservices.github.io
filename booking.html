@@ -470,6 +470,42 @@
                         </div>
                     </div>
 
+                    <div style="margin-bottom: 2rem;">
+                        <h3 style="color: var(--color-primary-navy); margin-bottom: 1rem; font-size: 1.1rem; border-bottom: 2px solid #e5e7eb; padding-bottom: 0.5rem;">
+                            3. Tell Us About Your Home
+                        </h3>
+                        <p style="margin-bottom: 1.5rem; font-size: 0.95rem; color: var(--color-text-dark);">Your pricing is dynamically calculated based on the size and details of your space.</p>
+
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="homeSqft">Square Footage</label>
+                                <input type="number" id="homeSqft" class="form-control" placeholder="e.g. 1500" value="1500"
+                                    oninput="calculatePricing()" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="homeBeds">Bedrooms</label>
+                                <input type="number" id="homeBeds" class="form-control" placeholder="e.g. 3" value="3"
+                                    oninput="calculatePricing()" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="homeBaths">Bathrooms</label>
+                                <input type="number" id="homeBaths" class="form-control" placeholder="e.g. 2.5" step="0.5"
+                                    value="2.5" oninput="calculatePricing()" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="floors">Number of Floors</label>
+                                <input type="number" id="floors" class="form-control" min="1" max="5" placeholder="e.g. 2"
+                                    required>
+                            </div>
+                        </div>
+                        <div class="form-group" style="margin-bottom: 0;">
+                            <label style="display: flex; align-items: center; gap: 0.5rem; font-weight: 600; cursor: pointer;">
+                                <input type="checkbox" id="homePets" onchange="calculatePricing()"> I have indoor pets
+                                (dogs, cats, etc.)
+                            </label>
+                        </div>
+                    </div>
+
                 </div>
                 
                 <div class="button-group" style="justify-content: flex-end;">
@@ -483,43 +519,6 @@
                 <p style="text-align:center; color: var(--color-text-dark);">Select the tier that matches your cleaning
                     frequency needs.</p>
 
-                <div class="checkout-layout" style="margin-top: 2rem; margin-bottom: 2rem; padding: 2rem;">
-                    <h3
-                        style="border-bottom: 2px solid #e5e7eb; padding-bottom: 0.5rem; color: var(--color-primary-teal); margin-bottom: 1.5rem;">
-                        Tell Us About Your Home</h3>
-                    <p style="margin-bottom: 1.5rem; font-size: 0.95rem; color: var(--color-text-dark);">Your pricing is
-                        dynamically calculated based on the size and details of your space.</p>
-
-                    <div class="form-row">
-                        <div class="form-group">
-                            <label for="homeSqft">Square Footage</label>
-                            <input type="number" id="homeSqft" class="form-control" placeholder="e.g. 1500" value="1500"
-                                oninput="calculatePricing()" required>
-                        </div>
-                        <div class="form-group">
-                            <label for="homeBeds">Bedrooms</label>
-                            <input type="number" id="homeBeds" class="form-control" placeholder="e.g. 3" value="3"
-                                oninput="calculatePricing()" required>
-                        </div>
-                        <div class="form-group">
-                            <label for="homeBaths">Bathrooms</label>
-                            <input type="number" id="homeBaths" class="form-control" placeholder="e.g. 2.5" step="0.5"
-                                value="2.5" oninput="calculatePricing()" required>
-                        </div>
-                        <div class="form-group">
-                            <label for="floors">Number of Floors</label>
-                            <input type="number" id="floors" class="form-control" min="1" max="5" placeholder="e.g. 2"
-                                required>
-                        </div>
-                    </div>
-                    <div class="form-group" style="margin-bottom: 0;">
-                        <label
-                            style="display: flex; align-items: center; gap: 0.5rem; font-weight: 600; cursor: pointer;">
-                            <input type="checkbox" id="homePets" onchange="calculatePricing()"> I have indoor pets
-                            (dogs, cats, etc.)
-                        </label>
-                    </div>
-                </div>
 
                 <div class="plans-grid">
                     <!-- One-Time Clean -->
