@@ -1315,6 +1315,19 @@
         }
 
         function evaluateQuiz() {
+            // Validate Step 0 fields (sqft, beds, baths, floors, etc.)
+            const step0 = document.getElementById('step0');
+            const inputs = step0.querySelectorAll('input[required], select[required], textarea[required]');
+            let isValid = true;
+            for (let input of inputs) {
+                if (!input.checkValidity()) {
+                    input.reportValidity();
+                    isValid = false;
+                    break;
+                }
+            }
+            if (!isValid) return;
+
             const condition = document.querySelector('input[name="home_condition"]:checked');
             if (!condition) {
                 alert("Please select the current condition of your home to continue.");
@@ -1363,6 +1376,21 @@
         }
 
         function nextStep() {
+            // Validate current step
+            const currentStepEl = document.getElementById(currentStep === 1.5 ? 'step1_5' : `step${currentStep}`);
+            if (currentStepEl) {
+                const inputs = currentStepEl.querySelectorAll('input[required], select[required], textarea[required]');
+                let isValid = true;
+                for (let input of inputs) {
+                    if (!input.checkValidity()) {
+                        input.reportValidity();
+                        isValid = false;
+                        break;
+                    }
+                }
+                if (!isValid) return;
+            }
+
             if (currentStep === 1 && document.getElementById('selectedPlan').value === 'one-time') {
                 currentStep = 1.5;
                 showStep(currentStep);
@@ -1373,12 +1401,6 @@
                 currentStep = 2;
                 showStep(currentStep);
                 return;
-            }
-            
-            // Validate Plan Selection (Step 1)
-            if (currentStep === 1) {
-                const form = document.getElementById('bookingForm');
-                if (!form.reportValidity()) return;
             }
 
             if (currentStep < totalSteps) {
