@@ -403,12 +403,82 @@
             <div class="step-dot"></div>
             <div class="step-dot"></div>
             <div class="step-dot"></div>
+            <div class="step-dot"></div>
         </div>
 
         <form action="#" id="bookingForm" onsubmit="event.preventDefault(); submitForm();">
 
+            <!-- Step 0: Consumer Needs Quiz -->
+            <div class="wizard-step active" id="step0">
+                <h2 style="text-align:center;">Tell Us About Your Needs</h2>
+                <p style="text-align:center; color: var(--color-text-dark);">Help us recommend the perfect cleaning plan for your home.</p>
+
+                <div class="checkout-layout" style="margin-top: 2rem; margin-bottom: 2rem; padding: 2rem;">
+                    
+                    <div style="margin-bottom: 2rem;">
+                        <h3 style="color: var(--color-primary-navy); margin-bottom: 1rem; font-size: 1.1rem;">1. What are your main concerns with your home? (Select all that apply)</h3>
+                        <div style="display: flex; flex-direction: column; gap: 0.75rem;">
+                            <label style="display: flex; align-items: center; gap: 0.5rem; cursor: pointer;">
+                                <input type="checkbox" name="concern_dust"> Dust and allergens
+                            </label>
+                            <label style="display: flex; align-items: center; gap: 0.5rem; cursor: pointer;">
+                                <input type="checkbox" name="concern_pet"> Pet hair and dander
+                            </label>
+                            <label style="display: flex; align-items: center; gap: 0.5rem; cursor: pointer;">
+                                <input type="checkbox" name="concern_grime"> Grime and build-up (kitchen/bathrooms)
+                            </label>
+                            <label style="display: flex; align-items: center; gap: 0.5rem; cursor: pointer;">
+                                <input type="checkbox" name="concern_clutter"> Clutter and organization
+                            </label>
+                            <label style="display: flex; align-items: center; gap: 0.5rem; cursor: pointer;">
+                                <input type="checkbox" name="concern_maintenance"> Just general maintenance
+                            </label>
+                        </div>
+                    </div>
+
+                    <div style="margin-bottom: 2rem;">
+                        <h3 style="color: var(--color-primary-navy); margin-bottom: 1rem; font-size: 1.1rem;">2. How would you describe the current condition of your home?</h3>
+                        <div style="display: flex; flex-direction: column; gap: 1rem;">
+                            <label style="display: flex; align-items: flex-start; gap: 0.75rem; cursor: pointer; padding: 1rem; border: 1px solid #e5e7eb; border-radius: 8px;">
+                                <input type="radio" name="home_condition" value="turn-around" style="margin-top: 4px;" required>
+                                <div>
+                                    <strong style="display:block; color: var(--color-text-dark);">Needs a total turn-around</strong>
+                                    <span style="font-size: 0.85rem; color: #6b7280;">It's been a while since a thorough clean, and things are a bit out of control.</span>
+                                </div>
+                            </label>
+                            <label style="display: flex; align-items: flex-start; gap: 0.75rem; cursor: pointer; padding: 1rem; border: 1px solid #e5e7eb; border-radius: 8px;">
+                                <input type="radio" name="home_condition" value="deep" style="margin-top: 4px;">
+                                <div>
+                                    <strong style="display:block; color: var(--color-text-dark);">Needs a deep clean</strong>
+                                    <span style="font-size: 0.85rem; color: #6b7280;">Generally okay, but needs serious scrubbing on baseboards, appliances, and bathrooms.</span>
+                                </div>
+                            </label>
+                            <label style="display: flex; align-items: flex-start; gap: 0.75rem; cursor: pointer; padding: 1rem; border: 1px solid #e5e7eb; border-radius: 8px;">
+                                <input type="radio" name="home_condition" value="consistent" style="margin-top: 4px;">
+                                <div>
+                                    <strong style="display:block; color: var(--color-text-dark);">Needs a consistent weekly clean</strong>
+                                    <span style="font-size: 0.85rem; color: #6b7280;">I want my house consistently fresh every week without deep scrubbing.</span>
+                                </div>
+                            </label>
+                            <label style="display: flex; align-items: flex-start; gap: 0.75rem; cursor: pointer; padding: 1rem; border: 1px solid #e5e7eb; border-radius: 8px;">
+                                <input type="radio" name="home_condition" value="standard" style="margin-top: 4px;">
+                                <div>
+                                    <strong style="display:block; color: var(--color-text-dark);">Just needs a basic, infrequent clean</strong>
+                                    <span style="font-size: 0.85rem; color: #6b7280;">Things are tidy, I just need help with light maintenance every so often.</span>
+                                </div>
+                            </label>
+                        </div>
+                    </div>
+
+                </div>
+                
+                <div class="button-group" style="justify-content: flex-end;">
+                    <button type="button" class="btn btn-primary" onclick="evaluateQuiz()">See Recommended Plan <i class="fa-solid fa-arrow-right"></i></button>
+                </div>
+            </div>
+
             <!-- Step 1: Plan Selection -->
-            <div class="wizard-step active" id="step1">
+            <div class="wizard-step" id="step1">
                 <h2 style="text-align:center;">1. Choose Your Neatly Loyal Plan</h2>
                 <p style="text-align:center; color: var(--color-text-dark);">Select the tier that matches your cleaning
                     frequency needs.</p>
@@ -482,6 +552,9 @@
                             <h3 style="margin-bottom: 0.5rem;">NeatlyLive Standard</h3>
                             <p style="margin-bottom: 0.5rem; font-size: 0.95rem; color: var(--color-text-dark);">Perfect
                                 for bi-weekly maintenance or infrequent deep cleans.</p>
+                            <p style="margin-bottom: 0.5rem; font-size: 0.8rem; color: #b91c1c; font-weight: 600;">
+                                <i class="fa-solid fa-circle-exclamation"></i> Note: Standard cleans do not include deep cleaning (baseboards, interiors, etc).
+                            </p>
                             <ul
                                 style="font-size: 0.85rem; list-style: none; padding: 0; display: flex; gap: 1rem; flex-wrap: wrap;">
                                 <li><i class="fa-solid fa-check"
@@ -495,6 +568,9 @@
                         <div class="plan-price-section" style="text-align: right; margin-right: 3rem;">
                             <div class="price" id="price-standard"
                                 style="font-size: 1.8rem; font-weight: 800; color: var(--color-accent-mint-dark);">--
+                            </div>
+                            <div id="standard-deep-surcharge" style="font-size: 0.85rem; color: #b91c1c; font-weight: 600; display: none;">
+                                + <span id="standard-deep-surcharge-amt"></span> initial deep clean fee
                             </div>
                         </div>
                         <i class="fa-solid fa-circle-check select-indicator"></i>
@@ -1224,19 +1300,59 @@
 
     <script src="app.js"></script>
     <script>
-        let currentStep = 1;
+        let currentStep = 0;
         const totalSteps = 7;
 
         function updateIndicators() {
             const dots = document.querySelectorAll('.step-dot');
             const visualStep = currentStep === 1.5 ? 1 : currentStep;
             dots.forEach((dot, index) => {
-                if (index < visualStep) {
+                if (index <= visualStep) {
                     dot.classList.add('active');
                 } else {
                     dot.classList.remove('active');
                 }
             });
+        }
+
+        function evaluateQuiz() {
+            const condition = document.querySelector('input[name="home_condition"]:checked');
+            if (!condition) {
+                alert("Please select the current condition of your home to continue.");
+                return;
+            }
+
+            let recommendedPlan = 'loyal';
+            if (condition.value === 'turn-around') {
+                recommendedPlan = 'pristine';
+            } else if (condition.value === 'deep') {
+                recommendedPlan = 'standard';
+            } else if (condition.value === 'consistent') {
+                recommendedPlan = 'loyal';
+            } else if (condition.value === 'standard') {
+                recommendedPlan = 'standard';
+            }
+
+            // Clear previous badges
+            document.querySelectorAll('.plan-card').forEach(el => {
+                const badge = el.querySelector('.recommendation-badge');
+                if (badge) badge.remove();
+            });
+
+            // Highlight recommendation
+            const planEl = document.querySelector(`.plan-card[onclick="selectPlan('${recommendedPlan}', this)"]`);
+            if (planEl) {
+                const badge = document.createElement('div');
+                badge.className = 'recommendation-badge';
+                badge.innerHTML = '<i class="fa-solid fa-star"></i> Recommended Plan';
+                badge.style.cssText = 'position: absolute; top: -14px; left: 50%; transform: translateX(-50%); background: var(--color-accent-mint); color: white; padding: 4px 14px; border-radius: 12px; font-size: 0.8rem; font-weight: bold; z-index: 10; white-space: nowrap; box-shadow: 0 4px 6px rgba(0,0,0,0.15);';
+                planEl.style.position = 'relative';
+                planEl.appendChild(badge);
+                selectPlan(recommendedPlan, planEl);
+            }
+
+            currentStep = 1;
+            showStep(currentStep);
         }
 
         function showStep(step) {
@@ -1259,6 +1375,13 @@
                 showStep(currentStep);
                 return;
             }
+            
+            // Validate Plan Selection (Step 1)
+            if (currentStep === 1) {
+                const form = document.getElementById('bookingForm');
+                if (!form.reportValidity()) return;
+            }
+
             if (currentStep < totalSteps) {
                 currentStep++;
                 showStep(currentStep);
@@ -1276,7 +1399,7 @@
                 showStep(currentStep);
                 return;
             }
-            if (currentStep > 1) {
+            if (currentStep > 0) {
                 currentStep--;
                 showStep(currentStep);
             }
@@ -1396,6 +1519,19 @@
 
             // Format Currency
             const format = (num) => '$' + num.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+
+            // Deep Clean Surcharge Logic based on Quiz
+            const condition = document.querySelector('input[name="home_condition"]:checked')?.value;
+            const requiresDeepClean = (condition === 'deep' || condition === 'turn-around');
+            const surchargeDiv = document.getElementById('standard-deep-surcharge');
+            if (surchargeDiv) {
+                if (requiresDeepClean) {
+                    document.getElementById('standard-deep-surcharge-amt').textContent = format(initialResetFee);
+                    surchargeDiv.style.display = 'block';
+                } else {
+                    surchargeDiv.style.display = 'none';
+                }
+            }
 
             // Update UI & Hidden Fields
             document.getElementById('initial-reset-fee-amount').textContent = format(initialResetFee);
