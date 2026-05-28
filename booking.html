@@ -702,7 +702,7 @@
                             onclick="redirectToMembershipOffer()">Claim 5% Off & Create Account</button>
                         <button type="button" class="btn btn-secondary"
                             style="width: 100%; background: transparent; border: none; color: #6b7280;"
-                            onclick="skipDiscountOffer()">No thanks, continue as guest</button>
+                            onclick="skipDiscountOffer()">No thanks, skip discount</button>
                     </div>
                 </div>
             </div>
@@ -824,7 +824,7 @@
             <!-- Step 4: Contact, Banking & Terms -->
             <div class="wizard-step checkout-layout" id="step4">
                 <div class="form-section">
-                    <h3>Contact Information</h3>
+                    <h3>Contact & Account Creation</h3>
                     <div class="form-row">
                         <div class="form-group">
                             <label for="firstName">First Name</label>
@@ -843,6 +843,13 @@
                         <div class="form-group">
                             <label for="phone">Phone Number</label>
                             <input type="tel" id="phone" class="form-control" placeholder="(555) 123-4567" required>
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group" style="width: 100%;">
+                            <label for="createPassword">Create Account Password</label>
+                            <input type="password" id="createPassword" class="form-control" placeholder="Create a strong password (min 8 chars)" required minlength="8">
+                            <p style="font-size: 0.8rem; color: #6b7280; margin-top: 0.25rem;">Creating an account is required to book a service so you can easily manage your appointments.</p>
                         </div>
                     </div>
                 </div>

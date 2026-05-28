@@ -471,6 +471,20 @@
             
             window.location.href = `booking.html?${params.toString()}`;
         }
+        window.onload = function() {
+            const params = new URLSearchParams(window.location.search);
+            if (params.get('offer') === '5percent') {
+                switchTab('signup');
+                selectRole('client');
+                if (params.has('sqft')) document.getElementById('homeSqft').value = params.get('sqft');
+                if (params.has('beds')) document.getElementById('homeBeds').value = params.get('beds');
+                if (params.has('baths')) document.getElementById('homeBaths').value = params.get('baths');
+                if (params.has('floors')) document.getElementById('homeFloors').value = params.get('floors');
+                if (params.has('pets') && params.get('pets') === 'true') {
+                    document.getElementById('homeNotes').value = "Pets in home: Yes";
+                }
+            }
+        };
     </script>
 </body>
 
