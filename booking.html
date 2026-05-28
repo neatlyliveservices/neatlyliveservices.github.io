@@ -657,7 +657,7 @@
                 </div>
                 <input type="hidden" id="selectedPlan" name="selectedPlan" value="loyal" required>
                 <input type="hidden" id="maxAllowedHours" name="maxAllowedHours" value="">
-
+                <input type="hidden" id="firstCleanDiscountApplied" value="false">
                 <div
                     style="margin-bottom: 2rem; padding: 1rem; background: #f9fafb; border-radius: 8px; border: 1px solid #e5e7eb; font-size: 0.9rem; color: #4b5563;">
                     <i class="fa-solid fa-circle-info" style="color: var(--color-accent-mint); margin-right: 5px;"></i>
@@ -688,8 +688,7 @@
 
                     <div
                         style="background: #f0fdf4; border: 2px solid var(--color-accent-mint); border-radius: 12px; padding: 2rem; margin-bottom: 2rem;">
-                        <h3 style="color: var(--color-primary-navy); margin-bottom: 1rem; font-size: 1.5rem;">Or, sign
-                            up for an account within the next 10 minutes for <span
+                        <h3 style="color: var(--color-primary-navy); margin-bottom: 1rem; font-size: 1.5rem;">Or, upgrade to a recurring plan within the next 10 minutes for <span
                                 style="color: var(--color-accent-mint-dark);">5% off</span> your first clean!</h3>
 
                         <div id="countdown-timer"
@@ -699,7 +698,7 @@
 
                         <button type="button" class="btn btn-accent"
                             style="width: 100%; font-size: 1.2rem; padding: 1rem; margin-bottom: 1rem;"
-                            onclick="redirectToMembershipOffer()">Claim 5% Off & Create Account</button>
+                            onclick="acceptUpsell()">Upgrade & Claim 5% Off</button>
                         <button type="button" class="btn btn-secondary"
                             style="width: 100%; background: transparent; border: none; color: #6b7280;"
                             onclick="skipDiscountOffer()">No thanks, skip discount</button>
@@ -746,6 +745,9 @@
                             --</div>
                         <div style="font-size: 1.1rem; font-weight: 600; color: var(--color-primary-teal);">
                             You Save: <span id="savings-total-saved">--</span>
+                        </div>
+                        <div id="first-clean-discount-row" style="font-size: 1rem; font-weight: 600; color: var(--color-accent-mint-dark); margin-top: 0.5rem; display: none;">
+                            First Clean Discount: <span id="savings-first-clean-discount">--</span>
                         </div>
                     </div>
 
@@ -1598,12 +1600,6 @@
             // Tiers
             let priceOneTime = baseCost;
 
-            // Apply 5% discount if parameter is present
-            const urlParams = new URLSearchParams(window.location.search);
-            if (urlParams.get('discount') === '5') {
-                priceOneTime = priceOneTime * 0.95;
-            }
-
             const priceStandard = (baseCost * 2 * 1.05) + standardPetFee; // 2 visits
             const priceLoyal = (baseCost * 4 * 0.90) + premiumPetFee; // 4 visits
             const pricePristine = (baseCost * 4 * 0.90) + 400 + premiumPetFee; // 4 visits + Housekeeping
@@ -1677,6 +1673,7 @@
                 savingsSubtitle.textContent = "Experience the peace of mind that comes with a NeatlyLive standard of clean.";
                 marketComparisonBox.style.display = 'none';
                 loyalRateBox.style.display = 'none';
+                document.getElementById('first-clean-discount-row').style.display = 'none';
 
                 // Keep these for background logic just in case
                 document.getElementById('savings-market-cost').textContent = format(seattleHighStandard);
@@ -1691,6 +1688,17 @@
                 document.getElementById('savings-market-cost').textContent = format(totalMarketCost) + ' /mo';
                 document.getElementById('savings-loyal-rate').textContent = format(selectedPrice) + ' /mo';
                 document.getElementById('savings-total-saved').textContent = format(savings > 0 ? savings : 0) + ' /mo!';
+                
+                // First Clean Discount Logic
+                const discountApplied = document.getElementById('firstCleanDiscountApplied') && document.getElementById('firstCleanDiscountApplied').value === 'true';
+                if (discountApplied) {
+                    const singleVisitCost = selectedPrice / selectedVisits;
+                    const discountAmt = singleVisitCost * 0.05;
+                    document.getElementById('savings-first-clean-discount').textContent = `-$${discountAmt.toFixed(2)}`;
+                    document.getElementById('first-clean-discount-row').style.display = 'block';
+                } else {
+                    document.getElementById('first-clean-discount-row').style.display = 'none';
+                }
             }
         }
 
@@ -1727,20 +1735,15 @@
             }, 1000);
         }
 
-        function redirectToMembershipOffer() {
-            const sqft = document.getElementById('homeSqft').value;
-            const beds = document.getElementById('homeBeds').value;
-            const baths = document.getElementById('homeBaths').value;
-            const pets = document.getElementById('homePets').checked;
-
-            const params = new URLSearchParams();
-            params.append('offer', '5percent');
-            if (sqft) params.append('sqft', sqft);
-            if (beds) params.append('beds', beds);
-            if (baths) params.append('baths', baths);
-            if (pets) params.append('pets', 'true');
-
-            window.location.href = `membership.html?${params.toString()}`;
+        function acceptUpsell() {
+            if (document.getElementById('firstCleanDiscountApplied')) {
+                document.getElementById('firstCleanDiscountApplied').value = "true";
+            }
+            const standardCard = document.querySelector('.plan-card[onclick*="standard"]');
+            if (standardCard) {
+                selectPlan('standard', standardCard);
+            }
+            skipDiscountOffer();
         }
 
         function skipDiscountOffer() {
