@@ -627,6 +627,33 @@
                         </div>
                         <i class="fa-solid fa-circle-check select-indicator"></i>
                     </div>
+
+                    <!-- Hourly Plan -->
+                    <div class="plan-card" onclick="selectPlan('hourly', this)">
+                        <div class="plan-info">
+                            <h3 style="margin-bottom: 0.5rem;">Budget Hourly Clean</h3>
+                            <p style="margin-bottom: 0.5rem; font-size: 0.95rem; color: var(--color-text-dark);">
+                                A discount option for basic needs. You decide exactly how long we clean.</p>
+                            <ul
+                                style="font-size: 0.85rem; list-style: none; padding: 0; display: flex; gap: 1rem; flex-wrap: wrap; margin-bottom: 0.75rem;">
+                                <li><i class="fa-solid fa-check"
+                                        style="color:var(--color-accent-mint); margin-right: 4px;"></i> Budget Friendly</li>
+                                <li><i class="fa-solid fa-check"
+                                        style="color:var(--color-accent-mint); margin-right: 4px;"></i> Great for Students</li>
+                            </ul>
+                            <div style="display: flex; align-items: center; gap: 0.5rem;" onclick="event.stopPropagation()">
+                                <label for="hourlyHours" style="font-size: 0.85rem; font-weight: 600;">Hours needed:</label>
+                                <input type="number" id="hourlyHours" class="form-control" min="2" max="10" value="2" style="width: 80px; padding: 0.25rem 0.5rem; height: auto;" oninput="calculatePricing()">
+                            </div>
+                        </div>
+                        <div class="plan-price-section" style="text-align: right; margin-right: 3rem;">
+                            <div class="price" id="price-hourly"
+                                style="font-size: 1.8rem; font-weight: 800; color: var(--color-accent-mint-dark);">--
+                            </div>
+                            <div style="font-size: 0.85rem; color: #6b7280; font-weight: 400;">/ visit</div>
+                        </div>
+                        <i class="fa-solid fa-circle-check select-indicator"></i>
+                    </div>
                 </div>
                 <input type="hidden" id="selectedPlan" name="selectedPlan" value="loyal" required>
                 <input type="hidden" id="maxAllowedHours" name="maxAllowedHours" value="">
@@ -1391,7 +1418,7 @@
                 if (!isValid) return;
             }
 
-            if (currentStep === 1 && document.getElementById('selectedPlan').value === 'one-time') {
+            if (currentStep === 1 && (document.getElementById('selectedPlan').value === 'one-time' || document.getElementById('selectedPlan').value === 'hourly')) {
                 currentStep = 1.5;
                 showStep(currentStep);
                 startTimer();
@@ -1410,7 +1437,7 @@
         }
 
         function prevStep() {
-            if (currentStep === 2 && document.getElementById('selectedPlan').value === 'one-time') {
+            if (currentStep === 2 && (document.getElementById('selectedPlan').value === 'one-time' || document.getElementById('selectedPlan').value === 'hourly')) {
                 currentStep = 1.5;
                 showStep(currentStep);
                 return;
@@ -1537,6 +1564,10 @@
             const priceStandard = (baseCost * 2 * 1.05) + standardPetFee; // 2 visits
             const priceLoyal = (baseCost * 4 * 0.90) + premiumPetFee; // 4 visits
             const pricePristine = (baseCost * 4 * 0.90) + 400 + premiumPetFee; // 4 visits + Housekeeping
+            
+            const hourlyEl = document.getElementById('hourlyHours');
+            const hourlyHours = hourlyEl ? parseFloat(hourlyEl.value) || 2 : 2;
+            const priceHourly = hourlyHours * 50;
 
             // Format Currency
             const format = (num) => '$' + num.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
@@ -1561,13 +1592,20 @@
             document.getElementById('price-standard').innerHTML = format(priceStandard) + '<span style="font-size:1rem;font-weight:400;color:#6b7280;">/mo</span>';
             document.getElementById('price-loyal').innerHTML = format(priceLoyal) + '<span style="font-size:1rem;font-weight:400;color:#6b7280;">/mo</span>';
             document.getElementById('price-pristine').innerHTML = format(pricePristine) + '<span style="font-size:1rem;font-weight:400;color:#6b7280;">/mo</span>';
+            
+            if (document.getElementById('price-hourly')) {
+                document.getElementById('price-hourly').innerHTML = format(priceHourly);
+            }
 
             // --- Savings Summary Update ---
             const selectedPlan = document.getElementById('selectedPlan').value;
             let selectedVisits = 1;
             let selectedPrice = priceOneTime;
 
-            if (selectedPlan === 'standard') {
+            if (selectedPlan === 'hourly') {
+                selectedVisits = 1;
+                selectedPrice = priceHourly;
+            } else if (selectedPlan === 'standard') {
                 selectedVisits = 2;
                 selectedPrice = priceStandard;
             } else if (selectedPlan === 'loyal') {
@@ -1591,7 +1629,7 @@
             const marketComparisonBox = document.getElementById('market-cost-comparison');
             const loyalRateBox = document.getElementById('loyal-rate-box');
 
-            if (selectedPlan === 'one-time') {
+            if (selectedPlan === 'one-time' || selectedPlan === 'hourly') {
                 savingsTitle.textContent = "NeatlyLive Benefits";
                 savingsSubtitle.textContent = "Experience the peace of mind that comes with a NeatlyLive standard of clean.";
                 marketComparisonBox.style.display = 'none';
